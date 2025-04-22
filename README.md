@@ -21,7 +21,7 @@ cout<<b<<endl;
 }
 return 0;
 }
-二维数组（n》=3）：
+二维数组（n>=3）：
 a[1]=1;b[1]=2;
 for(int i=3;i<=n;i++)
     {
@@ -76,6 +76,7 @@ public class FibonacciConversion {
     }
 } 
 二维数组：
+
 import java.util.Scanner;
 
 public class FibonacciHighPrecision {
@@ -83,7 +84,7 @@ public class FibonacciHighPrecision {
         Scanner scanner = new Scanner(System.in);
         long n = scanner.nextLong();
         int x = 1;
-        // 假设数组大小足够大以处理结果
+        
         int[] a = new int[1000];
         int[] b = new int[1000];
         int[] c = new int[1000];
