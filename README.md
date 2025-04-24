@@ -1,0 +1,65 @@
+[P1255 数楼梯 - 洛谷](https://www.luogu.com.cn/problem/P1255)
+动态规划+高精度加法
+看数据类型，n可以到5000，用long都不够，只能过60%
+用高精度加法，套模版写就行了，注意一些小细节，进位，倒着输出。
+```cpp
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<int> highadd(vector<int>&prev1,vector<int>& prev2)
+{
+	vector<int> res;
+	int carry=0;//进位 
+	int temp=0;//对应位相加的和 
+	for(int i=0;i<prev1.size()||i<prev2.size();i++)
+	{
+		temp+=carry;
+		if(i<prev1.size())
+			temp+=prev1[i];
+		if(i<prev2.size())
+			temp+=prev2[i];
+		res.push_back(temp%10);
+		carry=temp/10;
+		temp=0;//别忘了		
+	}
+	while(carry!=0)//处理最后的可能的进位
+	{
+		res.push_back(carry%10);
+		carry/=10;
+	}
+	return res; 
+}
+int main()
+{
+	int n;
+	cin>>n;
+	if(n==1)
+	{
+		cout<<1;
+		return 0;
+	}
+	if(n==2)
+	{
+		cout<<2;
+		return 0;
+	}
+	vector<int> prev2(1,1);//走到前两个台阶的位置的方法数 
+	vector<int> prev1(1,2);//走到前一个台阶的位置的方法数 
+	vector<int>now;//走到当前台阶位置的方法数 
+	for(int i=3;i<=n;i++)
+	{
+		now=highadd(prev1,prev2);
+		prev2=prev1;
+		prev1=now;
+	}	
+	for(int i=now.size()-1;i>=0;i--)//倒着
+	{
+		cout<<now[i];
+	} 
+	return 0;
+}
+```
+网课笔记
+![image](https://github.com/user-attachments/assets/9d861734-2af4-4251-9de1-d6d3420e30c1)
+![image](https://github.com/user-attachments/assets/4b0bbccc-bad4-4303-abea-a8383804f887)
+
