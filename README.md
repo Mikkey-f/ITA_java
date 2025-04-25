@@ -63,3 +63,63 @@ int main()
 ![image](https://github.com/user-attachments/assets/9d861734-2af4-4251-9de1-d6d3420e30c1)
 ![image](https://github.com/user-attachments/assets/4b0bbccc-bad4-4303-abea-a8383804f887)
 
+
+[P1314 [NOIP 2011 提高组] 聪明的质监员 - 洛谷](https://www.luogu.com.cn/problem/P1314)
+题目里说通过调整参数W的值让检验结果靠近S，我们可以用二分法来缩小W的区间，让W是mid，然后让W对应的y接近s，而y是各个区间重量大于等于W的矿产的数量乘以这些的矿产的价值之和相加，但是区间的数量最多有2e5，为了避免重复计算，用前缀和，cnt记录在从第一个到某一个矿产里面重量大于等于W的矿产个数，sum记录这些矿产的价值和。
+```
+#include <iostream>
+#include <algorithm>
+using namespace std;
+typedef long long ll;
+const int N = 200010;
+int n, m;
+ll S;
+int w[N], v[N];
+int l[N], r[N];
+int cnt[N];
+ll sum[N];//这里
+ll solution(int W)
+{
+    for(int i=1;i<=n;i++)
+    {
+        if(w[i]>=W)//W越小，Y越大，因为大于W的个数会更多，价值总和也更多
+        {
+            sum[i]=sum[i-1]+v[i];
+            cnt[i]=cnt[i-1]+1;
+        }
+        else
+        {
+            sum[i]=sum[i-1];
+            cnt[i]=cnt[i-1];
+        }
+    }
+    ll res=0;
+    for(int i=0;i<m;i++)
+        res+=(cnt[r[i]]-cnt[l[i]-1])*(sum[r[i]]-sum[l[i]-1]);//个数之和乘以价值之和
+    return res;
+}
+int main()
+{
+    cin>>n>>m>>S;
+    for(int i=1;i<=n;i++)//要计算前缀和，从1开始
+        cin>>w[i]>>v[i];
+    for(int i=0;i<m;i++)
+        cin>>l[i]>>r[i];
+    int left=1,right=1e6+1;//左闭右开
+    //while循环，找到让s-y的绝对值最小的mid
+    while (left < right) //这里不能取等，因为是左闭右开
+    {
+        int mid = left + right >> 1;
+        if (solution(mid) > S) 
+            left = mid+1;
+        else 
+            right = mid;
+    }//退出循环的时候left等于right，要么是mid要么是mid+1
+    cout << min(abs(solution(left) - S), abs(S - solution(left-1))) << endl;//这里
+  // 请在此输入您的代码
+    return 0;
+}
+```
+![image](https://github.com/user-attachments/assets/a52b5156-b936-489d-8a2d-248f051c28a9)
+
+
