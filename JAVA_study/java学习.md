@@ -322,6 +322,223 @@ double = 80;//输出结果80.0
 byte b1 = 10;
 char c1 = b1;
 //这是错误，因为char和byte之间没有自动类型转换
+byte b2 = 1000；//这同样也会报错，因为byte的值规定的是-128——127
 ```
 
 2025/4//23截至今日的学习
+
+ 4.  byte, short, char 他们三者可以计算，在计算时首先转换为 int 类型
+
+ 5.  ```java
+	byte b2 = 1;
+	short s1 = 1;
+	short s2 = b2 + s1;//这样还是会报错的，因为b2 + s1 => 转换成了int类型
+	byte b3 = 1;
+	byte b4 = b2 + b3;//还是会报错，因为b2 + b3 =>转换成了int类型
+	```
+
+ 6.  boolean类型不参与自动类型转换
+
+ 7.  自动提升原则： 表达式结果的类型自动提升为 操作数中最大的类型
+
+	```java
+	byte b4 = 1;
+	short s3 = 100;
+	int num200 = 1;
+	double num300 = 1.1;
+	// 表达式 b4 + s3 + num200 + num300 体现自动提升原则
+	double num500 = b4 + s3 + num200 + num300;//直接变成double类型
+	```
+
+	
+
+#### 强制类型转换
+
+介绍：
+自动类型转换的逆过程，将容量大的数据类型转换为容量小的数据类型。使用时要加上强制转换符 ()，但可能造成精度降低或溢出，格外要注意。 
+
+```java
+int i = (int)1.9;
+System.out.println(i);//这个造成精度的损失
+int j = 100;
+byte b1 = (byte)j;
+System.out.println(b1);//这个造成了数据溢出
+```
+
+```java
+//强转符号只针对于最近的操作数有效，往往会使用小括号提升优先级
+int x = (int)10*3.5+6*1.5;//编译错误： double -> int
+int x = (int)(10*3.5+6*1.5); // ((int)44.0) -> 44
+System.out.println(x);
+```
+
+char类型可以保存int的常量值，但不能保存int的变量值，需要强转
+
+```java
+char c1 = 100; //ok
+int m = 100; //ok
+char c2 = m; //错误，m是int的变量值
+char c3 = (char)m; //ok
+System.out.println(c3); //100对应的字符，"d"字符
+```
+
+byte和short，char 类型在进行运算时，当做int类型处理
+
+基本数据转换练习
+
+```java
+// 判断是否能够通过编译
+// 1. 
+short s = 12; //ok
+s = s - 9; //错误 int -> short
+
+// 2.
+byte b = 10; //ok
+b = b + 11; //错误 int -> byte
+b = (byte)(b + 11); //正确，使用强转
+
+// 3.
+char c = 'a'; //ok
+int i = 16; //ok
+float d = 3.14F; //ok
+double result = c + i + d; //ok float -> double
+
+// 4.
+byte b1 = 16; //ok
+short s1 = 14; //ok
+short t = s + b; //错误 int -> short
+```
+
+#### String与基本类型转换
+
+##### String转基本类型
+
+```java
+int n1 = 100;
+float f1 = 1.1F;
+double d1 = 4.5;
+boolean b1 = true;
+String s1 = n1 + "";
+String s2 = f1 + "";
+String s3 = d1 + "";
+String s4 = b1 + "";
+System.out.println(s1 + " " + s2 + " " + s3 + " " + s4);
+```
+
+##### 基本类型转String
+
+```java
+String s5 = "123";
+//会在OOP 讲对象和方法的时候回详细
+//解读 使用 基本数据类型对应的包装类，的相应方法，得到基本数据类型
+int num1 = Integer.parseInt(s5);
+double num2 = Double.parseDouble(s5);
+float num3 = Float.parseFloat(s5);
+Long num4 = Long.parseLong(s5);
+byte num5 = Byte.parseByte(s5);
+boolean b = Boolean.parseBoolean("true");
+short num6 = Short.parseShort(s5);
+System.out.println(s5.charAt(0));//得到的就是一个1
+```
+
+注意：怎么把字符串转成字符char ->含义是指把字符串的第一个字符得到
+
+#### 章节作业
+
+```java
+String book1 = "天龙八部";
+String book2 = "笑傲江湖";
+System.out.println(book1 + book2); //天龙八部笑傲江湖，因为加号左右两边是字符串，做拼接
+
+//性别应该使用char保存
+char c1 = '男';
+char c2 = '女';
+System.out.println(c1 + c2); //得到 男 字符码值 + 女 字符码值，字符类型的本质是整数
+
+/*用变量将姓名、年龄、成绩、性别、爱好存储
+使用 +
+添加适当的注释
+添加转义字符，使用一条语句输出*/
+
+String name = "jack";
+int age = 20;
+double score = 80.9;
+char gender = '男';
+String hobby = "打篮球";
+//输出信息，可以使用换行
+System.out.println("姓名\t年龄\t成绩\t性别\t爱好\n" + name 
+                   + "\t" + age + "\t" + score + "\t" + gender + "\t" + hobby);
+```
+
+2025/4/24 line
+
+### 运算符
+
+1. 算术运算符
+2. 赋值运算符
+3. 关系运算符 [比较运算符]
+4. 逻辑运算符
+5. 位运算符 [需要二进制基础]
+6. 三元运算符
+
+| 运算符 | 运算                     | 范例        | 结果      |
+| ------ | ------------------------ | ----------- | --------- |
+| +      | 正号                     | +7          | 7         |
+| -      | 负号                     | b=11; -b    | -11       |
+| +      | 加                       | 9+9         | 18        |
+| -      | 减                       | 10-8        | 2         |
+| *      | 乘                       | 7*8         | 56        |
+| /      | 除                       | 9/9         | 1         |
+| %      | 取模 (取余)              | 11%9        | 2         |
+| ++     | 自增（前）：先运算后取值 | a=2;b=++a;  | a=3;b=3   |
+| ++     | 自增（后）：先取值后运算 | a=2;b=a++;  | a=3;b=2   |
+| --     | 自减（前）：先运算后取值 | a=2;b=--a   | a=1;b=1   |
+| --     | 自减（后）：先取值后运算 | a=2;b=a--   | a=1;b=2   |
+| +      | 字符串相加               | "hsp"+"edu" | "hsp edu" |
+
+```java
+System.out.println("10 / 4");//数学角度是2，但是在java中是2，因为10和4都是整数类型，计算结果时自动变为整数
+System.out.println("10.0 / 4");//这个时候输出就是2.5
+double d = 10 / 4;。。这里则会是输出2.0，而不是2
+
+// 取模 ，取余
+// 在 % 的本质 看一个公式 a % b = a - a / b * b
+// -10 % 3 => -10 - (-10) / 3 * 3 = -10 + 9 = -1
+// 10 % -3 = 10 - 10 / (-3) * (-3) = 10 - 9 = 1
+// -10 % -3 = (-10) - (-10) / (-3) * (-3) = -10 + 9 = -1
+System.out.println(10 % 3); //1
+System.out.println(-10 % 3); // -1
+System.out.println(10 % -3); //1
+System.out.println(-10 % -3);//-1
+```
+
+自增++
+作为独立的语句使用：
+前 ++ 和后 ++ 都完全等价于 i = i + 1;
+作为表达式使用
+前 ++：++i; 先自增后赋值
+后 ++：i++; 先赋值后自增
+
+```java
+int i = 8;
+int k = i++;//k = i, i = i +1;k = 8, i = 9
+int j = ++i;//i = i +1,j = i;i = 9, j = 9
+```
+
+面试题
+
+```java
+// 面试题1
+int i = 1; // i->1
+i = i++; 
+// 规则使用临时变量: (1) temp = i; (2) i = i + 1; (3) i = temp;  temp = 1；i = 2； i = 1；
+System.out.println(i); 
+// 问: 结果是多少? 为什么?关键点就是临时有一个储存容器是temp
+
+// 面试题2
+int i = 1;
+i = ++i; 
+// 规则使用临时变量: (1) i = i + 1;(2) temp = i; (3) i = temp;就是i = 2；temp = 2；
+System.out.println(i); 
+```
+
