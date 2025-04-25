@@ -64,6 +64,44 @@ int main()
 ![image](https://github.com/user-attachments/assets/4b0bbccc-bad4-4303-abea-a8383804f887)
 
 
+
+> [P1177 【模板】排序 - 洛谷](https://www.luogu.com.cn/problem/P1177)
+前缀和的模版题，下标要从一开始
+ ```cpp
+ #include <iostream>
+#include <vector>
+
+int main() 
+{
+    int n;
+    std::cin >> n;
+    std::vector<int> a(n + 1);
+    // 前缀和
+    std::vector<int> prefixSum(n + 1, 0);
+    // 计算前缀和
+    for (int i = 1; i <= n; ++i) 
+    {
+        std::cin >> a[i];
+        prefixSum[i] = prefixSum[i - 1] + a[i];
+    }
+
+    int m;
+    std::cin >> m;
+
+    // m 个区间
+    for (int i = 0; i < m; ++i)
+    {
+        int l, r;
+        std::cin >> l >> r;
+        // 计算区间和
+        int sum = prefixSum[r] - prefixSum[l - 1];
+        std::cout << sum << std::endl;
+    }
+    return 0;
+}    
+笔记
+
+
 [P1314 [NOIP 2011 提高组] 聪明的质监员 - 洛谷](https://www.luogu.com.cn/problem/P1314)
 题目里说通过调整参数W的值让检验结果靠近S，我们可以用二分法来缩小W的区间，让W是mid，然后让W对应的y接近s，而y是各个区间重量大于等于W的矿产的数量乘以这些的矿产的价值之和相加，但是区间的数量最多有2e5，为了避免重复计算，用前缀和，cnt记录在从第一个到某一个矿产里面重量大于等于W的矿产个数，sum记录这些矿产的价值和。
 ```
@@ -120,6 +158,7 @@ int main()
     return 0;
 }
 ```
+笔记
 ![image](https://github.com/user-attachments/assets/a52b5156-b936-489d-8a2d-248f051c28a9)
 
 
