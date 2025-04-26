@@ -66,22 +66,6 @@ public class hello{
 
  一个源文件中最多只能有一个public类。其它类的个数不限，也可以将main方法写在非public类中，然后指定运行非public类，这样入口方法就是非public的main方法 
 
-###  学习方法
-
-1. **需求**    - 
-
-	1.工作需要    - 2.跳槽，对方要求    - 3.技术控 
-
-2. 看看能否使用传统技术解决    - 1.能解决，但是不完美    - 2.解决不了 
-
-3. 引出我们学习的新技术和知识点 
-
-4. 学习新技术或者知识点的基本原理和基本语法(不要考虑细节) 
-
-5. 快速入门(基本程序，crud) 
-
-6. 开始研究技术的注意事项，使用细节，使用规范，如何优化=>没有止境，技术魅力    - 1.    - 2.    - 3.    - 4.    - 5.    - 6.    - 7.    - 9.，… （所能看到的细节）
-
 ###  转义字符
 
 ```java
@@ -188,7 +172,7 @@ System.out.println (100 + 3 + "hello");//103hello
 System.out.println ("hello" + 100 +3); //hello1003
 ```
 
-### 数据类型
+## 数据类型
 
 #### 基本数据类型
 
@@ -472,7 +456,7 @@ System.out.println("姓名\t年龄\t成绩\t性别\t爱好\n" + name
 
 2025/4/24 line
 
-### 运算符
+## 运算符
 
 1. 算术运算符
 2. 赋值运算符
@@ -512,6 +496,8 @@ System.out.println(10 % -3); //1
 System.out.println(-10 % -3);//-1
 ```
 
+#### 算术运算符
+
 自增++
 作为独立的语句使用：
 前 ++ 和后 ++ 都完全等价于 i = i + 1;
@@ -542,3 +528,79 @@ i = ++i;
 System.out.println(i); 
 ```
 
+2025/4/26
+
+练习
+
+```java
+public class Main{
+    public static void main(String[] args){
+        //加入还有59天放假。 问合多少星期和几天
+        int days = 59;
+        int weeks = days / 7;
+        int leftdays = days % 7;
+        System.out.println(days + "天 合" + weeks +"星期零" +leftdays +"天");
+        //摄氏度与华氏温度的转换
+       	double huaShi = 1234.6;
+		double sheShi = 5 / 9 * (huaShi - 100);
+		System.out.println ("华氏温度" + huaShi
+		"对应的摄氏温度 =" + sheShi);
+    }
+}
+```
+
+#### 关系运算符
+
+#### 逻辑运算符
+
+1. a&b：& 叫逻辑与：规则：当 a 和 b 同时为 true，则结果为 true，否则为 false
+2. a&&b：&& 叫短路与：规则：当 a 和 b 同时为 true，则结果为 true，否则为 false
+3. a|b：| 叫逻辑或，规则：当 a 和 b，有一个为 true ，则结果为 true，否则为 false
+4. a||b：|| 叫短路或，规则：当 a 和 b，有一个为 true，则结果为 true，否则为 false
+5. !a：! 叫取反，或者非运算。当 a 为 true，则结果为 false，当 a 为 false 是，结果为 true
+6. a^b：叫逻辑异或，当 a 和 b 不同时，则结果为 true，否则为 false
+
+```java
+int a = 4;
+int b = 9;
+// 对于 && 短路与而言，如果第一个条件为 false，后面的条件不再判断
+// 对于 & 逻辑与而言，如果第一个条件为 false，后面的条件仍然会判断
+if (a < 1 && ++b < 50) {
+System.out.println ("a=" + a + "b=" + b);// 4 9
+}
+if (a < 1 & ++b < 50) {
+System.out.println ("a=" + a + "b=" + b);// 4 10
+}
+```
+
+```java
+//(1)|| 短路或：如果第一个条件为 true,
+// 则第二个条件不会判断，最终结果为 true，效率高
+//(2)| 逻辑或：不管第一个条件是否为 true，第二个条件都要判断，效率低
+```
+
+```java
+// 非运算操作是取反  T->F ，F -> T
+System.out.println(60 > 20); //T
+System.out.println(!(60 > 20)); //F
+
+//^: 叫逻辑异或，当 a 和 b 不同时，则结果为true，否则为false
+boolean b = (10 > 1) ^ (3 > 5);//真真变假假
+System.out.println("b=" + b);//T
+```
+
+```java
+int x = 5, y = 5;
+if (x++ == 5 | ++y == 5) {
+    x = 11;
+}
+System.out.println("x=" + x + ",y=" + y);//11 6
+
+int x = 5, y = 5;
+if (x++ == 5 || ++y == 5) {
+    x = 11;
+}
+System.out.println("x=" + x + ",y=" + y);//11 5，后面的那个条件就没有运行了
+```
+
+4/27
