@@ -161,4 +161,31 @@ int main()
 笔记
 ![image](https://github.com/user-attachments/assets/a52b5156-b936-489d-8a2d-248f051c28a9)
 
+[P1177 【模板】排序 - 洛谷](https://www.luogu.com.cn/problem/P1177)
+每次输入一个数就把他放在指定位置，通过二分进行查找，二分的时间复杂度是logm，总的时间复杂度的最坏情况下是n方，但是还是能过
+这里要注意lower_bound的使用
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+vector<int> a;
+int main()
+{
+    cin>>n;
+    for(int i=0;i<n;i++)
+	{
+        int x;
+        cin>>x;
+        // lower_bound 函数在a 中查找第一个不小于 x 的元素的位置
+        auto it = lower_bound(a.begin(),a.end(),x);
+        a.emplace(it,x);
+    }
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<' ';
+    return 0;
+}
+
+```
+
+
 
