@@ -1,0 +1,28 @@
+https://www.luogu.com.cn/problem/P3397
+//二维差分
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n,m,a[1005][1005],b[1005][1005];//b数组是二维差分数组；a数组记录最后的结果初始为零。 
+int main(){
+	cin>>n>>m;
+	while(m--){
+		int x,y,k,j;
+		cin>>x>>y>>k>>j;
+		b[x][y]++;
+		b[x][j+1]--;
+		b[k+1][y]--;
+		b[k+1][j+1]++;
+	}//输入地毯放的位置，每次使其区间内的b数组++，表示该点被一条地毯覆盖，m次放置后，
+	 //得出该点所在位置上放了多少条地毯 
+	 
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=n;j++){
+			a[i][j]=b[i][j]+a[i-1][j]+a[i][j-1]-a[i-1][j-1];//用数组b得出a数组，下标从1开始 
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	return 0;
+} 
+//当然这道题也可以直接暴力
