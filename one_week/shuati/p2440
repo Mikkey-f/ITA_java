@@ -12,15 +12,15 @@ int ss(int b){
 		}
 	}
 	return 0;
-}
+}//函数ss用来判断当前l的值是否能得到k根木材 
 int main(){
 	cin>>n>>k;
 	for(int i=1;i<=n;i++)cin>>a[i];
-	long long int l=0,r=100000001,m=0;
-	while(l+1<r){
+	long long int l=0,r=100000001,m=0;//关于l和r的初始化，r初始为一个很大的数 
+	while(l+1<r){//模板 
 		m=l+(r-l)/2;
-		if(ss(m)==1)l=m;
-		else r=m;
+		if(ss(m)==1)l=m;//能得到k根，让l等于m，并且判断是否要进行循环 
+		else r=m;       //判断条件为l+1<r当l和r相差2时为可以二分的最小差 
 	}
 	cout<<l;
 	return 0;
