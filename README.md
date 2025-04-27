@@ -187,9 +187,36 @@ int main()
 }
 
 ```
-笔记![Uploading image.png…]()
+笔记![image](https://github.com/user-attachments/assets/dfa57570-52b5-46f1-aa28-de612c324537)
 
 ![image](https://github.com/user-attachments/assets/30dd4fc7-1f1f-4c0e-a413-0eef84ed981d)
 
+[P1321 单词覆盖还原 - 洛谷](https://www.luogu.com.cn/problem/P1321)
+一开始没看懂题目，想太复杂了
+就是用一个for循环遍历字符串
+对于每一个字符，检查其及后续字符是否分别为 b o y或 g i r l
+如果是对应个数加，一检查连续字符是否构成 boy和girl，然后输出就可以了
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int main() 
+{
+	int boy=0,girl=0;//boy和girl各自的个数 
+	string s;
+	cin>>s;
+	for(int i=0;i<=s.length();i++)
+	{
+		if (s[i]=='b'||s[i+1]=='o'||s[i+2]=='y')//判断连着的三个字母是否为b、o、y 
+			boy++;//找到一个加一 
+		if (s[i]=='g'||s[i+1]=='i'||s[i+2]=='r'||s[i+3]=='l')//判断连着的三个字母是否为g、i、r、l 
+			girl++; 
+	}
+	cout<<boy<<endl;
+	cout<<girl<<endl;
+	return 0;
+}
+```
+![Uploading image.png…]()
 
 
