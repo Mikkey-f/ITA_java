@@ -6,18 +6,18 @@ int w,n,ans,a[30005];
 int main(){
 	cin>>w>>n;
 	for(int i=1;i<=n;i++)cin>>a[i];
-	sort(a+1,a+n+1);
-	int i=1,j=n;
+	sort(a+1,a+n+1);//将数组排好序 
+	int i=1,j=n;//左右指针 
 	while(i<=j){
-	   if(a[i]+a[j]>w){
-	   	j--;
+	   if(a[i]+a[j]>w){//此时i指向的数是最小的，如果j+i还是比w大，
+	   	j--;           //则数组中没有能和j匹配的了，j单独为一组 
 	   	ans++;
 	   } 
 	   if(a[i]+a[j]<=w){
 	   	i++;
 	   	j--;
 	   	ans++;
-	   }                                                                                                                                                                                                                          
+	   }//和比w小就装下，贪心思想，最大的和最小的匹配                                                                                                                                                                                                                          
 	}
 	cout<<ans;
 	return 0;
