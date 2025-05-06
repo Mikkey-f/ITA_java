@@ -604,3 +604,265 @@ System.out.println("x=" + x + ",y=" + y);//11 5，后面的那个条件就没有
 ```
 
 4/27
+
+#### 赋值运算符
+
+- 赋值运算符特点
+
+	1. 运算顺序从右往左 int num = a + b + c
+	2. 赋值运算符的左边 只能是变量，右边 可以是变量、表达式、常量值
+		int num = 20; int num2= 78 * 34 - 10; int num3 = a;
+	3. 复合赋值运算符等价于下面的效果
+		比如: a+=3; 等价于 a=a+3;
+	4. 复合赋值运算符会进行类型转换。
+		byte b = 2; b+=3; b++;
+
+	
+
+```java
+//复合赋值运算符会进行类型转换
+byte b = 3;
+b += 2; // 等价 b = (byte)(b + 2);不能写b = b + 2
+b++;//b = (byte)(b+1)
+```
+
+#### 三元运算符
+
+
+
+1. 如果条件表达式为 true，运算后的结果是表达式 1；
+2. 如果条件表达式为 false，运算后的结果是表达式 2；
+
+```java
+int a = 10;
+int b = 99;
+// 解读
+// 1. a > b 为 false
+// 2. 返回 b--, 先返回 b的值,然后在 b-1
+// 3. 返回的结果是99
+int result = a > b? a++ : b--;
+System.out.println()
+//细节注意    
+int c = a > b? (int)1.1 : (int)3.4; //可以的
+double d = a > b? a : b + 3; //可以的, 满足 int -> double
+
+//思路
+//1. 先得到 n1 和 n2 中最大数 ，保存到 max1
+//2. 然后再 求出 max1 和 n3中的最大数, 保存到 max2
+int max1 = n1 > n2? n1 : n2;
+int max2 = max1 > n3? max1 : n3;
+System.out.println("最大数=" + max2);
+```
+
+#### 标识符
+
+- **标识符命名规范 [更加专业]**
+
+1. **包名**：多单词组成时所有字母都小写：aaa.bbb.ccc// 比如 com.hsp.crm
+2. **类名、接口名**：多单词组成时，所有单词的首字母大写：XxxYyyZzz [大驼峰] 比如：TankShotGame
+3. **变量名、方法名**：多单词组成时，第一个单词首字母小写，第二个单词开始每个单词首字母大写：xxxYyyZzz [小驼峰，简称 驼峰法] 比如：tankShotGame
+4. **常量名**：所有字母都大写。多单词时每个单词用下划线连接：XXX_YYY_ZZZ 比如：定义一个所得税率 TAX_RATE
+5. 后面我们学习到 类，包，接口，等时，我们的命名规范要这样遵守，更加详细的看文档。
+
+#### 键盘输入语句
+
+- **介绍**
+	在编程中，需要接收用户输入的数据，就可以使用键盘输入语句来获取。Input.java，需要一个扫描器 (对象)，就是 Scanner
+
+- **步骤：**
+
+1. 导入该类的所在包，java.util.*
+2. 创建该类对象（声明变量）
+3. 调用里面的功能
+
+```java
+import java.util.Scanner;//表示把java.util下的Scanner类导入
+public class Input{
+    public static void main(String[] args){
+//1. 引入/导入Scanner类所在的包
+//2. 创建 Scanner 对象 , new 创建一个对象,体会
+//  myScanner 就是 Scanner类的对象
+Scanner myScanner = new Scanner(System.in);
+//3. 接收用户输入了, 使用 相关的方法
+System.out.println("请输入名字");
+//当程序执行到 next 方法时, 会等待用户输入,
+String name = myScanner.next(); //接收用户输入字符串
+System.out.println("请输入年龄");
+int age = myScanner.nextInt(); //接收用户输入int
+System.out.println("请输入薪水");
+double sal = myScanner.nextDouble(); //接收用户输入double
+System.out.println("人的信息如下:");
+System.out.println("名字=" + name
+        + " 年龄=" + age + " 薪水=" + sal);
+    }
+}
+```
+
+#### 进制
+
+```java
+public class BinaryTest {
+
+    public static void main(String[] args) {
+        //从开头来判别是用的哪种进制
+        //n1 二进制
+        int n1 = 0b1010;
+        //n2 10进制
+        int n2 = 1010;
+        //n3 8进制
+        int n3 = 01010;
+        //n4 16进制，(0 - 9）对应(0 - 9) ，(A - F)对应(10 - 15)
+        int n4 = 0X10101;
+        System.out.println("");
+    }
+}
+```
+
+#### 位运算
+
+```plaintext
+~2=? // 按位取反
+2&3=?//2按位与3
+2|3=? 
+~-5=?
+13&7=?
+5|4=?
+-3^3=?//^ 按位异或
+```
+
+**源码，反码，补码**
+
+1. 二进制的最高位是符号位：0 表示正数，1 表示负数（口诀：0->0 1-> -）
+2. 正数的原码，反码，补码都一样（三码合一）
+3. 负数的反码 = 它的原码符号位不变，其它位取反 (0->1,1->0)
+4. 负数的补码 = 它的反码 + 1，负数的反码 = 负数的补码 - 1
+5. 0 的反码，补码都是 0
+6. java 没有无符号数，换言之，java 中的数都是有符号的
+7. 在计算机运算的时候，都是以补码的方式来运算的.
+8. 当我们看运算结果的时候，**要看他的原码**
+
+位运算详解
+
+- java 中有 7 个位运算 (&、|、^、~、>>、<< 和 >>>)
+- 分别是 按位与 &、按位或 |、按位异或 ^, 按位取反～, 它们的运算规则是:
+	- 按位与 & ： 两位全为 1，结果为 1，否则为 0
+	- 按位或 | ： 两位有一个为 1，结果为 1，否则为 0
+	- 按位异或 ^ ： 两位一个为 0, 一个为 1，结果为 1，否则为 0
+	- 按位取反～： 0->1 ,1->0
+		比如：
+		2&3=?  
+		~2 =? 
+		~~2 =? 
+		2|3=? 
+		2^3=?
+
+还有 3 个位运算符 >>、<<和>>>，运算规则:
+
+1. 算术右移 >>: 低位溢出，符号位不变，并用符号位补溢出的高位
+2. 算术左移 <<: 符号位不变，低位补 0
+3. 逻辑右移也叫无符号右移，运算规则是：低位溢出，高位补 0
+4. 特别说明：没有 <<< 符号
+
+```java
+int a=1>>2; //1 => 00000001 => 00000000 本质1 / 2 / 2 = 0
+int c=1<<2; //1 => 00000001 => 00000100 本质1 * 2 * 2 = 4
+```
+
+补充
+
+```java
+//a % b当a是小数时, 公式 = a - (int)a / b * b
+//-10.5%3 = -10.5 - (-10)/3 * 3 = -10.5 + 9 = -1.5
+```
+
+## 控制结构
+
+#### 顺序控制
+
+- **顺序控制介绍**
+	程序从上到下逐行地执行，中间没有任何判断和跳转
+- **顺序控制举例和注意事项**
+	Java 中定义变量时采用合法的前向引用。如：
+
+```java
+public class Test{
+    int num1 = 12;
+    int num2 = num1 + 2;
+}
+```
+
+错误形式：
+
+```java
+public class Test{
+    int num2 = num1 + 2; //错误
+    int num1 = 12;
+}
+```
+
+#### 单分支双分支多分支
+
+if-else
+
+![image-20250506193303494](../../AppData/Roaming/Typora/typora-user-images/image-20250506193303494.png)
+
+```java
+if(grade >= 1 && grade <= 100) {
+    //因为有4种情况，所以使用多分支
+    if(grade == 100) {
+        System.out.println("信用极好");
+    } else if (grade > 80 && grade <= 99) { //信用分为(80，99]时
+        System.out.println("信用优秀");
+    } else if (grade >= 60 && grade <= 80) { //信用分为[60,80]时
+        System.out.println("信用一般");
+    } else { //其它情况
+        System.out.println("信用不及格");
+    }
+} else {
+    System.out.println("信用分需要在1-100,请重新输入:)");
+}
+```
+
+```java
+boolean b = true;
+if(b = false) 
+    System.out.println("a");
+else if(b)
+    System.out.println("b");
+else if(b)
+    System.out.println("c");
+else
+    System.out.println("d");
+//最终输出的是c
+```
+
+#### 嵌套分支
+
+```java
+// 思路分析
+//1. 创建 Scanner 对象，接收用户输入
+//2. 接收 成绩保存到 double score
+//3. 使用 if-else 判断 如果初赛成绩大于 8.0 进入决赛，否则提示淘汰
+//4. 如果进入到 决赛，再接收 char gender，使用 if-else 输出信息
+
+Scanner myScanner = new Scanner(System.in);
+System.out.println("请输入该歌手的成绩");
+double score = myScanner.nextDouble();
+if( score > 8.0 ){
+    System.out.println("请输入性别");
+    char gender = myScanner.next().charAt(0);//怎么把字符串转成字符 char -> 含义是指 把字符串的第一个字符得到
+// 解读 s5.charAt (0) 得到 s5 字符串的第一个字符 'I'
+System.out.println (s5.charAt (0));
+    if( gender == '男' ){
+        System.out.println("进入男子组");
+    } else if(gender == '女'){
+        System.out.println("进入女子组");
+    } else {
+        System.out.println("你的性别有误，不能参加决赛~");
+    }
+} else {
+    System.out.println("sorry，你被淘汰了~");
+}
+```
+
+2025/5/6
