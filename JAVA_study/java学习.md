@@ -866,3 +866,130 @@ System.out.println (s5.charAt (0));
 ```
 
 2025/5/6
+
+#### Switch
+
+1. switch 关键字，表示 switch 分支
+2. 表达式，对应一个值
+3. case 常量 1: 当表达式的值等于常量 1，就执行语句块 1
+4. break：表示退出 switch
+5. 如果和 case 常量 1 匹配，就执行语句块 1，如果没有匹配，就继续匹配 case 常量 2
+6. 如果一个都没有匹配上，执行 default
+
+```java
+Scanner myScanner = new Scanner(System.in);
+System.out.println("请输入一个字符(a-g)");
+char c1 = myScanner.next().charAt(0);
+//在java中，只要是有值返回，就是一个表达式
+switch(c1) {
+    case 'a':
+        System.out.println("今天星期一,猴子穿新衣");
+        break;
+    case 'b':
+        System.out.println("今天星期二,猴子当小二");
+        break;
+    case 'c':
+        System.out.println("今天星期三,猴子爬雪山..");
+        break;
+    //.....
+    default:
+        System.out.println("你输入的字符不正确.");
+}
+//细节1
+//表达式数据类型，应和case 后的常量类型一致，
+//或者是可以自动转成可以相互比较的类型，比如输入的是字符，而常量是 int
+
+// 细节 2
+//switch (表达式) 中表达式的返回值必须是：
+//(byte,short,int,char,enum [枚举],Str ing)，故不可以用double
+
+//细节3
+/*ase子句中的值必须是常量（1，‘a')一个具体的值，而不能是变量。
+常量表达式都可以'b'+1
+*/
+char c = 'a';
+switch(c) {
+    case 'a':
+        System.out.println("ok1");
+        break;
+    case 'b'://这里如果改成hello则不可以，改成20可以，因为char可以自动转换程int
+        System.out.println("ok2");
+        break;
+    default:
+        System.out.println("ok3");
+}
+
+
+
+Scanner myScanner = new Scanner(System.in);
+System.out.println("输入月份");
+int month = myScanner.nextInt();
+switch(month) {
+    case 3:
+    case 4:
+    case 5:
+        System.out.println("这是春季");
+        break;
+    case 6:
+    case 7:
+    case 8:
+        System.out.println("这是夏季");
+		break;
+case 9:
+case 10:
+case 11:
+    System.out.println("这是秋季");
+    break;
+case 1:
+case 2:
+case 12:
+    System.out.println("这是冬季");
+    break;
+default :
+    System.out.println("你输入的月份不对(1-12)");
+```
+
+switch 和 if 的比较
+
+- 如果判断的具体数值不多，而且符合 byte、short、int、char,enum [枚举]，String 这 6 种类型。虽然两个语句都可使用，建议使用 switch 语句。
+- 其他情况：对区间判断，对结果为 boolean 类型判断，使用 if，if 的使用范围更广
+
+#### for循环
+
+```java
+// 使用for循环控制
+for( int i = 1; i <= 10; i++) {
+    System.out.println("你好, 韩顺平教育" + i);
+}
+```
+
+VS
+
+```java
+int i = 1;//循环变量初始化
+for( ; i <= 10 ; ) {
+    System.out.println("你好, 韩顺平教育" + i);
+    i++;
+}
+System.out.println(i);//ok这里是输出的11
+//这样就可以调用for循环结构体以外的了
+
+//补充
+for(; ;){//这是一个无限循环的for
+    System.out.println("ok~
+}
+```
+
+循环条件是返回一个布尔值的表达式
+for (; 循环判断条件；) 中的初始化和变量迭代可以写到其它地方，但是两边的分号不能省略。
+循环初始化值也可以有多条初始化语句，但要求类型一样，并且中间用逗号隔开。
+循环变量迭代也可以有多条变量迭代语句，中间用逗号隔开。
+
+```java
+int count = 3;
+for(int i = 0, j = 0; i < count; i++, j += 2) {
+    System.out.println("i=" + i + " j=" + j);
+}
+```
+
+2025/5/7
