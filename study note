@@ -1,0 +1,12 @@
+Java基本格式：例如输出“Hello World”
+
+public class HelloWorld 
+{  
+public static void main(String[] args) 
+{ 
+System.out.println("Hello World"); 
+} 
+}
+
+ps：1.文件名要和public的名称要一致
+    2.2.加号：（1）数值：加法运算 （2）字符串：拼接运算
