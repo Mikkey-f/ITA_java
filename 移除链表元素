@@ -1,0 +1,57 @@
+1.思路：原链表删除
+ while(head!=NULL&&head->next==target)
+ head->head->next;
+ cur=head;\\cur为一个临时指针
+ while(cur!=NULL&&cur->next!=NULL){
+ if(cur->next==target)
+ cur->next=cur->next->next;
+ else
+ cur=cur->next;}
+ return head;
+
+完整代码：
+
+public ListNode removeElements(ListNode head, int val) {
+    while (head != null && head.val == val) {
+        head = head.next;
+    }
+    ListNode curr = head;
+    while (curr != null && curr.next != null) {
+        if (curr.next.val == val) {
+            curr.next = curr.next.next;
+        }
+        else {
+            curr = curr.next;
+        }
+    }
+    return head;
+}
+
+2.思路：虚拟头结点
+ dummy head=new( );
+ dummy head->next=head;
+ cur=dummy head;
+ while(cur->next!=NULL){
+ if(cur->next->val=target)
+ cur->next=cur->next->next;
+ else
+ cur=cur->next;}
+ return dummy head->next;\\不要return head，因为有可能head被删除了
+
+完整代码：
+
+public ListNode removeElements(ListNode head, int val) {
+    ListNode dummy = new ListNode();
+    dummy.next = head;
+
+    ListNode cur = dummy;
+    while (cur.next != null) {
+        if (cur.next.val == val) {
+            cur.next = cur.next.next;
+        }
+        else {
+            cur = cur.next;
+        }
+    }
+    return dummy.next;
+}
