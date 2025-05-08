@@ -1,0 +1,49 @@
+
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n;
+struct ss{
+	int x;
+	long long y;
+}a[21];
+bool cmp(ss i,ss j){
+	return i.y>j.y;
+}
+int main(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		a[i].x=i;
+		cin>>a[i].y;
+	}
+	sort(a+1,a+n+1,cmp);
+	
+	cout<<a[1].x<<endl<<a[1].y;
+	
+	return 0;
+}
+ //1.结构体排序
+ 
+ //2.字符串比大小
+ 
+ #include<bits/stdc++.h> 
+using namespace std;
+int n,i,k=1;
+string ss="";
+int main(){
+	cin>>n;
+	while(n--){
+		string s;
+		cin>>s;
+		int a=ss.size();
+		int b=s.size();
+		if(b>a || (b==a && s>ss)){
+			ss=s;
+			i=k;
+		}
+		k++;
+	}
+	cout<<i<<endl<<ss<<endl;
+	return 0;
+} 
+  
