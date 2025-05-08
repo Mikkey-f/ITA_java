@@ -88,3 +88,9 @@ class Person {//extends object
 ## 3.
 
 ![image-20250430171754330](C:\Users\24709\AppData\Roaming\Typora\typora-user-images\image-20250430171754330.png)e
+
+
+
+
+
+https://github.com/Mikkey-f/ITA_java/blob/%E5%8F%B8%E5%BF%97%E4%BF%8A/Study%20Note/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-05-08%20103618.png?raw=true
