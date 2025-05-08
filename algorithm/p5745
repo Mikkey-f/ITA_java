@@ -1,0 +1,54 @@
+#include<bits/stdc++.h> 
+using namespace std;
+//二分 
+int n,m,a[4000010],sum[4000010];
+int main(){
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		cin>>a[i];
+		sum[i]=sum[i-1]+a[i];
+	}
+	int c=0,b=0,ans=0;
+	for(int i=1;i<=n;i++){
+		int be=i,end=n;
+		while(be<=end){//当前的是i的最优解
+			int mi=(be+end)/2;
+			if(sum[mi]-sum[i-1]>m) end=mi-1;
+			else be=mi+1;
+		if(sum[end]-sum[i-1]<=m&&sum[end]-sum[i-1]>ans){//有更优的答案就转换
+			ans=sum[end]-sum[i-1];
+			c=i;
+			b=end;
+		}
+	}
+	cout<<c<<" "<<b<<" "<<ans;
+	return 0;
+}
+ 
+ 
+//尺取法
+ 
+ #include<bits/stdc++.h> 
+using namespace std;
+int n,m,a[4000010],s[4000010];
+int main(){
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		cin>>a[i];
+		s[i]=s[i-1]+a[i];//求前缀和 
+	} 
+	int b=0,c=0;//b,c记录左右端点 
+	int l=1,r=1;//尺取法中的双指针，作用是记录当前左右端点 
+	long long sum=-1;//区间和 
+	while(r<=n){//循环结束的条件是右端点到了数组末尾 
+		while(l<r&&s[r]-s[l-1]>m)l++;//前提是右指针移动到区间和大于M时，左端点再移动缩进区间大小 
+		if(s[r]-s[l-1]>sum){
+			b=l;
+			c=r;
+			sum=s[r]-s[l-1];
+		}//记录取得的更优的解 
+		r++;//右端点移向下一位 
+    }
+    cout<<b<<" "<<c<<" "<<sum;
+	return 0;
+} 
