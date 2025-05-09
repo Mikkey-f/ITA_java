@@ -1,0 +1,69 @@
+[https://www.lanqiao.cn/problems/1188/learning/]
+贪心，二分法查找（logn）替换位置 dp[i]长度为i+1的子序列的最小末尾元素为dp[i] 贪心策略：之所以选择替换第一个大于等于 a[i] 的元素，
+是因为这样做可以保证对于长度为 index + 1 的递增子序列，其末尾元素变得更小（或不变）。在保持递增子序列长度不变的情况下，末尾元素越小，
+后续出现的元素就越有可能大于这个新的末尾元素，从而有机会将该元素用来替换递增子序列索引为index后面的更大的元素，从而让后面的元素变得更小，
+这个后面的元素有可能就是当前找到的完整递增子序列的末尾元素，从而使之后的新元素更有可能大于末尾元素而直接接在序列末尾，从而增加序列长度
+
+import java.util.Scanner;
+
+public class text10 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        //在此输入您的代码...
+        int N = scan.nextInt();
+        int[] num = new  int[N];
+        for (int i = 0; i < N; i++) {
+            num[i]= scan.nextInt();
+        }
+        scan.close();
+        int[] tail = new int[N];
+        int size=0;
+        for (int i : num) {
+            int left=0;int right=size;
+            while (left<right){
+                int mid=left+(right-left)/2;
+                if (i>tail[mid])left=mid+1;
+                else right=mid;
+            }
+            tail[left]=i;
+            if (left==size)size++;
+        }
+        System.out.println(size);
+    }
+}
+
+[https://www.lanqiao.cn/problems/3514/learning/]
+前缀和 要注意数据类型，求子串,ans要用longlong
+#include <iostream>
+#include<string>
+using namespace std;
+int main()
+{
+    int k;
+    cin>>k;
+    string s;
+    char c1,c2;
+    cin>>s>>c1>>c2;
+    int prefix_1[500005]={0};//从1开始，哪里有c1，哪里就是1
+    int prefix_2[500005]={0};//前i个字符里有几个c2
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]==c1)
+            prefix_1[i+1]=1;
+        if(s[i]==c2)
+            prefix_2[i+1]=prefix_2[i]+1;
+        else
+            prefix_2[i+1]=prefix_2[i];//这一步不能忘了，容易犯错，如果没有那就全是0了
+    }
+    long long ans=0;//这个数据类型啊，是long long 不是int 不是int！！！
+    for(int i=1;i<=s.size()+1-k;i++)
+    {
+        if(prefix_1[i]==1)
+        {
+            ans+=prefix_2[s.size()]-prefix_2[i+k-2];
+        }
+    }
+    cout<<ans<<endl;
+  // 请在此输入您的代码
+  return 0;
+}
