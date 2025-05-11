@@ -1,4 +1,4 @@
-# JAVA学习
+#  JAVA学习
 
 ## JAVA前期准备
 
@@ -993,3 +993,215 @@ for(int i = 0, j = 0; i < count; i++, j += 2) {
 ```
 
 2025/5/7
+
+```java
+//统计1-100的9的倍数个数
+int count = 0; //统计9的倍数个数 变量
+int sum = 0; //总和
+int start = 10;
+int end = 200;
+for(int i = start; i <= end; i++) {
+    if( i % 9 == 0) {
+        System.out.println("i=" + i);
+        count++;
+        sum += i;//累积
+    }
+}
+System.out.println("count=" + count);
+System.out.println("sum=" + sum);
+```
+
+```Java
+//先输出0-5
+//后面的 + 是 5-i
+//把5替换成变量n
+int n = 5;
+for( int i = 0; i <= n; i++) {
+    System.out.println(i + "+" + (n-i) + "=" + n);
+}
+```
+
+#### while循环
+
+基本步骤：
+循环变量初始化；
+while（循环条件）{
+
+​		循环体（语句）；
+​		循环变量迭代；
+
+}
+
+注意：
+循环条件是返回一个布尔值的表达式
+while循环是先判断再执行语句
+
+```java
+//打印1-100能被3整除的数字
+int i = 1;
+while( i <= 100) {
+    if( i % 3 == 0) {
+        System.out.println("i=" + i);
+    }
+    i++;//变量自增
+}
+```
+
+#### do-while
+
+基本步骤：
+循环变量初始化；
+do{
+
+​		循环体（语句）；
+​		循环变量迭代；
+
+}while（循环条件）；
+
+注：先执行，再判断，也就是说，一定会至少执行一次
+
+练习：
+
+```java
+Scanner myScanner = new Scanner(System.in);
+char answer = ' ';
+do {
+    System.out.println("老韩使出五连鞭~");
+    System.out.println("老韩问: 还钱吗?y/n");
+    answer = myScanner.next().charAt(0);
+    System.out.println("他的回答是" + answer);
+} while(answer != 'y');
+System.out.println("李三还钱了");
+```
+
+![image-20250510112207496](../../AppData/Roaming/Typora/typora-user-images/image-20250510112207496.png)
+
+多重循环控制练习
+
+```java
+//计 3 个班成绩情况，每个班有 5 名同学，
+// 求出各个班的平均分和所有班级的平均分 [学生的成绩从键盘输入]。
+// 统计三个班及格人数，每个班有 5 名同学。
+
+// 思路分析:
+//(1) 先计算一个班 ，5个学生的成绩和平均分 ，使用for
+//1.1 创建 Scanner 对象然后，接收用户输入
+//1.2 得到该班级的平均分 ，定义一个 doubel sum 把该班级5个学生的成绩累
+//(2) 统计3个班(每个班5个学生）平均分
+//(3) 所有班级的平均分
+//3.1 定义一个变量, double totalScore 累积所有学生的成绩
+//3.2 当多重循环结束后, totalScore / (3 * 5)
+//(4) 统计三个班及格人数
+//4.1 定义变量 int passNum = 0; 当有一个学生成绩>=60, passNum++
+//4.2 如果 >= 60 passNum++
+//(5) 可以优化[效率, 可读性, 结构] 
+    
+import java.util.Scanner;//表示把java.util下的Scanner类导入
+public class Main {
+    public static void main(String[] args) {
+        Scanner myScanner = new Scanner(System.in);
+        double totalScore = 0;
+        int passNum = 0;
+        for (int i = 1; i <= 3;i++){
+            double sum = 0; //一个班级的总分
+            for (int j = 1; j <= 5; j++) {
+                System.out.println("请数第"+i+"个班的第" + j + "个学生的成绩");
+                double score = myScanner.nextDouble();
+                if (score > 60){
+                    passNum++;
+                }
+                sum += score; //累积
+                System.out.println("成绩为" + score);
+            }
+//因为sum 是 5个学生的总成绩
+            System.out.println("sum=" + sum + " 平均分=" + (sum / 5));
+//把 sum 累积到 totalScore
+            totalScore += sum;
+        }
+        System.out.println("三个班总分="+ totalScore
+                + " 平均分=" + totalScore / 15);
+        System.out.println("及格人数"+passNum);
+    }
+}
+```
+
+打印金字塔
+
+```java
+for(int i = 1; i <= 5; i++) {
+    //输出空格
+    for(int k = 1; k <= 5 - i; k++) {
+        System.out.print(" ");
+    }
+    //输出*
+    for(int j = 1; j <= 2 * i - 1; j++) {\
+        if(j == 1 || j == 2*i - 1|| i = 5){
+        System.out.print("*");
+    }else{
+            System.out.print(" ")
+        }
+    //换行
+    System.out.println();
+}
+```
+
+#### break
+
+```java
+public class Break01 {
+    public static void main(String[] args) {
+        for( int i = 0; i < 10; i++) {
+            if( i == 3) {
+                break;
+            }
+            System.out.println("i=" + i);
+        }
+    }
+}
+```
+
+![image-20250511105050798](../../AppData/Roaming/Typora/typora-user-images/image-20250511105050798.png)
+
+![image-20250511105548544](../../AppData/Roaming/Typora/typora-user-images/image-20250511105548544.png)
+
+```java
+int sum = 0; //累积和
+//注意i 的作用范围在 for{}
+int n = 0;
+for(int i = 1; ; i <= 100; i++) {
+    sum += i;//累积
+    if(sum > 20) {
+        System.out.println("和>20时候 当前数i=" + i);
+        n = i;
+        break;
+    }
+}
+System.out.println("当前数=" + n);
+```
+
+补充
+
+```java
+System.out.println(name.equals("林黛玉"));//T
+System.out.println("林黛玉".equals(name));//T [推荐，可以避免空指针]
+```
+
+```java
+int chance = 3; //登录一次 ，就减少一次
+for( int i = 1; i <= 3; i++) { //3次登录机会
+    System.out.println("请输入名字");
+    name = myScanner.next();
+    System.out.println("请输入密码");
+    passwd = myScanner.next();
+    //比较输入的名字和 密码是否正确
+    //补充说明字符串 的内容 比较  使用的 方法  equals
+    if("丁真".equals(name) && "666".equals(passwd)) {
+        System.out.println("恭喜你，登录成功~");
+        break;
+    }
+    //登录的机会就减少一次
+    chance--;
+    System.out.println("你还有" + chance + "次登录机会");
+}
+```
+
