@@ -95,3 +95,130 @@ Exception in thread "main" java.lang.RuntimeException
          
 ```
 
+## Throwable的成员方法。
+
+//Throwable的成员方法
+/*1.public String getMessage() 返回此throwable的详细消息字符串
+  2.public String toString() 返回此可抛出的简短描述
+  3.public void printStackTrace() 把异常的错误信息输出在控制台
+ */
+
+```
+int []arr={1,2,3,4,5,6};
+        try{
+            System.out.println(arr[10]);
+        }catch (ArrayIndexOutOfBoundsException e){
+            //1.getMessage
+            String s=e.getMessage();
+            System.out.println(s);  Index 10 out of bounds for length 6 */
+
+            //2.toString
+            String s=e.toString();
+            System.out.println(s);java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds for length 6
+
+            //3.printStackTrace() 在底层是利用System.err.println进行输出
+            //把异常的错误信息以红色字体输出在控制台上，细节:仅仅是打印信息，不会停止程序运行
+            e.printStackTrace();
+            System.out.println("结束");
+            System.err.println(123);
+        }
+```
+
+## 抛出处理
+
+1.throws: 写在方法的定义处,表示声明一个异常,告诉调用者可能出现的异常。
+  public void 方法()throws 异常名1，异常名2{
+  }
+  *编译时异常:必须要写。
+  *运行时异常:可以不写。
+
+2.throw:写在方法内,结束方法,方法下面的代码不再执行
+
+```
+package Day6Exception;
+
+public class testdemo1 {
+    public static void main(String[]args){
+        // 抛出处理:
+        /*throws: 写在方法的定义处,表示声明一个异常,告诉调用者可能出现的异常。
+          public void 方法()throws 异常名1，异常名2{
+          }
+          *编译时异常:必须要写。
+          *运行时异常:可以不写。
+         */
+        //throw:写在方法内,结束方法,方法下面的代码不再执行。
+        int []arr=new int[0];
+        //需求:返回数组的最大值,并且判断数组不能为null或长度为0
+        int maxn=0;
+        try {
+             maxn=getMax(arr);
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("索引越界了");
+        }catch (NullPointerException e){
+            System.out.println("空指针异常");
+        }
+        System.out.println("下面的代码是否执行");
+        System.out.println(maxn);
+    }
+    public static int getMax(int[]arr) throws NullPointerException,ArrayIndexOutOfBoundsException{
+        int max=arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if(arr[i]>max) max=arr[i];
+        }
+        return max;
+    }
+}
+```
+
+## 自定义异常
+
+1.定义异常类
+
+2.写继承关系
+
+3.空参构造
+
+4.带参构造
+
+目的:让控制台信息见名知意
+
+```
+package Day7ExceptionPractice;
+
+public class AgeOutOfBoundsException extends RuntimeException{
+    public AgeOutOfBoundsException(String message) {
+        super(message);
+    }
+
+    public AgeOutOfBoundsException() {
+    }
+}
+-----------------------------------------------
+package Day7ExceptionPractice;
+
+public class NameFormatException extends RuntimeException{
+    //细节:1.运行时:RuntimeException:由于参数错误导致的异常
+    //2.编译时异常:Exception:提醒程序员检查本地异常
+
+    public NameFormatException() {
+    }
+
+    public NameFormatException(String message) {
+        super(message);
+    }
+
+    public NameFormatException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public NameFormatException(Throwable cause) {
+        super(cause);
+    }
+
+    public NameFormatException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
+}
+
+```
+
