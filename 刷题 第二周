@@ -5,7 +5,6 @@
 这个后面的元素有可能就是当前找到的完整递增子序列的末尾元素，从而使之后的新元素更有可能大于末尾元素而直接接在序列末尾，从而增加序列长度
 
 import java.util.Scanner;
-
 public class text10 {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
