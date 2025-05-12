@@ -1205,3 +1205,50 @@ for( int i = 1; i <= 3; i++) { //3次登录机会
 }
 ```
 
+#### continue
+
+continue 语句用于结束本次循环，继续执行下一次循环。
+continue 语句出现在多层嵌套的循环语句体中时，可以通过标签指明要跳过的是哪一层循环，这个和前面的标签的使用的规则一样。
+
+![image-20250512201141954](../../AppData/Roaming/Typora/typora-user-images/image-20250512201141954.png)
+
+![image-20250512201428039](../../AppData/Roaming/Typora/typora-user-images/image-20250512201428039.png)
+
+最终产出结果是i ==3 4 5 
+
+![image-20250512202310583](../../AppData/Roaming/Typora/typora-user-images/image-20250512202310583.png)
+
+#### return
+
+return使用在方法，表示跳出所在的方法，在讲解方法的时候，会详细的介绍，这里我们简单的提一下。
+注意：如果return写在main方法，退出程序。
+
+![image-20250512205145174](../../AppData/Roaming/Typora/typora-user-images/image-20250512205145174.png)
+
+go on没发得到输出，直接跳出程序了
+
+#### 本章作业
+
+作业1
+
+```java
+public class Main {
+    public static void main(String[] args) {
+            double money = 100000;
+            int count = 0;//累积过的路口
+            while(true){
+            if(money > 50000){
+                money *= 0.95;
+                count++;
+            }else if(money >= 1000){
+                money -= 1000;
+                count++;
+            }else{
+                break;
+            }
+        }
+        System.out.println("100000可以过" + count + "个路口");
+    }
+}
+```
+
