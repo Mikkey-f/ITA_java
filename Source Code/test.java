@@ -1,21 +1,21 @@
-package com.poly.detail2;
+package StringBuffer_;
 
+import java.util.Scanner;
+
+/**
+ * @author 司志俊
+ * @version 1.0
+ */
 public class test {
     public static void main(String[] args) {
-        AA aa = new AA();
-        System.out.println(aa instanceof AA);//true
-        System.out.println(aa instanceof BB);//false
-        AA a = new BB();
-        System.out.println(a instanceof AA);//true
-        System.out.println(a instanceof BB);//true
-        Object obj = new Object();
-        String s = "sizhijun";
-        System.out.println(s instanceof Object);//true
+        Scanner scanner = new Scanner(System.in);
+        String price = "";
+        price = scanner.next();
+        StringBuffer stringBuffer = new StringBuffer(price);
+        int i = stringBuffer.lastIndexOf(".");
+        for (int j = i - 3; j > 0; j-=3) {
+            stringBuffer = stringBuffer.insert(j,",");
+        }
+        System.out.println(stringBuffer);
     }
-}
-
-class AA {
-}
-
-class BB extends AA {
 }
