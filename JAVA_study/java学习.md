@@ -1229,7 +1229,7 @@ go on没发得到输出，直接跳出程序了
 
 #### 本章作业
 
-作业1
+作业1 过路口问题
 
 ```java
 public class Main {
@@ -1249,6 +1249,365 @@ public class Main {
         }
         System.out.println("100000可以过" + count + "个路口");
     }
+}
+```
+
+作业2 水仙花数
+
+```java
+/*
+比如 int n = 153;
+先得到 n 的百位，十位 ，各位的数字，使用 if 判断他们的立方和是否相等
+n 的百位 = n / 100
+n 的十位 = n % 100 / 10
+n 的各位 = n % 10
+判断即可
+*/
+int n = 153;
+int n1 = n / 100;
+int n2 = n % 100 / 10;
+int n3 = n % 10;
+if(n1 * n1 * n1 + n2 * n2 * n2 + n3 * n3 * n3 == n) {
+    System.out.println(n + "是水仙花数");
+} else {
+    System.out.println(n + "不是水仙花数");
+}
+```
+
+作业3 阅读题
+
+![image-20250513155133221](../../AppData/Roaming/Typora/typora-user-images/image-20250513155133221.png)
+
+结果是什么都不输出
+
+
+
+作业4 1-100不满足被5整除的数，每五个输出一行
+
+```java
+int count = 0; //统计输出的个数
+for(int i = 1; i <= 100; i++) {
+    if(i % 5 != 0) {
+        count++;
+        System.out.print(i + " ");
+        //判断，每满5个，就输出一个换行。
+        if(count % 5 == 0) {
+            System.out.println();
+        }
+    }
+}    
+```
+
+作业5 打印a-z和Z-A
+
+```java
+public static void main(String[] args) {
+    //输出小写的a-z以及大写的Z-A
+    //考察我们对 a-z编码和 for的综合使用
+    //思路分析
+    //1. 'b' = 'a' + 1 c = 'a' + 2
+    //2. 使用for搞定
+
+    for(char c1 = 'a'; c1 <= 'z'; c1++) {//字符的本质就是一个整数
+        System.out.print(c1 +" ");
+    }
+    System.out.println("=======");
+    //灵活的使用，编程..
+    for(char c1 = 'Z'; c1 >= 'A'; c1--) {
+        System.out.print(c1 +" ");
+    }
+}
+```
+
+作业6 加法
+
+```java
+/*
+求出 1-1/2+1/3-1/4……1/100 的和
+思路分析
+1-1/2+1/3-1/4……1/100 = (1/1)-(1/2)+(1/3)-(1/4)…1/100
+从上面的分析我们可以看到
+(1) 一共有 100 数 ， 分子为 1 ，分母从 1-100
+(2) 还发现 当分母为奇数时，前面是 +，当分母是偶数时，前面是 -
+我们可以使用 for + 判断即可完成
+把结果存放到 double sum
+这里有一个隐藏的陷阱，要把 公式分子 1 写出 1.0 才能得到精确的小数          					这个很重要
+*/
+double sum = 0;
+for(int i = 1; i <= 100; i++) {
+    //判断是奇数还是偶数，然后做不同的处理
+    if( i % 2 != 0){//分母为奇数
+        sum += 1.0/i;
+    } else { //分母为偶数
+        sum -= 1.0/i;
+    }
+}
+System.out.println("sum=" + sum);
+```
+
+作业7 
+
+```java
+public static void main(String[] args) {
+    //求(1)+ (1+2) + (1+2+3) + (1+2+3+4) +...+(1+2+3+..+100)的结果
+    //思路分析
+    //1. 一共有100项相加
+    //2. 每一项的数字在逐渐增加
+    //3. 很像一个双层循环
+    //i 可以表示是第几项,同时也是当前项的最后一个数
+    //4. 使用 sum 进行累计即可
+    int sum = 0;
+    for(int i = 1; i <= 100; i++) {
+        for(int j = 1;j <= i; j++) {//内层对1-i进行循环
+            sum += j;
+        }
+    }
+    System.out.println("sum=" + sum);
+}
+```
+
+## 数组
+
+数组可以存放多个同一类型的数据。数组也是一种数据类型，是引用类型。 即：数(数据)组(一组)就是一组数据
+
+#### 快速入门
+
+```java
+public static void main(String[] args) {
+
+//1. double [] 表示 是 double 类型的数组，数组名 hens
+//2. {3, 5, 1, 3.4, 2, 50} 表示数组的值 / 元素，依次表示数组的
+// 第几个元素
+    
+    double[] hens = {3, 5, 1, 3.4, 2, 50};
+//遍历数组得到数组的所有元素的和， 使用for
+//老韩解读
+//1. 我们可以通过 hens[下标] 来访问数组的元素
+//   下标是从 0 开始编号的比如第一个元素就是 hens[0]
+//   第2个元素就是 hens[1] ，依次类推
+//2. 通过for就可以循环的访问 数组的元素/值
+//3. 使用一个变量 totalWeight 将各个元素累积
+    double totalWeight = 0;
+    for( int i = 0; i < 6; i++) {
+    //System.out.println("第" + (i+1) + "个元素的值=" + hens[i]);
+    totalWeight += hens[i];
+}
+System.out.println("总体重=" + totalWeight 
+    + "平均体重=" + (totalWeight / 6));
+    //可以通过数组名.length得到数组的大小/长度
+    System.out.println("数组的长度=" + hens.length)
+}
+```
+
+ 
+
+
+使用方式 1 - 动态初始化
+
+数组的定义
+数据类型 数组名 []=new 数据类型 [大小]
+int a [] = new int [5]; // 创建了一个数组，名字 a，存放 5 个 int
+说明：这是定义数组的一种方法。为了让大家明白，我画数组内存图说明
+
+![image-20250513202610593](../../AppData/Roaming/Typora/typora-user-images/image-20250513202610593.png)
+
+```java
+Scanner myScanner = new Scanner(System.in);
+for( int i = 0; i < scores.length; i++) {
+    System.out.println("请输入第"+ (i+1) +"个元素的值");
+    scores[i] = myScanner.nextDouble();
+}
+//输出，遍历数组
+System.out.println("==数组的元素/值的情况如下:===");
+for( int i = 0; i < scores.length; i++) {
+    System.out.println("第"+ (i+1) +"个元素的值=" + scores[i]);
+}
+```
+
+
+
+使用方式2-动态初始化
+
+先声明数组
+语法：数据类型 数组名 []; 也可以 数据类型 [] 数组名；
+int a []; 或者 int [] a;
+
+创建数组
+语法：数组名 = new 数据类型 [大小];
+a=new int [10];
+
+```java
+//(1) 第一种动态分配方式
+//double scores [] = new double [5];
+//(2) 第 2 种动态分配方式，先声明数组，再 new 分配空间
+double scores [] ; // 声明数组， 这时 scores 是 null
+scores = new double [5]; // 分配内存空间，可以存放数据
+```
+
+
+
+使用方式 3 - 静态初始化
+初始化数组
+语法：数据类型 数组名 []={元素值，元素值...}
+int a []={2,5,6,7,8,89,90,34,56}, 如果知道数组有多少元素，具体值
+上面的用法相当于: int a []=new int [9];
+a [0]=2;a [1]=5;a [2]=6;a [3]=7;a [4]=8;
+a [5]=89;a [6]=90;a [7]=34;a [8]=56;
+
+#### 注意事项
+
+1. 数组是多个相同类型数据的组合，实现对这些数据的统一管理
+2. 数组中的元素可以是任何数据类型，包括基本类型和引用类型，但是不能混用。
+3. 数组创建后，如果没有赋值，有默认值
+	- int 0, short 0, byte 0, long 0, float 0.0, double 0.0, char \u0000, boolean false, String null
+4. 使用数组的步骤 1. 声明数组并开辟空间 2. 给数组各个元素赋值 3. 使用数组
+5. 数组的下标是从 0 开始的。
+6. 数组下标必须在指定范围内使用，否则报：下标越界异常，比如 int [] arr=new int [5]; 则有效下标为 0-4
+7. 数组属引用类型，数组型数据是对象 (object)
+
+```java
+//3. 数组创建后，如果没有赋值，有默认值
+//int 0, short 0, byte 0, long 0,
+//float 0.0,double 0.0, char \u0000,
+//boolean false, String null
+
+short [] arr4 = new short [3];
+System.out.println ("===== 数组 arr4=====");
+for (int i = 0; i < arr4.length; i++) {
+System.out.println (arr4 [i]);输出的是0
+}
+
+//6. 数组下标必须在指定范围内使用，否则报：下标越界异常，比如
+//int [] arr=new int [5]; 则有效下标为 0-4
+// 即数组的下标 / 索引 最小 0 最大 数组长度 - 1 ( )
+int [] arr = new int [5];
+System.out.println (arr [5]);
+```
+
+练习1
+
+创建一个 char 类型的 26 个元素的数组，分别放置 'A'-'Z'。使用 for 循环访问所有元素并打印出来。提示：char 类型数据运算 'A'+1 -> 'B'
+
+```java
+//定义一个数组， char[] chars = new char [26]
+//因为 'A' + 1 = 'B' 类推，for循环赋值
+char[] chars = new char[26];
+for( int i = 0; i < chars.length; i++){
+    //chars 是 char[],是个数组
+    //chars[i] 是 char类型
+    chars[i] = (char)('A' + i);//'A' + i 是int。需要强制转换、
+}
+System.out.println("===chars数组===")；
+    for( int i = 0; i < chars.length; i++){
+        System.out.print(chars[i] + " ");
+    }
+```
+
+  数组练习2
+
+请求出一个数组 int [] 的最大值 {4,-1,9,10,23}，并得到对应的下标
+
+ 
+
+```java
+int arr[] = {4,-1,9,10,23};
+int max = arr[0];
+int maxIndex = 0;
+
+for(int i = 1; i < arr.length; i++){
+    
+    if(max < arr[i] ){
+        max = arr[i];
+        maxIndex = i;
+    }
+}
+System.out.println("max=" + max + "maxIndex=" + maxIndex)
+```
+
+#### 数组赋值机制
+
+```java
+public static void main(String[] args) {
+    //基本数据类型赋值，赋值方式为值赋
+    //n2的变化，不会影响到n1的值
+    int n1 = 10;
+    int n2 = n1;
+
+    n2 = 80;
+    System.out.println("n1=" + n1);//10
+    System.out.println("n2=" + n2);//80
+
+    //数组在默认情况下是引用传递， 赋的值是地址，赋值方式为引用赋值
+    //是一个地址 ，arr2变化会影响到 arr1
+    int[] arr1 = {1, 2, 3};
+    int[] arr2 = arr1;//把 arr1赋给 arr2
+    arr2[0] = 10;
+    
+    //看看arr1的值
+    System.out.println("===arr1的元素===")；
+        for(int i = 0; i < arr1.length; i++){
+            System.out.println(arr1[i]);//结果我们会发现是  10 2 3
+        }
+}
+```
+
+![image-20250515214802047](../../AppData/Roaming/Typora/typora-user-images/image-20250515214802047.png)
+
+#### 数组拷贝
+
+```java
+//要求数据空间是独立的
+
+int[] arr1 = {10,20,30};
+//创建一个新的数组arr2.开辟新的数据空间
+//大小 arr1.length
+int[] arr2 = new int[arr1.length];
+
+//遍历arr1，把每一个元素拷贝到arr2对应的元素位置
+for(int i = 0; i < arr1.length; i++){
+    arr2[i] = arr1 [i];
+}
+//修改arr2，不会对arr1做出修改
+```
+
+#### 数组反转
+
+```java
+int[] arr = {11,22,33,44,55,66};
+//老喊思路 
+//11和66交换 22和55交换 33和44交换
+//一共要交换3次 = 数组长度除以2
+//每次交换，对应的下标是arr[i] 和 arr[arr.length-i-1]
+
+int temp = 0;
+int len = arr.length;
+for(int i = 0; i < len /2 ; i++){
+    temp = arr[len - i -i];
+    arr[len - i -1] = arr[i];
+    arr[i] = temp;
+}
+
+//方法二
+//定义数组
+int[] arr = {11, 22, 33, 44, 55, 66};
+
+//使用逆序赋值方式
+//老韩思路
+//1. 先创建一个新的数组 arr2 ,大小 arr.length
+//2. 逆序遍历 arr ,将 每个元素拷贝到 arr2的元素中(顺序拷贝)
+//3. 建议增加一个循环变量 j -> 0 -> 5
+int[] arr2 = new int[arr.length];
+//逆序遍历 arr
+for(int i = arr.length - 1, j = 0; i >= 0; i--, j++) {
+    arr2[j] = arr[i];
+}
+//4.当for循环结束的时候，arr2就是一个逆序的数组{66,55,44,33,22,11}
+//5. 让 arr 指向 arr2 数据空间，此时 arr 原来的数据空间就没有变量引用
+// 会被当做垃圾，销毁
+arr = arr2;//将arr2的地址给了arr，arr原来的就作废了
+
+for(int i = 0; i < arr.length; i++){
+    System.out.print(arr[i] + "\t");
 }
 ```
 
