@@ -1,0 +1,157 @@
+
+5.13
+[[125. 验证回文串 - 力扣（LeetCode）](https://leetcode.cn/problems/valid-palindrome/?envType=study-plan-v2&envId=top-interview-150)
+双指针 空间复杂度为1，直接在s上判断，先跳过两头不是数字或者字母的字符，然后再判断左右是不是相同，不区分大小写，注意Character类里面静态方法的用法
+```class Solution {
+    public boolean isPalindrome(String s) {
+        int l=0,r=s.length()-1;
+        while(l<=r){
+            while(l<=r&&!Character.isLetterOrDigit(s.charAt(l))){
+                l++;
+            }
+            while(l<=r&&!Character.isLetterOrDigit(s.charAt(r))){
+                r--;
+            }
+            if(l<=r){
+                if(Character.toLowerCase(s.charAt(l))!=Character.toLowerCase(s.charAt(r)))
+                    return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+}
+```
+[209. 长度最小的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/minimum-size-subarray-sum/description/?envType=study-plan-v2&envId=top-interview-150)
+
+前缀和加二分查找
+以数组里的每个元素为子数组起点，改寻找终点从遍历起点后的每个位置为二分查找
+```class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int n=nums.length;
+        int[] prefix=new int[n+1];
+        prefix[0]=0;
+        for(int i=1;i<=n;i++){
+            prefix[i]=prefix[i-1]+nums[i-1];
+        }
+        int ans=Integer.MAX_VALUE;
+        for(int i=1;i<prefix.length;i++){
+            int res=target+prefix[i-1];
+            int bound=Arrays.binarySearch(prefix,res);
+            if(bound<0){
+                bound=-bound-1;
+            }
+            if(bound<=n){
+                ans=Math.min(ans,bound-i+1);
+            }
+        }
+        return ans==Integer.MAX_VALUE? 0:ans;
+    }
+}
+```
+方法2 滑动窗口
+维护窗口左边界指针start和右边界指针end，如果sum大于target就向左缩小窗口，如果sum小于target就向右扩大窗口，找到能使sum大于等于target的左右边界距离的最小值。
+```
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int n=nums.length;
+        int start=0,end=0;
+        int ans=Integer.MAX_VALUE;
+        int sum=0;
+        while(end<n){
+            sum+=nums[end];
+            while(sum>=target){
+                ans=Math.min(ans,end-start+1);
+                sum-=nums[start];
+                start++;
+            }
+            end++;
+        }
+        return ans==Integer.MAX_VALUE? 0:ans;
+    }
+}
+```
+[36. 有效的数独 - 力扣（LeetCode）](https://leetcode.cn/problems/valid-sudoku/description/?envType=study-plan-v2&envId=top-interview-150)
+纯暴力，每一行，每一列，每一个子数组都遍历一遍，用一个used数组记录1到9出现的次数
+```
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        int[] used=new int[10];
+        for(int i=0;i<9;i++){
+            Arrays.fill(used,0);
+            for(int j=0;j<9;j++){
+                char c=board[i][j];
+                if(c=='.')
+                    continue;
+                used[c-'0']++;
+            }
+            if(!check(used))
+                return false;
+        }
+         for(int j=0;j<9;j++){
+            Arrays.fill(used,0);
+            for(int i=0;i<9;i++){
+                char c=board[i][j];
+                if(c=='.')
+                    continue;
+                used[c-'0']++;
+            }
+            if(!check(used))
+                return false;
+        }
+        for(int i=2;i<9;i+=3){
+            for(int j=2;j<9;j+=3){
+                Arrays.fill(used,0);
+                for(int k=i-2;k<=i;k++){
+                    for(int l=j-2;l<=j;l++){
+                        char c=board[k][l];
+                        if(c=='.')
+                            continue;
+                        used[c-'0']++;
+                    }
+                }
+                if(!check(used))
+                    return false;
+            }
+        }
+        return true;
+    }
+    public static boolean check(int[] used){
+        for(int i=1;i<=9;i++){
+            if(used[i]>1)
+                return false;
+        }
+        return true;
+    }
+}
+```
+
+优化后
+给每一个子宫格编号 0-8，根据i，j计算出ij所在子宫格编号，公式 （i/3）*3+（j/3） i/3确定子宫格行数，乘以3确定起始行索引，j/3确定偏移量
+rows，cols，boxs数组用于表示第i行，数字num是不是出现过，第j列数字num是不是出现过，第boxIndex个子宫格里数字num是不是出现过
+```
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        boolean[][] rows=new boolean[9][10];//rows[i][num]含义 第i行，数字num是不是出现过
+        boolean[][] cols=new boolean[9][10];
+        boolean[][] boxs=new boolean[9][10];
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                char c=board[i][j];
+                if(c=='.')
+                    continue;
+                int num=c-'0';
+                int boxIndex=(i/3)*3+(j/3);//子宫格编号
+                if(rows[i][num]||cols[j][num]||boxs[boxIndex][num])
+                    return false;
+                //标记已出现
+                rows[i][num]=true;
+                cols[j][num]=true;
+                boxs[boxIndex][num]=true;
+            }
+        }
+        return true;
+    }
+}
+```
