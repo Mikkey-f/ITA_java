@@ -1,0 +1,230 @@
+包装类 Wrapper
+
+
+
+
+valueOf() 方法接收一个 基本类型/包装类/类的参数，返回其对应的类对象 -128到127
+自动装箱用的就是这个valueOf()方法
+toString()方法 包装类转字符串
+parseInt()方法 参数（String等）转成基本数据类型然后基本数据类型可以自动装箱
+
+常用类和方法
+
+
+只要是有基本数据类型，判断的就是值是否相等
+
+Double.compare 的返回值可直接用于排序逻辑，确保浮点数在各种边界情况下（如 NaN、零值）的比较结果符合预期。返回值是int  正 0 负
+
+
+
+
+
+
+
+
+
+
+
+String
+
+
+
+
+
+
+
+
+
+
+
+
+String的常用方法
+
+
+
+只要是new出来的就会在堆里有空间
+
+
+
+
+
+
+
+
+5.13.2025
+StringBuffer类
+StringBuffer 是 Java 中的一个类，用于存储可变的字符序列。它类似于 String，但不同之处在于 StringBuffer 的内容可以动态修改（如追加、插入、删除字符），而无需创建新对象。
+
+StringBuffer和String的相互转换
+
+
+
+
+
+StringBuffer类的对象可以实现高效率的增删改查插入操作
+
+
+
+StringBuilder类
+用法和StringBuffer一样，一样的增删改查，一样的转换，有一样的方法
+三者比较：
+
+
+
+
+
+
+
+
+
+Math类
+里面有很多与数学运算有关的静态方法
+
+(int) ( a + Math.random()*(b-a+1) )
+
+
+Arrays类
+toString方法，用[]输出数组元素
+sort方法 默认排序和定制排序
+
+定制排序 
+实现了接口编程，匿名内部类作为参数的使用，compare方法只能用于对象数组
+
+5.15.2025
+
+
+
+System类
+
+
+
+BigInteger 和BigDecimal类
+
+
+参数一般都是传String类型
+大整数除不尽是向下取整
+BIgDecimal类要指定精度，不然报错
+向下取整 往小了取 向上取整 往大了取
+
+
+
+
+
+
+日期类
+第一代日期Date
+
+
+SimpleDateFormat类 
+SimpleDateFormat 是 Java 中用于格式化和解析日期的类，其名称直译为 "简单日期格式"。它允许你将 Date 对象转换为特定格式的字符串（format方法）（如 "2025年05月16日"），或把符合特定格式的字符串解析（parse方法）为 Date 对象
+第二代日期 Calendar
+
+MONTH从0开始，所以要加上1
+
+
+Calendar它是抽象类，不能被直接new出来，要通过公共的方法getInstance获得实例
+5.16.2025
+第三代日期
+
+DateTimeFormat类的构造器是私有的，是通过静态工厂方法创建的，而不是直接实例化。要用 DateTimeFormatter.ofPattern() 方法来创建格式化器。
+DateTimeFormatter：用于日期时间的格式化和解析，替代SimpleDateFormat（线程安全）
+
+Instant时间戳 类似于Date
+
+
+
+
+
+
+集合
+
+Collection收集  List名单   Set集合 
+Map图
+1.Collection接口
+
+
+第一种遍历方式：迭代器
+快捷键 itit
+Iterator  
+每个实现了Collection的类的对象可以生成迭代器（用iterator()方法），并用迭代器遍历元素。
+迭代器方法 hasNext()判断是否还有数据
+next()返回下一个元素，返回类型是Object
+只要你用了一下.next()游标就会往后移
+重置迭代器
+第二种：增强for
+快捷键 I
+
+
+
+5.17.2025
+（1）List接口的
+有序（添加顺序和取出顺序一致）， 可重复
+支持索引
+
+
+
+
+
+ArraysList
+
+
+LinkedList 双向链表
+LinkedList 支持索引index，但不支持高效的随机索引访问[]
+
+他们两个都是线程不安全的
+
+5.18.2025
+（2）Set接口
+无序（添加顺序和取出顺序不一致），没有重复元素（你可以加但是它自动去重），不支持索引
+
+遍历方式 
+迭代器和增强for（没有传统for）
+
+
+
+
+
+
+（1.1）HashSet底层结论
+
+
+
+
+（1.1.1）LinkedHashSet
+有序（放入的顺序和取出的顺序是一致的） 没重复元素 
+
+
+（2）Map接口
+
+
+
+
+
+
+
+
+
+常用方法
+
+
+(2.1)HashMap
+无序，不能有重复键值对
+当有相同k，就会把v替换
+可以通过k取v，v不能反向取k
+
+HashMap
+
+
+
+
+5.19.2025
+（2.2）HashTable
+键和值都不能为空，其它和HashMap类似
+
+
+
+
+
+（2.2.1）Properties
+
+
