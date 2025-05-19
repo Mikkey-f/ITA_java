@@ -1,0 +1,40 @@
+哈希表：有效字母字符串
+思路：
+int hash[26];
+for (int i; i < s.size; i++)
+{
+	hash[s[i] - 'a']++;    // 并不需要记住字符a的ASCII，只要求出一个相对数值就可以了
+
+}
+for (i = 0; i < t.size; i++)
+{
+	hash[t[i] - 'a']--;
+}
+for (i = 0; i < 26; i++) {    
+	if (hash[i] != 0)      // hash数组如果有的元素不为零0，说明字符串s和t 一定是谁多了字符或者谁少了字符。
+
+		return false;
+}
+return true; // hash数组所有元素都为零0，说明字符串s和t是字母异位词
+
+完整代码：
+
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int[] record = new int[26];
+
+        for (int i = 0; i < s.length(); i++) {
+            record[s.charAt(i) - 'a']++;             }
+
+        for (int i = 0; i < t.length(); i++) {
+            record[t.charAt(i) - 'a']--;
+        }
+
+        for (int count : record) {
+            if (count != 0) {   
+              return false;
+            }
+        }
+        return true;                          
+    }
+}
