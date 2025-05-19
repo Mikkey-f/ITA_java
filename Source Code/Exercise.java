@@ -1,48 +1,31 @@
-package Arrays_;
+package Set;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * @author 司志俊
  * @version 1.0
  */
+@SuppressWarnings({"all"})
 public class Exercise {
     public static void main(String[] args) {
-        Book[] book = new Book[4];
-        book[1] = new Book("红楼梦",12);
-        book[2] = new Book("金瓶梅新",11);
-        book[3] = new Book("青年文摘20",19);
-        book[0] = new Book("java入门到放弃",100);
-
-        Arrays.sort(book, new Comparator() {
-            @Override
-            public int compare(Object o1, Object o2) {
-                Book b = (Book) o1;
-                Book b1 = (Book) o2;
-                double price = b.name.length() - b1.name.length();
-                if (price>0){
-                    return -1;
-                }
-                else if (price<0){
-                    return 1;
-                }
-                else {
-                    return 0;
-                }
-            }
-        });
-
-        System.out.println(Arrays.toString(book));
+        HashSet hashSet = new HashSet();
+        hashSet.add(new Employee("szj",19));
+        hashSet.add(new Employee("fy",17));
+        hashSet.add(new Employee("szj",19));
+        //没有生成快捷方法equals() 和 hashCode()时，加入了三个
+        //生成快捷方法equals() 和 hashCode()时，加入了两个
+        System.out.println(hashSet);
     }
 }
-class Book{
+class Employee{
     String name;
-    double price;
+    int age;
 
-    public Book(String name, double price) {
+    public Employee(String name,int age) {
+        this.age = age;
         this.name = name;
-        this.price = price;
     }
 
     public String getName() {
@@ -53,19 +36,32 @@ class Book{
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public int getAge() {
+        return age;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
     public String toString() {
-        return "Book{" +
+        return "Employee{" +
                 "name='" + name + '\'' +
-                ", price=" + price +
+                ", age=" + age +
                 '}';
+    }
+    //如果name和age相同，则返回相同的hash值
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return age == employee.age && Objects.equals(name, employee.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
     }
 }
