@@ -1,0 +1,35 @@
+https://www.luogu.com.cn/problem/P2670
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n,m;
+char a[105][105];
+int main(){
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			cin>>a[i][j];
+		}
+	}
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			if(a[i][j]=='?'){
+				int k=0;//记录周围地雷的个数 
+				if(a[i-1][j]=='*')k++;
+				if(a[i][j-1]=='*')k++;
+				if(a[i+1][j]=='*')k++;
+				if(a[i][j+1]=='*')k++;
+				if(a[i-1][j-1]=='*')k++;
+				if(a[i-1][j+1]=='*')k++;
+				if(a[i+1][j-1]=='*')k++;
+				if(a[i+1][j+1]=='*')k++;
+				cout<<k;//直接输出k 
+			}
+			else{//是地雷直接输出 
+				cout<<a[i][j];
+			}
+	    }
+	    cout<<endl;//遍历完一行就换行 
+    }
+	return 0;
+} 
