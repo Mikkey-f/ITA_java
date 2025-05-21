@@ -1,0 +1,20 @@
+[383. 赎金信 - 力扣（LeetCode）](https://leetcode.cn/problems/ransom-note/?envType=study-plan-v2&envId=top-interview-150)
+使用集合HashMap来记录每个字符存在的次数，这个当字符串里面的字符不仅仅是小写英文字母的时候效率更高，也可以用used数组来记录出现的次数，但是如果有其他字符那就不能用了
+```
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character,Integer> countMap=new HashMap<>();
+        for(char c:magazine.toCharArray()){
+            countMap.put(c,countMap.getOrDefault(c,0)+1);
+        }
+        for(char c:ransomNote.toCharArray()){
+            int count=countMap.getOrDefault(c,0);
+            count--;
+            if(count<0)
+                return false;
+            countMap.put(c,count);
+        }
+        return true;
+    }
+}
+```
