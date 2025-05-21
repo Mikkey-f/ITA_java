@@ -10,3 +10,16 @@ System.out.println("Hello World");
 
 ps：1.文件名要和public的名称要一致
     2.2.加号：（1）数值：加法运算 （2）字符串：拼接运算
+3.Java默认int，在后面加“l”变成long
+4.Java默认double，在后面加“f”为float
+5.java赋值和计算结果不一样
+6.Java想要char输出字符的数字，加入int 
+Ps：char c1 =’a’  system.out.printlen((int)c1);
+7.boolean：两种类型：true false（不能用0或非0代替）（不参与转换）
+8.（byte，short）和char之间不会相互自动转化
+Ps：（1）当赋值给byte时，先判断该数是否在byte范围之内，如果是就可以
+（2）自动提升为操作数中最大的类型
+9.基本类型转string：+ ” ”
+Ps: int n1=100; string s1=n1 + ” ”;
+10.string转成基本类型：调用parseXXX
+Ps：string s2 = “123”; int num1= Integer.parseInt(s2); double num2 = Double.parseDoouble(s2);
