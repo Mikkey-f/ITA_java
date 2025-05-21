@@ -1,0 +1,118 @@
+5.18.2025
+（2）Set接口
+无序（添加顺序和取出顺序不一致），没有重复元素（你可以加但是它自动去重），不支持索引
+
+遍历方式 
+迭代器和增强for（没有传统for）
+
+
+
+
+
+
+（1.1）HashSet底层结论
+
+
+
+
+（1.1.1）LinkedHashSet
+有序（放入的顺序和取出的顺序是一致的） 没重复元素 
+
+
+
+（2）Map接口
+
+
+
+
+
+
+
+
+
+常用方法
+
+
+(2.1)HashMap
+无序，不能有重复键值对
+当有相同k，就会把v替换
+可以通过k取v，v不能反向取k
+
+1. Map.Entry：映射中的键值对
+Map.Entry 是 Map 接口内部的一个嵌套接口，表示 Map 中的一个键值对（Entry）。每个 Entry 对象包含：
+
+键（Key）：不可重复，唯一标识一个映射。
+值（Value）：可重复，与键关联的数据。
+常用方法：
+getKey()：返回键。
+getValue()：返回值。
+setValue(V value)：修改值（需 Map 支持）。
+2. entrySet()：获取所有键值对的集合
+entrySet() 是 Map 接口的一个方法，返回一个包含所有键值对的 Set<Map.Entry<K, V>>。
+
+
+HashMap
+
+
+
+
+5.19.2025
+HashTable
+键和值都不能为空，其它和HashMap类似
+
+
+
+
+
+Properties
+
+
+
+
+
+
+
+
+HashSet和TreeSet去重机制
+
+如果TreeSet添加的元素1.没有传入实现Comparato接口的匿名对象或者2.没实现Comparable这个接口，没有重写compareTo这个方法就会报错
+当向 TreeSet 中添加元素时，会根据元素的自然顺序（元素实现了 Comparable 接口 ）或者自定义的比较器（创建 TreeSet 时传入 Comparator 实现类 ）来进行比较
+
+
+
+Collections工具类
+很多静态类
+
+
+
+当你直接打印一个对象（例如通过 System.out.println(obj)）时，默认会调用该对象的 toString() 方法来获取字符串表示。如果类没有重写 toString() 方法，会继承 Object 类的默认实现，其返回值通常是类名 + "@" + 哈希码（如 com.example.MyClass@123456）
+
+集合里面的支持索引不是支持[]这样访问，数组才可以这样，用get（index）方法
+
+5.20.2025
+泛型
+
+Iterator<Student> it=hashSet.iterator();
+Set<Map.Entry<String,Student>> entrySet=hashMap.entrySet();
+如果不用泛型，那他们的返回类型都是Object，要手动向下转型
+
+
+Comparator接口，和Comparable接口，泛型的使用
+都有 int compare()方法
+自定义泛型
+
+
+
+
+
+
+泛型类
+
+泛型定义的属性不能用static修饰，使用了泛型的方法也不能是static的
+泛型接口
+
+泛型方法
+
+原始类型：未指定泛型参数的集合（如 List）。
+兼容性：Java 允许原始类型与任何泛型类型兼容，但会产生编译器警告（如 "unchecked conversion"）
+所有泛型的超类型
