@@ -155,3 +155,95 @@ FileInputStream fe=new FileInputStream("C:\\baidunetdiskdownload\\VMware-worksta
 
 ```
 
+## 输入中文会有乱码的原因
+
+1.读取数据时未读完整个汉字(字节流一次只能读取一个字节，而中文不只一个字节) UTF-8:占三个字节 GBK:占两个字节
+
+2.编码和解码方式不同                                                (UTF-8并不是字符集，Unicode才是字符集)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C44C5CD210875A1B224CB99FAC2CDACC0.jpg)
+
+解决方法：
+
+1.不要用字节流读取文本文件
+
+2.编码和解码时使用同一个码表，同一个编码方式
+
+拓展：1.为什么字节流读取中文会乱码，而拷贝时却不会：
+
+因为拷贝是一个字节一个拷贝的，记事本写入和读取用的都是同一个编码方式。
+
+## FileReader和FileWriter介绍
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C00F23119FE6CF320C4CB8C1CE1A3FF4B.jpg)
+
+```
+public class FileReaderDemo1 {
+    public static void main(String[] args) throws IOException {
+        //1.创建FileReader对象。
+        FileReader reader = new FileReader("C:\\code\\ideaprogram\\ITA_java\\story.txt.txt");
+        int bk;
+        while ((bk=reader.read())!=-1){//1. 一个一个字符读取（速度慢)
+            System.out.print((char) bk);
+        }
+        reader.close();
+
+    }
+    public void readFile01() throws IOException {
+        //2.多个字符读取
+        char[] c = new char[5];
+        int ck;//读取到的字符数。返回-1，读完了
+        FileReader reader = new FileReader("C:\\code\\ideaprogram\\ITA_java\\story.txt.txt");
+        while ((ck=reader.read(c))!=-1){
+            System.out.print(new String(c,0,ck));
+        }
+
+    }
+}
+```
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C31BF98A2E33C121B8B9E93A1C9E1CD5E.jpg)
+
+注意:FileWriter使用后,必须要close或flush(刷新)，否则数据一直在内存中. 根据业务考虑是选用覆盖模式还是追加模式。
+
+```
+/创建FileWriter对象
+        /**   写入方式：
+         *   2.write(char[]):写入指定数组
+         *   3.write(char,off,len):写入指定数组的指定部分
+         *   4.write(String):写入整个字符串
+         *   5.write(String,off,len):写入字符串的指定部分
+         */
+        FileWriter writer = new FileWriter("C:\\code\\ideaprogram\\ITA_java\\test.txt.txt",true);
+        //1.
+        //writer.write('H');
+        //2.
+        char[]chars={'a','b','c'};
+        //writer.write(chars);
+        //3.
+        //writer.write("yoshiki".toCharArray(),0,6);
+        //4.
+        writer.write("啊啊啊");
+        writer.write("呃呃呃");
+        writer.write("114514");
+        //5.
+        writer.write("呃呃呃",0,2);
+        writer.flush();
+        writer.close();//等价->flush()+关闭。
+        //在数据量大的情况下，进行循环操作
+        //flush底层：
+        /*private void writeBytes() throws IOException {
+        bb.flip();
+        int lim = bb.limit();
+        int pos = bb.position();
+        assert (pos <= lim);
+        int rem = (pos <= lim ? lim - pos : 0);
+
+        if (rem > 0) {
+            out.write(bb.array(), bb.arrayOffset() + pos, rem);
+        }
+        bb.clear();
+    }*/
+    }
+```
+
