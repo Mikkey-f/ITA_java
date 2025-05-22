@@ -18,3 +18,22 @@ class Solution {
     }
 }
 ```
+[[49. 字母异位词分组 - 力扣（LeetCode）](https://leetcode.cn/problems/group-anagrams/description/?envType=study-plan-v2&envId=top-100-liked)]
+哈希
+先把每个字符串的字符排序，排序后再转换成string,因为字母异位词的字符排序后的字符串都是一样的，把它当做键，字母异位次的集合当做value存入HashMap map中，返回map中所有所有value的集合。
+```
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> map=new HashMap();
+        for(String str:strs){
+            char[] arr=str.toCharArray();
+            Arrays.sort(arr);
+            String key=new String(arr);
+            List<String> value=map.getOrDefault(key,new ArrayList<String>());
+            value.add(str);
+            map.put(key,value);
+        }
+        return new ArrayList<List<String>>(map.values());
+    }
+}
+```
