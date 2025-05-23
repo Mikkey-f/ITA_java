@@ -173,7 +173,7 @@ FileInputStream fe=new FileInputStream("C:\\baidunetdiskdownload\\VMware-worksta
 
 因为拷贝是一个字节一个拷贝的，记事本写入和读取用的都是同一个编码方式。
 
-## FileReader和FileWriter介绍
+## FileReader和FileWriter介绍（字符输入，输出流）
 
 ![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C00F23119FE6CF320C4CB8C1CE1A3FF4B.jpg)
 
@@ -247,3 +247,30 @@ public class FileReaderDemo1 {
     }
 ```
 
+## 节点流和处理流
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CAAF8455559C65B45A9B87916324AEE24.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C20DEBC8C7239C0AF7166272579FEA2AD.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CF6BE525583B4F37092E70E9F4737B4A9.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C9EB444AC1A8016B6271B872C56619BDE.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CFB8A6994F4DAA2DDEE5F4BFE765846CE.jpg)
+
+### 节点流和处理流的区别与联系
+
+1.节点流是底层流/低级流，直接跟数据源相接
+
+2.处理流(包装流)包装节点流，既可以清除不同节点流之间的差异，也可以提供更方便的方法来完成输入输出。
+
+3.处理流对节点流进行包装，使用了修饰器设计模式，不会直接与数据源相连
+
+
+
+处理流的主要功能:
+
+1.性能的提高:主要以缓冲的方式提高输入输出的效率
+
+2.操作更灵活，可一次输入输出大批量数据
