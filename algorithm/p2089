@@ -1,0 +1,56 @@
+https://www.luogu.com.cn/problem/P2089
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n,ans;
+int main(){
+	cin>>n;
+	for(int a=1;a<=3;a++){
+		for(int b=1;b<=3;b++){
+			for(int c=1;c<=3;c++){
+				for(int d=1; d<=3; d++){
+				 for(int e=1; e<=3; e++){
+				 	for(int f=1; f<=3; f++){
+				 		for(int g=1; g<=3; g++){
+				for(int h=1; h<=3; h++){
+				for(int r=1; r<=3; r++){
+				for(int w=1; w<=3; w++){
+				if(a+b+c+d+e+f+g+h+r+w==n){
+					ans++;
+				}
+			  }
+			  }
+			  }
+			  }
+			         }
+			       }
+			    }
+			}
+		}
+	}
+	for(int a=1;a<=3;a++){
+		for(int b=1;b<=3;b++){
+			for(int c=1;c<=3;c++){
+				for(int d=1; d<=3; d++){
+				 for(int e=1; e<=3; e++){
+				 	for(int f=1; f<=3; f++){
+				 		for(int g=1; g<=3; g++){
+				for(int h=1; h<=3; h++){
+				for(int r=1; r<=3; r++){
+				for(int w=1; w<=3; w++){
+				if(a+b+c+d+e+f+g+h+r+w==n){
+					cout<<a<<" "<<b<<" "<<c<<" "<<d<<" "<<e<<" "<<f<<" "<<g<<" "<<h<<" "<<r<<" "<<w<<" "<<endl;
+				}
+			  }
+			  }
+			  }
+			  }
+			         }
+			       }
+			    }
+			}
+		}
+	}
+	
+	return 0;
+} 
