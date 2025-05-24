@@ -259,6 +259,68 @@ public class FileReaderDemo1 {
 
 ![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CFB8A6994F4DAA2DDEE5F4BFE765846CE.jpg)
 
+### 模拟使用
+
+```
+public abstract class Reader_ {//抽象类
+    public  void readFile(){
+
+    }
+    public void readString(){
+
+    }
+    //也可以用read()方法统一管理
+    //后面在调用时，利用对象动态绑定机制,绑定到对应的实现子类即可
+}
+//节点流--->和具体的数据源相关
+class FileReader_ extends Reader_{
+    public void readFile(){
+        System.out.println("对文件读取");
+    }
+}
+class StringReader_ extends Reader_{
+    public void readString(){
+        System.out.println("读取了字符串");
+    }
+}
+//做成处理流（包装流）
+class BufferedReader_ extends Reader_{
+    private Reader_ reader_;
+    //接收Reader_的子类对象
+    public BufferedReader_(Reader_ reader_) {
+        this.reader_ = reader_;
+    }
+    public void readFile(){
+        this.reader_.readFile();
+    }
+    //让方法更灵活,多次读取文件
+    public void readFiles(int num){
+        for (int i = 0; i < num; i++) {
+            reader_.readFile();
+        }
+    }
+    //扩展 readString,批量处理字符串数据
+    public void readString(int num){
+        for (int i = 0; i < num; i++) {
+            reader_.readString();
+        }
+    }
+}
+```
+
+```
+public class TestReader_ {
+    public static void main(String[] args) {
+        //对文件多次读取
+        BufferedReader_ bufferedReader = new BufferedReader_(new FileReader_());
+        bufferedReader.readFiles(5);
+        //对字符串多次读取
+        BufferedReader_ bufferedReader1=new BufferedReader_(new StringReader_());
+        bufferedReader1.readString(3);
+    }
+}
+```
+
 ### 节点流和处理流的区别与联系
 
 1.节点流是底层流/低级流，直接跟数据源相接
@@ -274,3 +336,57 @@ public class FileReaderDemo1 {
 1.性能的提高:主要以缓冲的方式提高输入输出的效率
 
 2.操作更灵活，可一次输入输出大批量数据
+
+处理流-BufferedReader和BufferedWriter属于字符流，按照字符来读取数据的，
+
+关闭时处理流，只需关闭外层流即可
+
+注意:1.BufferedReader和BufferedWriter是按照字符来操作的,所以不要操作二进制文件[声音,视频等....]，否则可能会造成文件损坏
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CD9B20AA6C50CA7326504F71124810558.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C6D88F35EA746801BC758ABAA39F539E8.jpg)
+
+## BufferedInputStream-BufferedOutputStream
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CF4DAB092AC0AE5176B89CA09B0EDCB2A.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C7E9873A38577990D21AFCDF5881242BE.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CD05FFF2EE630B2DC380214C3CF546471.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CE0A23772C37CE9D7E4C7876F932FBA5E.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CAFA284CEA3C01667D46C28AF8A26EED2.jpg)
+
+## 
+
+### 对象流-ObjectInputStream和ObjectOutputStream
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C34628C3397E07A2C42046978FEB0F4BC.jpg)
+
+#### 序列化与反序列化
+
+1.序列化就是在保存数据时，保存数据的值和数据类型
+
+2。反序列化就是在恢复数据时，恢复数据的值和数据类型
+
+3.需要让某个对象支持序列化机制，则必须让其类可序列化，该类必须实现以下两个接口之一:
+
+Serializable //这是一个标记接口，没有方法
+
+Externalizable//有方法需要实现，一般用Serializable
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C075FB59EC525B87154EDF80C8B4673D6.jpg)
+
+#### ObjectInputStream(反序列化）和ObjectOutputStream（序列化）
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C46B0E4A1F6753BDFD395FB83CC0D55BF.jpg)
+
+##### ObjectOutputStream
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C96114FE97369691BCA65FDE78D386CCB.jpg)
+
+##### ObjectInputStream
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CFB87A5C07859765B81292C20E34579EF.jpg)
