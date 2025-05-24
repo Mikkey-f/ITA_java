@@ -1,0 +1,35 @@
+https://www.luogu.com.cn/problem/P3392
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n,m,a[52][3];//数组a记录每一行W，B，R的个数 
+int ans,mi=100000;
+char c[52][52];
+int main(){
+	cin>>n>>m;
+	for(int i=1;i<=n;i++){
+		for(int j=1;j<=m;j++){
+			cin>>c[i][j];
+			if(c[i][j]=='W'){
+				a[i][0]++;
+			}
+			else if(c[i][j]=='B'){
+				a[i][1]++;
+			}
+			else{
+				a[i][2]++;
+			}
+		}
+	}
+	for(int i=1;i<=n-2;i++){//至少留两行 
+		for(int j=i+1;j<=n-1;j++){//至少留一行 
+			ans=0;//重置为0 
+			for(int k=1;k<=i;k++)ans+=m-a[k][0];//i之前的全涂白
+			for(int k=i+1;k<=j;k++)ans+=m-a[k][1];//i+1到 j全涂蓝 
+			for(int k=j+1;k<=n;k++)ans+=m-a[k][2];//j+1到 n全涂红 
+			mi=min(ans,mi);//取小 
+		}
+	}
+	cout<<mi;
+	return 0;
+}
