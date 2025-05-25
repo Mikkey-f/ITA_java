@@ -1,5 +1,6 @@
 [383. 赎金信 - 力扣（LeetCode）](https://leetcode.cn/problems/ransom-note/?envType=study-plan-v2&envId=top-interview-150)
-使用集合HashMap来记录每个字符存在的次数，这个当字符串里面的字符不仅仅是小写英文字母的时候效率更高，也可以用used数组来记录出现的次数，但是如果有其他字符那就不能用了
+使用集合HashMap来记录每个字符存在的次数，这个当字符串里面的字符不仅仅是小写英文字母的时候效率更高，
+也可以用used数组来记录出现的次数，但是如果有其他字符那就不能用了
 ```
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
@@ -20,7 +21,8 @@ class Solution {
 ```
 [[49. 字母异位词分组 - 力扣（LeetCode）](https://leetcode.cn/problems/group-anagrams/description/?envType=study-plan-v2&envId=top-100-liked)]
 哈希
-先把每个字符串的字符排序，排序后再转换成string,因为字母异位词的字符排序后的字符串都是一样的，把它当做键，字母异位次的集合当做value存入HashMap map中，返回map中所有所有value的集合。
+先把每个字符串的字符排序，排序后再转换成string,因为字母异位词的字符排序后的字符串都是一样的，把它当做键，字母异位次的集合当做value存入HashMap map中，
+返回map中所有所有value的集合。
 ```
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
@@ -34,6 +36,71 @@ class Solution {
             map.put(key,value);
         }
         return new ArrayList<List<String>>(map.values());
+    }
+}
+```
+[283. 移动零 - 力扣（LeetCode）](https://leetcode.cn/problems/move-zeroes/description/?envType=study-plan-v2&envId=top-100-liked)
+我自己的写法，要好多时间，找到一个0就把它后面的元素都向前移动一位，空出最后一位放0，注意这里的索引变化，都向前移动了一位i要--，还有t也要自减，末尾的0不用管了，不然会出现死循环
+```
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int t=nums.length-1;
+        for(int i=0;i<=t;i++){
+            if(nums[i]==0){
+                for(int j=i+1;j<nums.length;j++){
+                    nums[j-1]=nums[j];
+                }
+                nums[nums.length-1]=0;
+                i--;
+                t--;
+            }
+        }
+    }
+} 
+```
+
+方法二 
+双指针(官方提题解的 很难想到)
+先找到数组中第一个0元素的位置，初始化a和b，a遍历整个数组，在这个过程中，b和a把所有0围起来，b是左边界，a是右边界，时间复杂度n
+```
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int n=nums.length;
+        int a=0,b=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==0){//初始化a和b都指向数组中第一个0的位置
+                a=i;
+                b=i;
+                break;
+            }
+        }
+        for(;a<n;a++){
+            if(nums[a]!=0){
+                int temp=nums[a];
+                nums[a]=nums[b];
+                nums[b]=temp;
+                b++;
+            }
+        }
+    }
+}
+```
+方法三
+快慢双指针
+slow指针用于从开头开始按顺序填充非零元素，快指针用于遍历整个数组找到非零元素，快指针遍历完后，从慢指针位置开始在数组末尾填充0
+```
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int slow=0;
+        for(int fast=0;fast<nums.length;fast++){
+            if(nums[fast]!=0){
+                nums[slow]=nums[fast];
+                slow++;
+            }
+        }
+        for(int i=slow;i<nums.length;i++){
+            nums[i]=0;
+        }
     }
 }
 ```
