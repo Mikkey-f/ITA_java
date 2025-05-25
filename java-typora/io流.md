@@ -18,7 +18,7 @@
 
 `
 
-```
+```java
 //1.     字节输出流 FileOutputStream
         //写出一段文字到本地文件中。
         /**
@@ -206,7 +206,7 @@ public class FileReaderDemo1 {
 
 注意:FileWriter使用后,必须要close或flush(刷新)，否则数据一直在内存中. 根据业务考虑是选用覆盖模式还是追加模式。
 
-```
+```java
 /创建FileWriter对象
         /**   写入方式：
          *   2.write(char[]):写入指定数组
@@ -261,7 +261,7 @@ public class FileReaderDemo1 {
 
 ### 模拟使用
 
-```
+```java
 public abstract class Reader_ {//抽象类
     public  void readFile(){
 
@@ -308,7 +308,7 @@ class BufferedReader_ extends Reader_{
 }
 ```
 
-```
+```java
 public class TestReader_ {
     public static void main(String[] args) {
         //对文件多次读取
@@ -387,6 +387,146 @@ Externalizable//有方法需要实现，一般用Serializable
 
 ![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C96114FE97369691BCA65FDE78D386CCB.jpg)
 
+```java
+//完成数据的序列化以及反序列化
+public class ObjectOutputStreamdemo1 {
+    public static void main(String[] args) throws IOException {
+        //序列化后，保存的文件格式,不是存文本，而是按照它的格式保存
+        String filepath="C:\\code\\ideaprogram\\ITA_java\\story.txt";
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filepath));
+        //序列化数据到文件中
+        oos.writeInt(100);//int->Integer 实现了Serializable接口
+        oos.writeBoolean(true);//boolen->Boolean 实现了Serializable接口
+        oos.writeChar('a');//char->Character 实现了Serializable接口
+        oos.writeDouble(9.5);//double->Double 实现了Serializable接口
+        oos.writeUTF("张三");//String可以序列化
+
+        //保存一个dog对象
+        oos.writeObject(new Dog("王五",10,"日本","黄色"));
+        oos.close();
+        System.out.println("数据保存完毕(序列化形式)");
+
+    }
+}
+//如果需要序列化某个类的对象，必须实现接口
+class Dog implements Serializable {//默认为protected
+    private String name;
+    private int age;
+    private transient String color;//默认将里面所有属性都进行序列化，但除了static或transient修饰的成员
+    private static String nation;
+    //序列化对象时，要求里面的属性类型也需实现序列化接口
+    private Master master=new Master();//会报错,因为没有序列化
+    //serialVersionUID  序列化的版本号，提高兼容性
+    @Serial
+    private static final long serialVersionUID=1L;
+    public Dog(String name, int age,String nation,String color) {
+        this.name = name;
+        this.age = age;
+        this.nation=nation;
+        this.color=color;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", color='" + color + '\'' +
+                '}'+nation+" "+master;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
+class Master implements Serializable{
+
+}
+```
+
+
+
 ##### ObjectInputStream
 
 ![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CFB87A5C07859765B81292C20E34579EF.jpg)
+
+//读取     1.读取(反序列化）的顺序需要和保存数据（序列化）的顺序一致，否则会报异常
+
+注意特别重要的细节: 如果我们希望调用Dog方法，需要向下转型
+        //2.需要我们将Dog类的定义，拷贝到可以引用的位置。
+        //3.(如果输入和输出在不同包可能会使Dog路径不同,所以需要设为公有)
+
+```java
+ public class ObjectInputStreamdemo1 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        //指定反序列化的文件
+        String filepath="C:\\code\\ideaprogram\\ITA_java\\story.txt";
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("C:\\code\\ideaprogram\\ITA_java\\story.txt"));
+       //读取     1.读取(反序列化）的顺序需要和保存数据（序列化）的顺序一致，否则会报异常
+        System.out.println(ois.readInt());
+        System.out.println(ois.readBoolean());
+        System.out.println(ois.readChar());
+        System.out.println(ois.readDouble());
+        System.out.println(ois.readUTF());
+        //dog的编译类型是Object,dog的运行类型是Dog
+        Object dog = ois.readObject();
+        System.out.println("运行类型="+dog.getClass());
+        System.out.println(dog);//底层 Object->Dog
+        //注意特别重要的细节: 如果我们希望调用Dog方法，需要向下转型
+        //2.需要我们将Dog类的定义，拷贝到可以引用的位置。
+        //3.(如果输入和输出在不同包可能会使Dog路径不同,所以需要设为公有)
+        Dog dog2=(Dog)dog;
+        System.out.println(dog2.getName());
+
+        //关闭外层流即可，底层会关闭FileInputStream
+        ois.close();
+
+    }
+}
+```
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C690D5A1DD56039B5E052223E5B6A9244.jpg)
+
+注意事项--->见上方代码
+
+1.读写顺序要一致
+
+2.要求序列化或反序列化对象，需要实现Serializable
+
+3.序列化的类中建议添加SerialVersionUID,为了提高版本兼容性
+
+4.序列化对象时，默认将里面所有属性都进行序列化，但除了static或transient修饰的成员
+
+5.序列化对象时，要求里面的属性类型也需实现序列化接口
+
+6.序列化具备可继承性，某类实现了序列化，其子类也默认实现了
+
+### 标准输入输出流
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C5C1A07415C807517589018EEAF250DD7.jpg)
+
+```java
+//System类的 public static final InputStream in = null;
+//System.in 编译类型 InputStream
+//System.in 运行类型 BufferedInputStream 标准输入->键盘
+
+System.out.println(System.in.getClass());//java.io.BufferedInputStream
+
+//1.public static final PrintStream out = null;
+//2.System.out 编译类型 PrintStream
+//3.System.out 运行类型 PrintStream   标准输出->显示器
+
+System.out.println(System.out.getClass());
+```
