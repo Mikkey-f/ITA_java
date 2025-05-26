@@ -1,0 +1,27 @@
+https://www.luogu.com.cn/problem/P1104
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n;
+struct ss{
+	string s;
+	int y,m,d,id;
+}a[100];
+bool cmp(ss x,ss z){
+	if(x.y!=z.y) return x.y<z.y;//如果两人出生年份不同，就将年份小的放在数组前面 
+	else if(x.m!=z.m) return x.m<z.m;//同理 
+	else if(x.d!=z.d) return x.d<z.d;
+	else return x.id>z.id;//生日一样，就比较id(输入的顺序) ，id大的放在前面 
+}
+int main(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		cin>>a[i].s>>a[i].y>>a[i].m>>a[i].d; 
+		a[i].id=i;
+	}
+	sort(a+1,a+n+1,cmp);//结构体排序 
+	for(int i=1;i<=n;i++){
+		cout<<a[i].s<<endl;
+	}
+	return 0;
+}
