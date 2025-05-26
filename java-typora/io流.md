@@ -530,3 +530,99 @@ System.out.println(System.in.getClass());//java.io.BufferedInputStream
 
 System.out.println(System.out.getClass());
 ```
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C7A4E5246D137B2B6CF5F8FA50D2F8EFC.jpg)
+
+```
+//中文乱码问题
+public class transformationCodeQuestion {
+    public static void main(String[] args) throws IOException {
+        //1.用BufferedReader对象读取文件
+        //2.默认情况下读取文件是按照 UTF-8编码
+        String filename="C:\\code\\ideaprogram\\ITA_java\\q.txt";
+        //出现乱码的原因: 未指定转换方式
+        BufferedReader rea = new BufferedReader(new FileReader(filename));
+        String s = rea.readLine();
+        System.out.println(s);
+        rea.close();
+    }
+}
+```
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C2894F948A25CEF88CA750923E53822FA.jpg)
+
+##### InputStreamReader
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C36417461FD305942956A12FC073AF19F.jpg)
+
+```
+//利用InputStreamReader解决中文乱码问题。
+//将字节流 FileInputStream 转换成字符流 InputStreamReader, 指定编码方式
+public class InputStreamReader1 {
+    public static void main(String[] args) throws IOException {
+        String filename="C:\\code\\ideaprogram\\ITA_java\\q.txt";
+
+        //1.把FileInputStream 转换成 InputStreamReader
+        //2.编码指定为gbk.
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(filename), "gbk");
+       //3.把InputStreamReader 传入 BufferedReader
+        BufferedReader buf = new BufferedReader(isr);
+        //4. 读取
+        String s=buf.readLine();
+        System.out.println("读取内容: "+s);//不会出现乱码
+        isr.close();
+    }
+}
+
+```
+
+##### OutputStreamWriter
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C9C745ED5D949C3523526DCFC6FC0B889.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C1330CC52BB663F6FDF60613CE785A830.jpg)
+
+```
+//演示 OutputStreamWriter的使用
+//指定处理的编码形式 gbk/utf-8/utf8
+public class OutputStreamWriter1 {
+    public static void main(String[] args) throws IOException {
+         String Filepath="C:\\code\\ideaprogram\\ITA_java\\eps.txt";
+         String charSet="gbk";
+        OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(Filepath), charSet);
+        osw.write("hi,韩顺平教育");
+        osw.close();
+        System.out.println("按照 "+charSet+" 保存文件成功");
+    }
+}
+```
+
+### 打印流
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C3B9CD54F933C932CC5CB95930505A618.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C778FFA9C397935D8326AC00214A05A2B.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CF334981E599D5AB398A6421589EA2784.jpg)
+
+```
+//演示PrintStream (字节打印流/输出流)
+public class printStream_ {
+    public static void main(String[] args) throws IOException {
+        PrintStream out=System.out;
+
+        //默认输出数据的位置是标准输出,即显示器
+        out.print("john,hello");
+
+        //因为print底层使用的是write,所以我们可以直接调用write 打印/输出
+        out.write("说的道理".getBytes());
+        out.close();
+
+        //我们可以修改打印流输出的位置/设备
+        //1.输出修改成到:"C:\code\ideaprogram\ITA_java\story.txt"
+        //2.就会输出到 C:\code\ideaprogram\ITA_java\story.txt.
+        System.setOut(new PrintStream("C:\\code\\ideaprogram\\ITA_java\\story1.txt"));
+        System.out.println("helloabcde");
+    }
+}
+```
