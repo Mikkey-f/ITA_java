@@ -626,3 +626,96 @@ public class printStream_ {
     }
 }
 ```
+
+```
+//字符打印流
+public class printWriter_ {
+    public static void main(String[] args) throws IOException {
+        String filepath="C:\\code\\ideaprogram\\ITA_java\\ctl.txt";
+       // PrintWriter printWriter = new PrintWriter(System.out);
+       PrintWriter printWriter = new PrintWriter(new FileWriter(filepath));
+       printWriter.print("hi,北京你好");
+       printWriter.close();//flush+关闭流，才能数据写入。
+    }
+}
+
+```
+
+### Properties类
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C9AA17DDE72AD8AF5B1F409A7432752A5.jpg)
+
+##### 1.传统方法:
+
+```
+public class TraditionWays {
+    public static void main(String[] args) throws IOException {
+        //读取mysql.properties 文件，并获取相应数据
+        BufferedReader buf = new BufferedReader(new FileReader("src\\mysql.properties"));
+        String line;
+        while ((line=buf.readLine())!=null){
+            //获取对应的数据
+            String[] split = line.split("=");
+            System.out.println(split[0]+"的值为: "+split[1]);
+        }
+
+    }
+}
+```
+
+##### 2.Properties类方法
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C212D8EC9ADD50D05D1ACEB5E188071AF.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CB469945F5848E6B2DECD5A352ADA1E58.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C1B98C9DDD2FB1C598A0C8C065B640066.jpg)
+
+注意: 配值文件的格式需要为(键=值)，键值对不需要有空格，值不需要有引号。默认为String
+
+###### 案例1,简单读取 :
+
+```
+public class PropertiesWay {
+    public static void main(String[] args) throws IOException {
+        //1.创建Properties 对象
+        Properties pro = new Properties();
+        //2.加载指定配置文件
+        pro.load(new FileReader("src\\mysql.properties"));
+        //3.把k-v (键-值）显示控制台
+        pro.list(System.out);
+        //4.根据key 获取对应的值
+        String user = pro.getProperty("user");
+        String pwd = pro.getProperty("pwd");
+        System.out.println("用户名="+user);
+        System.out.println("密码="+pwd);
+    }
+}
+```
+
+###### 案例2和案例3，创建配置文件，修改文件内容
+
+```
+public class PropertiesWay2 {
+    public static void main(String[] args) throws IOException {
+        //使用Properties类来创建配置文件, 修改配置文件内容
+        Properties properties = new Properties();
+
+        //创建
+        //如果该文件没有key, 就是创建
+        //2.如果该文件有key, 就是修改。
+        /*
+               Properties 父类是 Hashtable, 底层就是Hashtable 核心方法:如果 key存在，
+               就替换; 如果是新key, 就addEntry.
+
+         */
+        properties.setProperty("user","汤姆");//保存中文时，字节流是中文的unicode码值.
+        properties.setProperty("pwd","123456");
+        properties.setProperty("charSet","utf8");
+        properties.setProperty("pwd","114514");
+        //将k-v保存到文件中.
+        properties.store(new FileWriter("week4andweek5\\mysql.properties2"),null);//第二个参数的作用:注释
+        System.out.println("保存文件配置成功!");
+    }
+}
+```
