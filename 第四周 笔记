@@ -21,7 +21,85 @@
 
 
 （2）Map接口
+泛型方法
 
+原始类型：未指定泛型参数的集合（如 List）。
+兼容性：Java 允许原始类型与任何泛型类型兼容，但会产生编译器警告（如 "unchecked conversion"）
+所有泛型的超类型
+
+5.21.2025
+坦克大战
+
+
+
+
+5.23.2025
+线程
+
+
+Thread 类与 Runnable 接口的关系
+Runnable有run方法
+Thread本也实现了Runnable方法，他有run方法和start方法
+
+Java 中创建线程有两种主要方式：
+
+1.继承 Thread 类（需重写 run() 方法）
+2.实现 Runnable 接口（需实现 run() 方法）
+Java 采用 Runnable + Thread 的分离设计，是为了实现任务与执行的解耦：
+
+Runnable 专注定义任务逻辑（“做什么”）
+Thread 负责线程管理（“如何执行”）
+
+Thread才有start方法，Runnable用来写明run方法
+但 Runnable 本身不是线程，它只是定义了线程要执行的任务。要让任务在独立线程中运行，需要将 Runnable 实例传递给 Thread 类的构造函数：
+1. Runnable 接口：定义任务逻辑
+Runnable 是一个函数式接口，仅包含一个抽象方法 run()，用于定义线程要执行的任务：
+
+java
+@FunctionalInterfacepublic interface Runnable {
+    void run(); // 线程执行的核心逻辑}
+
+作用：将任务逻辑（“做什么”）与线程管理（“如何执行”）分离。
+实现方式：通过 implements Runnable 并重写 run() 方法，或使用 Lambda 表达式。
+2. Thread 类：负责线程的创建与启动
+Thread 是 Java 对操作系统线程的封装，提供了启动和管理线程的方法：
+
+java
+public class Thread implements Runnable {
+    public Thread(Runnable target) { /* 构造函数 */ }
+    public synchronized void start() { /* 启动新线程 */ }
+    @Override
+    public void run() { /* 线程执行的入口，默认调用 target.run() */ }}
+
+
+关键方法：
+start()：启动新线程，触发 JVM 调用 run() 方法。
+run()：线程的执行体，默认实现为调用构造时传入的 Runnable 对象的 run() 方法。
+
+
+通知线程退出
+线程中断
+
+线程插队
+
+
+守护线程
+SetDaemon(true);
+
+
+5.25.2025
+线程7大状态
+（背下来）
+
+
+线程同步
+Synchronized
+
+
+
+互斥锁
+死锁
+释放锁
 
 
 
