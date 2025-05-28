@@ -1,0 +1,23 @@
+https://www.luogu.com.cn/problem/P1469
+
+#include<bits/stdc++.h> 
+using namespace std;
+int n,b[10000005];
+map<int,int>a;
+int main(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		cin>>b[i];
+		a[b[i]]++;//记录该长度出现的次数
+	}
+	for(int i=1;i<=n;i++){
+		if(a[b[i]]%2==1){//如果是奇数，说明为多余的筷子
+			cout<<b[i];
+			break;
+		}
+	}
+	return 0;
+} 
+ 
+//这个答案会导致空间溢出
+//考虑用异或
