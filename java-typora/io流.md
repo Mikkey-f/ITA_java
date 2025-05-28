@@ -719,3 +719,155 @@ public class PropertiesWay2 {
     }
 }
 ```
+
+### 本章作业
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CE7251D4CE1014E1767BA0BC348FADB16.jpg)
+
+
+
+```
+public class ioHomework1 {
+    public static void main(String[] args) throws IOException {
+        String pathname="C:\\code\\ideaprogram\\ITA_java\\mytemp";
+        File f = new File(pathname);
+        if(!f.exists()){
+            //创建
+            if(f.mkdirs()){
+                System.out.println("创建"+pathname+"成功");
+            }else {
+                System.out.println("创建"+pathname+"失败");
+            }
+        }
+        String pathname1=pathname+"\\hello.txt";//pathname+"\\hello.txt"
+        File f1=new File(pathname1);
+        if(f1.exists()){
+            System.out.println(pathname1+"已存在,不需要重复创建了");
+        }else{
+            f1.createNewFile();//创建新文件。
+            //如果创建成功,用BufferedWriter 字符输出流写入内容
+            BufferedWriter br = new BufferedWriter(new FileWriter(pathname1));
+            br.write("hello,world!");
+            br.close();
+        }
+
+    }
+}
+
+```
+
+
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C916A1560E3FC502BF1CFE34E57834803.jpg)
+
+```
+public class ioHomework2 {
+    public static void main(String[] args) throws IOException {
+        String pathname="C:\\code\\ideaprogram\\ITA_java\\story.txt.txt";
+        //由于把文件编码方式改为了gbk码,用InputStreamReader 转换
+        InputStreamReader isr = new InputStreamReader(new FileInputStream(pathname), "gbk");
+        BufferedReader br = new BufferedReader(isr);
+        String line;
+        int i=0;
+        while ((line=br.readLine())!=null){
+            ++i;
+            System.out.println("行号"+i+" "+line);
+        }
+        br.close();
+    }
+}
+```
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C6D23783E48CECB314ADF88EF34E76A77.jpg)
+
+```
+public class Homework3 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
+        //一.先编写一个dog.properties
+        Properties properties = new Properties();
+        properties.setProperty("name", "tom");
+        properties.setProperty("age", "5");
+        properties.setProperty("color", "red");
+        //传入文件
+        properties.store(new FileWriter("week4andweek5\\dog.properties"), null);
+
+        String name = new String(properties.getProperty("name"));//Object->String
+        int age = Integer.parseInt(properties.getProperty("age"));//Object->int
+        String color = new String(properties.getProperty("color"));//Object->String
+        String pathname = "week4andweek5\\dog.properties";
+        Dog dog = new Dog(name,age,color);
+        //将创建的对象序列化到pathname对应的文件
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(pathname));
+        oos.writeObject(dog);
+        System.out.println("dog数据序列化完毕");
+        oos.close();
+        //反序列化
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pathname));
+        Object o = ois.readObject();
+        Dog dog1=(Dog)o;
+        //获取类名
+        System.out.println(dog1.getClass());
+        System.out.println(o);
+        ois.close();
+        System.out.println("数据反序列化完毕!");
+
+//
+//        String pathname="week4andweek5\\dog.properties";
+//        //1.序列化
+//        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(pathname));
+//        oos.writeObject(new Dog("李四",10,"红色"));
+//        System.out.println("数据序列化完毕");
+//
+//        //2.反序列化,输出到控制台上
+//        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(pathname));
+//        Object obj = ois.readObject();
+//        System.out.println(obj);
+//    }
+    }
+}
+class Dog implements Serializable{
+    private String name;
+    private int age;
+    private String color;
+
+    public Dog(String name, int age, String color) {
+        this.name = name;
+        this.age = age;
+        this.color = color;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", color='" + color + '\'' +
+                '}';
+    }
+}
+```
