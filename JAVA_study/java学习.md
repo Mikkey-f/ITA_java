@@ -1611,3 +1611,411 @@ for(int i = 0; i < arr.length; i++){
 }
 ```
 
+#### 数组扩容
+
+要求：实现动态的给数组添加元素效果，实现对数组扩容。
+
+1. 原始数组使用静态分配 int [] arr = {1,2,3}
+
+2. 增加的元素 4，直接放在数组的最后 arr = {1,2,3,4}
+
+3. 用户可以通过如下方法来决定是否继续添加，添加成功，是否继续？y/n
+
+4. ```java
+	/*思路分析
+	定义初始数组 int [] arr = {1,2,3};// 下标 0-2
+	定义一个新的数组 int [] arrNew = new int [arr.length+1];
+	遍历 arr 数组，依次将 arr 的元素拷贝到 arrNew 数组
+	将 4 赋给 arrNew [arrNew.length - 1]；那么 4 赋给 arrNew 最后一个元素
+	让 arr 指向 arrNew ；arr = arrNew; 原来 arr 数组就被销毁
+	*/
+	int[] arr ={1,2,3};
+	int[] arrNew = new int[arr.length + 1];
+	for(int i = 0; i < arr.length; i++){
+	    arrNew[i] = arr[i];
+	}
+	
+	arrNew[arrNew.length - 1] = 4;
+	arr = arrNew;
+	```
+
+	动态删减
+
+	```java
+	Scanner myScanner = new Scanner(System.in);
+	//初始化数组
+	int[] arr = {1,2,3};
+	do {
+	    int[] arrNew = new int[arr.length + 1];
+	    //遍历 arr 数组，依次将arr的元素拷贝到 arrNew数组
+	    for(int i = 0; i < arr.length; i++) {
+	        arrNew[i] = arr[i];
+	    }
+	    System.out.println("请输入你要添加的元素");
+	    int addNum = myScanner.nextInt();
+	    //把addNum赋给arrNew最后一个元素
+	    arrNew[arrNew.length - 1] = addNum;
+	    //让 arr 指向 arrNew,
+	    arr = arrNew;
+	    //输出arr 看看效果
+	    System.out.println("====arr扩容后元素情况====");
+	    for(int i = 0; i < arr.length; i++) {
+	        System.out.print(arr[i] + "\t");
+	    }
+	}
+	//问用户是否继续
+	System.out.println("是否继续添加 y/n");
+	char key = myScanner.next().charAt(0);
+	if( key == 'n') { //如果输入n ，就结束
+	    break;
+	}
+	}while(true);
+	System.out.println("你退出了添加...");
+	```
+
+	#### 数组缩减
+
+	```java
+	     do {
+	            if(arr.length == 0) {
+	                System.out.println("数组已空，无法继续删除！");
+	                break;
+	            }
+	            
+	            System.out.print("请输入要删除的元素索引(0-" + (arr.length-1) + "): ");
+	            int deleteIndex = myScanner.nextInt();
+	            
+	            // 检查索引有效性
+	            if(deleteIndex < 0 || deleteIndex >= arr.length) {
+	                System.out.println("索引无效，跳过本次删除");
+	                continue;
+	            }
+	            
+	            // 创建新数组，长度减1
+	            int[] arrNew = new int[arr.length - 1];
+	            
+	            // 复制除要删除元素外的其他元素
+	            int newIndex = 0;
+	            for(int i = 0; i < arr.length; i++) {
+	                if(i != deleteIndex) {
+	                    arrNew[newIndex++] = arr[i];
+	                }
+	            }
+	            
+	            // 更新数组引用
+	            arr = arrNew;
+	            
+	            // 输出缩减后的数组
+	            System.out.println("====数组缩减后元素情况====");
+	            for(int num : arr) {
+	                System.out.print(num + "\t");
+	            }
+	            System.out.println();
+	            
+	            // 询问是否继续
+	            System.out.println("是否继续删除 y/n");
+	            char key = myScanner.next().charAt(0);
+	            if(key == 'n') {
+	                break;
+	            }
+	        } while(true);
+	```
+
+	
+
+	#### 
+
+#### 排序
+
+排序是将多个数据，依指定的顺序进行排列的过程。
+排序的分类：
+
+内部排序:
+
+指将需要处理的所有数据都加载到内部存储器中进行排序。包括 (交换式排序法、选择式排序法和插入式排序法)；
+
+外部排序法:
+数据量过大，无法全部加载到内存中，需要借助外部存储进行排序。包括 (合并排序法和直接合并排序法)。
+
+#####  冒泡排序法
+
+冒泡排序（Bubble Sorting）的基本思想是：通过对待排序序列从后向前（从下标较大的元素开始），依次比较相邻元素的值，若发现逆序则交换，使值较大的元素逐渐从前移向后部，就象水底下的气泡一样逐渐向上冒。
+
+总结冒泡排序特点
+
+1. 我们一共有 5 个元素，
+2. 一共进行了 4 轮排序，可以看成是外层循环
+3. 每 1 轮排序可以确定一个数的位置，比如第 1 轮排序确定最大数，第 2 轮排序，确定第 2 大的数位置，依次类推
+4. 当进行比较时，如果前面的数大于后面的数，就交换，每轮比较在减少 4→3→2→1
+
+```java
+/*数组 [24,69,80,57,13]
+第1轮排序：目标把最大数放在最后
+第1次比较[24,69,80,57,13]
+第2次比较[24,69,80,57,13]
+第3次比较[24,69,57,80,13]
+第4次比较[24,69,57,13,80]
+*/
+int[] arr = {24, 69, 80, 57, 13};
+int temp = 0; //用于辅助交换的变量
+// 将多轮排序使用外层循环包括起来
+for (int i = 0; i < 4; i++) { //外层循环是4次
+    for (int j = 0; j < 4 - i; j++) { //4次比较-3次-2次-1次
+        //如果前面的数>后面的数，就交换
+        if (arr[j] > arr[j + 1]) {
+            temp = arr[j];
+            arr[j] = arr[j + 1];
+            arr[j + 1] = temp;
+        }
+    }
+    System.out.println("==第" + (i + 1) + "轮==");
+    for (int j = 0; j < arr.length; j++) {
+        System.out.print(arr[j] + "\t");
+    }
+}
+```
+
+#### 查找
+
+顺序查找，二分查找
+
+案例演示：
+
+1. 有一个数列：白眉鹰王、金毛狮王、紫衫龙王、青翼蝠王猜数游戏：从键盘中任意输入一个名称，判断数列中是否包含此名称【顺序查找】要求：如果找到了，就提示找到，并给出下标值。
+2. 请对一个有序数组进行二分查找 {1,8, 10, 89, 1000, 1234}，输入一个数看看该数组是否存在此数，并且求出下标，如果没有就提示 “没有这个数”。
+
+```java
+//定义一个字符串数组
+String[] names = {"白眉鹰王", "金毛狮王", "紫衫龙王", "青翼蝠王"};
+Scanner myScanner = new Scanner(System.in);
+
+System.out.println("请输入名字");
+String findName = myScanner.next();
+
+//遍历数组，逐一比较，如果有，则提示信息，并退出
+//这里老师给大家一个编程思想/技巧，一个经典的方法
+int index = -1;
+for(int i = 0; i < names.length; i++) {
+    //比较 字符串比较 equals，如果要找到名字就是当前元素
+    if(findName.equals(names[i])) {
+        System.out.println("恭喜你找到 " + findName);
+        System.out.println("下标为= " + i);
+        //把i 保存到 index
+        index = i;
+        break;//退出
+     }
+}
+if(index == -1){//没有找到
+    System.out.println("sorry，没有找到" +);
+}
+```
+
+#### 二维数组
+
+入门
+
+```java
+//1. 从定义形式上看 int[][]
+//2. 可以这样理解，原来的一维数组的每个元素是一维数组，就构成二维数组
+int[][] arr = { {0, 0, 0, 0, 0, 0},
+                {0, 0, 1, 0, 0, 0},
+                {0,2, 0, 3, 0, 0},
+                {0, 0, 0, 0, 0, 0} };
+
+//关于二维数组的关键概念
+//(1)
+System.out.println("二维数组的元素个数=" + arr.length);
+//(2) 二维数组的每个元素是一维数组，所以如果需要得到每个一维数组的值
+//还需要再次遍历
+//(3) 如果我们要访问第（i+1)个一维数组的第j+1个值 arr[i][j];
+// 举例 访问 3, =》 他是第3个一维数组的第4个值 arr[2][3]
+System.out.println("第3个一维数组的第4个值是=" + arr[2][3]); 
+
+//输出二维图形
+for(int i = 0; i < arr.length; i++) { //遍历二维数组的每个元素
+    //遍历二维数组的每个元素(数组)
+    //老韩解读
+    //1. arr[i] 表示 二维数组的第i+1个元素 比如arr[0]：二维数组的第一个
+    //2. arr[i].length 得到 对应的 每个一维数组的长度
+    for(int j = 0; j < arr[i].length; j++) {
+        System.out.print(arr[i][j] + " "); //输出了一维数组
+    }
+}
+```
+
+
+
+内存布局
+
+```java
+public class TwoDimensionalArray02 {
+    //编写一个main方法
+    public static void main(String[] args) {
+        int arr[][] = new int[2][3];
+        arr[1][1] = 8;
+        //遍历arr数组
+        for(int i = 0; i < arr.length; i++) {
+            for(int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();//换行
+        }
+    }
+}
+```
+
+![image-20250522211443074](../../AppData/Roaming/Typora/typora-user-images/image-20250522211443074.png)
+
+![image-20250523105331743](../../AppData/Roaming/Typora/typora-user-images/image-20250523105331743.png)
+
+数组的使用，动态初始化的三种方式
+
+```java
+int[][] arr = new int[3][]; //创建 二维数组 一个有三个的一维数组，但是每个一维数组还没有开数据空间
+for(int i = 0; i < arr.length; i++) { //遍历arr每个一维数组
+    //给每个一维数组开空间 new
+    //如果没有给一维数组 new ,那么 arr[i]就是null
+    arr[i] = new int[i + 1];
+
+    //遍历一维数组, 并给一维数组的每个元素赋值
+    for(int j = 0; j < arr[i].length; j++) {
+        arr[i][j] = i + 1; //赋值
+    }
+}
+
+System.out.println("=====arr元素====");
+//遍历arr输出
+for(int i = 0; i < arr.length; i++) {
+    //输出arr的每一个一维数组
+    for(int j = 0; j < arr[i].length; j++) {
+        System.out.print(arr[i][j] + " ");
+    }
+    System.out.println();//换行
+}
+```
+
+静态初始化
+
+![image-20250523140914194](../../AppData/Roaming/Typora/typora-user-images/image-20250523140914194.png)
+
+比如:
+int [][] arr = {{1,1,1}, {8,8,9}, {100}};
+解读
+
+1. 定义了一个二维数组 arr
+2. arr 有三个元素 (每个元素都是一维数组)
+3. 第一个一维数组有 3 个元素，第二个一维数组有 3 个元素，第三个一维数组有 1 个元素
+
+
+
+二维数组练习1
+
+```java
+遍历一个二维数组并且求和
+int arr[][]={{4,6},{1,4,5,7},{-2}};
+int sum = 0;
+for(int i = 0; i < arr.length; i++) {
+    //遍历每个一维数组
+    for(int j = 0; j < arr[i].length; j++) {
+        sum += arr[i][j];
+    }
+}
+System.out.println("sum=" + sum);
+```
+
+杨辉三角
+
+1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1
+1 5 10 10 5 1
+...
+
+【提示】
+
+第一行有 1 个元素，第 n 行有 n 个元素
+每一行的第一个元素和最后一个元素都是 1
+从第三行开始，对于非第一个元素和最后一个元素的元素的值，arr [i][j] = arr [i - 1][j] + arr [i - 1][j - 1]
+
+```java
+/*规律
+
+第一行有 1 个元素，第 n 行有 n 个元素
+每一行的第一个元素和最后一个元素都是 1
+从第三行开始，对于非第一个元素和最后一个元素的元素的值，arr [i][j]
+arr [i][j] = arr [i-1][j] + arr [i-1][j-1]; // 必须找到这个规律*/
+
+public class Main {
+    public static void main(String[] args) {
+        int[][] yangHui = new int[10][];
+        // 构建杨辉三角
+        for (int i = 0; i < yangHui.length; i++) {
+            yangHui[i] = new int[i + 1];
+            for (int j = 0; j < yangHui[i].length; j++) {
+                if (j == 0 || j == yangHui[i].length - 1) {
+                    yangHui[i][j] = 1;
+                } else {
+                    yangHui[i][j] = yangHui[i - 1][j] + yangHui[i - 1][j - 1];
+                }
+            }
+        }
+
+        // 单独的输出逻辑，修正嵌套问题
+        for (int i = 0; i < yangHui.length; i++) {
+            for (int j = 0; j < yangHui[i].length; j++) {
+                System.out.printf("%6d", yangHui[i][j]); // 格式化输出宽度为6
+            }
+            System.out.println();
+        }
+    }
+}
+
+二维数组使用细节和注意事项
+```
+
+二维数组使用细节和注意事项
+
+1. 一维数组的声明方式有：
+	int [] x 或者 int x []
+2. 二维数组的声明方式有：
+	int [][] y 或者 int [] y [] 或者 int y [][]
+3. 二维数组实际上是由多个一维数组组成的，它的各个一维数组的长度可以相同，也可以不相同。比如：map [][] 是一个二维数组
+	int map [][] = {{1,2},{3,4,5}}
+	由 map [0] 是一个含有两个元素的一维数组，map [1] 是一个含有三个元素的一维数组构成， 这也称为列数不等的二维数组。
+
+
+
+
+
+## 类与对象
+
+问题引出：
+张老太养了两只猫猫：一只名字叫小白，今年 3 岁，白色。还有一只叫小花，今年 100 岁，花色。请编写一个程序，当用户输入小猫的名字时，就显示该猫的名字，年龄，颜色。如果用户输入的小猫名错误，则显示 张老太没有这只猫猫
+
+![image-20250523214045759](../../AppData/Roaming/Typora/typora-user-images/image-20250523214045759.png)
+
+![image-20250523214227821](../../AppData/Roaming/Typora/typora-user-images/image-20250523214227821.png)
+
+面向对象快速入门：
+
+```java
+//实例化一只猫[创建一只猫对象]
+//1.new Cat()创建一只猫(猫对象)
+//2.Cat cat1 = new Cat();把创建的猫赋给 cat1
+//3.cat1 就是一个对象
+Cat cat1 = new Cat();
+cat1.name = "小白";
+cat1.age = 3;
+cat1.color = "白色";
+
+Cat cat2 = new Cat();
+cat2.name = "小花";
+cat2.age = 100;
+cat2.color = "花色";
+
+System.out.println("第1只猫信息" + cat1.name + " " + cat1.age + " " + cat1.color);
+System.out.println("第1只猫信息" + cat2.name + " " + cat2.age + " " + cat2.color);
+```
+
