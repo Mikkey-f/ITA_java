@@ -1,0 +1,39 @@
+[3. 无重复字符的最长子串 - 力扣（LeetCode）](https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/?envType=study-plan-v2&envId=top-100-liked)
+滑动窗口
+用一个集合list来存储滑动窗口里的元素，list的大小就是无重复字符子串的长度，遍历字符串（向右移动左边界），如果下一个元素是在窗口里出现过的就删掉窗口里这个相同元素及这个相同元素前面的所有元素（向右移动左边界），维护一个maxm来记录这个过程里的集合的大小，每次取较大值
+```
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        List<Character> list=new ArrayList<>();
+        int maxm=0;
+        for(int i=0;i<s.length();i++){
+            while(list.contains(s.charAt(i))){
+                list.remove(0);
+            }
+            list.add(s.charAt(i));
+            maxm=Math.max(maxm,list.size());
+        }
+        return maxm;
+    }
+}
+```
+[560. 和为 K 的子数组 - 力扣（LeetCode）](https://leetcode.cn/problems/subarray-sum-equals-k/description/?envType=study-plan-v2&envId=top-100-liked)
+前缀和+哈希
+假设存在子数组nums[i..j]的和为 k，子数组和
+ k = prefix[j] - prefix[i-1] 移项得 prefix[i-1] = prefix[j] - k，所以计算前缀和的过程中，如果发现存在prefix[i-1] = prefix[j] - k，那么将cnt加上个数，时间复杂度是n
+```
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int cnt=0,pre=0;
+        Map<Integer,Integer> map=new HashMap<>();
+        map.put(0,1);//初始化前缀和为0的个数为1
+        for(int i=0;i<nums.length;i++){
+            pre+=nums[i];
+            if(map.containsKey(pre-k))
+                cnt+=map.get(pre-k);
+            map.put(pre,map.getOrDefault(pre,0)+1);
+        }
+       return cnt; 
+    }
+}
+```
