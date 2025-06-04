@@ -1,45 +1,31 @@
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+package com.szj.reflection;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author 司志俊
  * @version 1.0
  */
-@SuppressWarnings({"ALL"})
 public class Homework {
-    public static void main(String[] args) {
-        List list = new ArrayList();
-        list.add(new Dog("hei",3));
-        list.add(new Dog("bai",2));
-        list.add(new Dog("huang",4));
+    public static void main(String[] args) throws Exception{
+        Class<PrivateTest> privateTestClass = PrivateTest.class;
+        PrivateTest privateTestOdj = privateTestClass.newInstance();
+        //得到name属性
+        Field name = privateTestClass.getDeclaredField("name");
+        name.setAccessible(true);
+        name.set(privateTestOdj,"八部天龙");
 
-        for (Object dog : list) {
-            System.out.println("dog="+dog);
-        }
-
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext()) {
-            Object dog =  iterator.next();
-            System.out.println("dog="+dog);
-
-        }
+        Method getName = privateTestClass.getMethod("getName");
+        Object invoke = getName.invoke(privateTestOdj);
+        System.out.println("name属性的值=" + invoke);
     }
 }
-class Dog{
-    String name;
-    int age;
 
-    public Dog(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+class PrivateTest {
+    private String name = "hellokitty";
 
-    @Override
-    public String toString() {
-        return "Dog{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+    public String getName(){
+        return name;
     }
 }

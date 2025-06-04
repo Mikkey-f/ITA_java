@@ -1,13 +1,25 @@
-package com.poly.Objectpoly;
+package com.szj;
 
-import com.poly.Animal;
+/**
+ * @author 司志俊
+ * @version 1.0
+ */
+public class Cat {
 
-public class Cat extends Animal {
+    private String name = "招财猫";
+    public int age = 10;
+
+    public Cat(){}
+
     public Cat(String name) {
-        super(name);
+        this.name = name;
     }
 
-    public void cry() {
-        System.out.println("Cat cry() 小猫喵喵叫");
+    public void hi(){
+        //System.out.println("hi "+ name);
+    }
+
+    public void cry(){
+        System.out.println(name + " 喵喵叫...");
     }
 }
