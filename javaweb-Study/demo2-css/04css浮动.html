@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*由于div 是三个块,分别独占一行,如果要让三个都在一行,不能直接用display:inline将其变成行,
+          否则会失去原有块的特征.                                   display:block(默认为块)
+
+          可以用float向右或左浮动
+  
+        */
+        .outerDiv{
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+            background-color: beige;
+
+        }
+        .innerDiv{
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+        }
+
+        .d1{
+            background-color: greenyellow;
+            float: left;
+        }
+        .d2{
+            background-color: rgb(210, 119, 119);
+            float: left;
+        }
+        .d3{
+            background-color: rgb(143, 209, 215);
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="outerDiv">
+        <div class="innerDiv d1">div1</div>
+        <div class="innerDiv d2">div2</div>
+        <div class="innerDiv d3">div3</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+input{
+        /*元素选择器,通过标签名确定样式的作用元素*/
+        width: 60px; 
+        height: 40px; 
+        background-color: rgb(47, 255, 85);
+        color: white;
+        font-size: 20px;         
+        font-family: 隶书;
+        border: 2px solid green; 
+        border-radius: 5px; 
+       
+        }

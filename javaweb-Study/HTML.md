@@ -480,7 +480,7 @@
         css 设置样式的
             通过元素的style属性进行设置
             style= "样式名:样式值; 样式名:样式值;... ..."
-
+                (重点)
         块元素: 自己独占一行的元素 块元素的CSS样式的宽  高等等 往往都是生效的
                 div h1-h6....
         
@@ -658,6 +658,303 @@ html文件中:
        <input type="button" value="按钮">
        <input type="button" value="按钮">
        <input type="button" value="按钮">
+</body>
+</html>
+```
+
+### 2.css的常用选择器
+
+#### 1.元素选择器
+
+​      语法:标签名{}
+
+​      缺点:某些同名的元素不希望使用某些样式,某些不同名的元素也使用该样式,都无法协调
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input{
+            width: 80px;
+            height: 40px;
+            background-color: chartreuse;
+            color: white;
+            border: 3px solid green;
+            font-size: 22px;
+            font-family:'隶书';
+            line-height: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+    <input type="button" value="按钮">
+</body>
+</html>
+```
+
+#### 2. id选择器
+
+根据标签的id值确定样式的作用元素
+
+​           一般每个元素都有id属性,但是在一个页面中,id的值不应该相同,id具有唯一性
+
+​      语法: #id值{}
+
+​      缺点: id具有唯一性,样式只能作用到一个元素上
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+      
+        #y1{
+            width: 80px;
+            height: 40px;
+            background-color: chartreuse;
+            color: white;
+            border: 3px solid green;
+            font-size: 22px;
+            font-family:'隶书';
+            line-height: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <input id="y1"type="button" value="按钮">
+    <input id="y2"   type="button" value="按钮">
+    <input id="y3" type="button" value="按钮">
+    <input id="y4" type="button" value="按钮">
+</body>
+</html>
+```
+
+#### 3.  class选择器
+
+根据元素的class属性值确定样式的作用元素
+
+​            元素的class属性值可以重复 而且一个元素的class属性可以有多个值
+
+​      语法:  .class属性值{}
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*
+        1. 元素选择器
+           语法:标签名{}
+           缺点:某些同名的元素不希望使用某些样式,某些不同名的元素也使用该样式,都无法协调
+
+        2. id选择器  根据标签的id值确定样式的作用元素
+                     一般每个元素都有id属性,但是在一个页面中,id的值不应该相同,id具有唯一性
+           语法: #id值{}
+           缺点: id具有唯一性,样式只能作用到一个元素上
+
+        3. class选择器 根据元素的class属性值确定样式的作用元素
+                       元素的class属性值可以重复 而且一个元素的class属性可以有多个值
+            语法:  .class属性值{}
+
+        */
+        .shapeClass{
+            width: 80px;
+            height: 40px;
+            border-radius: 5px;
+        }
+        .colorClass{
+            background-color: chartreuse;
+            color: white;
+            border: 3px solid green;
+        }
+        .fontClass{
+            font-size: 22px;
+            font-family:'隶书';
+            line-height: 30px;
+        }
+
+
+
+        /* input{
+            width: 80px;
+            height: 40px;
+            background-color: chartreuse;
+            color: white;
+            border: 3px solid green;
+            font-size: 22px;
+            font-family:'隶书';
+            line-height: 30px;
+            border-radius: 5px;
+        } */
+
+        /* #y1{
+            width: 80px;
+            height: 40px;
+            background-color: chartreuse;
+            color: white;
+            border: 3px solid green;
+            font-size: 22px;
+            font-family:'隶书';
+            line-height: 30px;
+            border-radius: 5px;
+        } */
+    </style>
+</head>
+<body>
+    <input id="y1"type="button" value="按钮">
+    <input id="y2" class="shapeClass colorClass"  type="button" value="按钮">
+    <input id="y3" type="button" value="按钮">
+    <input id="y4" type="button" value="按钮">
+</body>
+</html>
+```
+
+### 3.css浮动
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CD9EAB38D96A764D9F6F79D968A44F91C.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CF966DD3D1DEA70722082BD8591802E5F.jpg)
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*由于div 是三个块,分别独占一行,如果要让三个都在一行,不能直接用display:inline将其变成行,
+          否则会失去原有块的特征.                                   display:block(默认为块)
+
+          可以用float向右或左浮动
+  
+        */
+        .outerDiv{
+            width: 500px;
+            height: 300px;
+            border: 1px solid green;
+            background-color: beige;
+
+        }
+        .innerDiv{
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+        }
+
+        .d1{
+            background-color: greenyellow;
+            float: left;
+        }
+        .d2{
+            background-color: rgb(210, 119, 119);
+            float: left;
+        }
+        .d3{
+            background-color: rgb(143, 209, 215);
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="outerDiv">
+        <div class="innerDiv d1">div1</div>
+        <div class="innerDiv d2">div2</div>
+        <div class="innerDiv d3">div3</div>
+    </div>
+</body>
+</html>
+```
+
+### 4.css定位
+
+postion:
+
+​       static  默认
+
+​       absolute  绝对
+
+​       relative  相对  相对元素原本的位置,不脱离文档流,不会被其他元素占用
+
+​       fixed  相对   相对浏览器窗口,脱离文档流
+
+​    left
+
+​    right
+
+​    top
+
+​    bottom
+
+​    ->距离各个方向多少个像素
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        .innerDiv{
+            width: 100px;
+            height: 100px;
+            border: 1px solid blue;
+        }
+
+        .d1{
+            background-color: greenyellow;
+            position: fixed;
+            top: 30px;
+            left: 30px;
+        }
+        .d2{
+            background-color: rgb(210, 119, 119);
+        }
+        .d3{
+            background-color: rgb(143, 209, 215);
+           
+        }
+        /* 
+        postion:
+             static  默认
+             absolute  绝对
+             relative   相对  相对元素原本的位置,不脱离文档流,不会被其他元素占用
+             fixed   相对     相对浏览器窗口,脱离文档流
+        left
+        right
+        top
+        bottom
+        ->距离各个方向多少个像素
+
+
+        */
+    </style>
+</head>
+<body>
+        <div class="innerDiv d1">div1</div>
+        <div class="innerDiv d2">div2</div>
+        <div class="innerDiv d3">div3</div>
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>
 ```
