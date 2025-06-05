@@ -1037,3 +1037,166 @@ postion:
 </html>
 ```
 
+## JavaScript
+
+### 1.js的引入方式
+
+外部脚本文件js/button.js:
+
+```html
+引入方式
+         1.内嵌式 在head中通过一对script标签定义脚本代码
+         2.引入外部脚本文件  在head中通过一对script标签引入外部js文件
+                          <script src="js/button.js" type="text/javascript"></script>
+         注意:
+             1 一个html可以有多个script标签
+             2 一对script标签不能在引入外部js文件时同时定义内部脚本
+             3 script标签如果用于引入外部文件, 中间最好不要有任何字符 包括空格和换行
+```
+
+
+
+```html
+function surprise(){
+            //弹窗提示
+            alert("hello,我是惊喜!")
+        }
+```
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn1{
+            width: 150px;
+            height: 40px;
+            font-size: 24px;
+            font-family: '隶书';
+            background-color: yellow;
+            color: rgb(rgb(145, 15, 15), green, blue);
+            border: 3px solid rgb(145, 15, 15);
+            border-radius: 5px;
+        }
+    </style>
+    <!--  
+         引入方式
+         1.内嵌式 在head中通过一对script标签定义脚本代码
+         2.引入外部脚本文件  在head中通过一对script标签引入外部js文件
+                          <script src="js/button.js" type="text/javascript"></script>
+         注意:
+             1 一个html可以有多个script标签
+             2 一对script标签不能在引入外部js文件时同时定义内部脚本
+             3 script标签如果用于引入外部文件, 中间最好不要有任何字符 包括空格和换行
+    
+    
+    -->
+    <script>
+        /*
+        1.js 如何声明函数:   java中的函数 public void surprise(){}
+                            js:function surprise(){}
+        2.函数如何和单击按钮绑定在一起: onclick="surprise()"
+        3.如何弹窗提示: alert("hello,我是惊喜!")
+
+        */
+        function surprise(){
+            //弹窗提示
+            alert("hello,我是惊喜!")
+        }
+    </script>
+    <script>
+        function hello(){
+            alert("hello,world")
+        }
+    </script>
+</head>
+<body>
+    <button class="btn1" onclick="surprise()">点我有惊喜</button>
+    <button class="btn1" onclick="hello()">Hello</button>
+</body>
+</html>
+```
+
+### 2.js的数据类型
+
+```
+JS是弱类型的,不是没有类型,声明变量时不指定类型,赋值时才确定类型,JS中的变量声明 统统使用var
+      int i=10 var=10;
+      String str="asdf" var str="asdf"
+     JS常见的数据类型
+          数值类型  number  整数 小数
+          字符串类型  string
+          布尔类型  boolean
+          引用类型  Object
+          function类型  function
+          命名未赋值  undefined  值 undefined
+          赋予null  Object  值  null
+     判断数据类型的运算符  typeof
+     
+js中 使用var声明变量的特点
+      1 弱类型变量,可以统一声明成var
+      2 var声明的变量可以再次声明
+      3 变量可以使用不同的数据类型多次赋值
+      4 JS的语句可以以; 结尾,也可以不用
+      5 变量标志符严格区分大小写
+      6 标志符的命名规则参照JAVA
+      7 如果使用了未声明的变量,运行时会报错
+      8 如果一个变量只声明不赋值, 那么值是undefined
+```
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    
+    //  var i=10;
+    //  var str="asdf"
+    //  console.log(i) /*打在控制台上*/
+    //  console.log(str)
+
+    var i=10
+    console.log(i)
+    console.log(typeof i)//number
+
+    var i="asdf"
+    console.log(i)
+    console.log(typeof i)//string
+
+    var i=1>10
+    console.log(i)
+    console.log(typeof i)//boolean
+
+    var i=new Object()
+    console.log(i)
+    console.log(typeof i)//object
+
+    function func(){
+
+    }
+    console.log(func)
+    console.log(typeof func)//function
+
+    var x=null
+    console.log(x)//null
+    console.log(typeof x)//object
+
+    
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
