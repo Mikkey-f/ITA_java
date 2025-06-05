@@ -1,0 +1,33 @@
+26
+
+import java.util.Arrays;
+import java.util.Scanner;
+ 
+@SuppressWarnings({"All"})
+public class LeetCode26 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        if (n == 0){
+            System.out.println(0);
+            return;
+        }
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) {
+            a[i] = scanner.nextInt();
+        }
+        int slow = 1;
+        int fast = 1;
+        while (fast<n){//双指针去重
+            if (a[fast] != a[slow-1]){
+                a[slow] = a[fast];
+                fast++;
+                slow++;
+            }
+        }
+        System.out.println(slow);//slow即为不重复元素的个数
+        System.out.println(Arrays.toString(Arrays.copyOf(a,slow)));
+    }
+ 
+ 
+}
