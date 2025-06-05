@@ -1,0 +1,40 @@
+88
+
+public class ll {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int m = scanner.nextInt();
+        int n = scanner.nextInt();
+ 
+        int[] a = new int[n + 1];
+        int[] b = new int[m + 1];
+        int[] c = new int[m + n + 1];
+ 
+        for (int i = 1; i <= m; i++) {
+            b[i] = scanner.nextInt();
+        }
+        for (int i = 1; i <= n; i++) {
+            a[i] = scanner.nextInt();
+        }
+ 
+        int l = 1, r = 1, j = 0;
+        while (l <= m && r <= n) {
+            if (b[l] < a[r]) {
+                c[++j] = b[l++];
+            } else {
+                c[++j] = a[r++];
+            }
+        }
+ 
+        while (l <= m) {
+            c[++j] = b[l++];
+        }
+        while (r <= n) {
+            c[++j] = a[r++];
+        }
+ 
+        for (int i = 1; i <= n + m; i++) {
+            System.out.print(c[i] + " ");
+        }
+    }
+}
