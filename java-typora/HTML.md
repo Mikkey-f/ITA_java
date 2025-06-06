@@ -1200,3 +1200,179 @@ js中 使用var声明变量的特点
 </html>
 ```
 
+### 3.js的运算符
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        1  算数   + - * / %
+              除0 Infinity
+              模0 NaN
+        2  复合算数 ++ -- += -= *= %=
+        3  关系  > < >= <= != == ===
+             ==  如果两端数据类型不一致,会尝试将两端都转换为number再对比
+             === 如果两端数据类型不一致,直接返回false,相同则会继续对比
+        4  逻辑  || &&
+        5  条件  条件表达式? 值1:值2
+        6  位  | & ^ << >> >>>
+        */
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+### 4.js的分支结构
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+             if
+
+             switch
+        */
+         
+        /*
+         prompt 返回的结果就是用户在窗口上输入的值,以string类型返回
+        */
+       var month=prompt("请输入月份");
+       console.log(typeof month)
+       //字符串转换成整数
+       var month=Number.parseInt(month);
+       console.log(typeof month)
+       if(month==12||month==1||month==2){
+        console.log("冬天")
+       }
+       else if(month>=3&&month<=5){
+        console.log("春天")
+       }
+       else if(month>=6&&month<=8){
+        console.log("夏天")
+       }else if(month>=9&&month<=11){
+         console.log("秋天")
+       }
+
+       /*
+         1 非空字符串 会判断为 true if("字符串")
+         2 非空对象  会判断为 true  if(new Object())
+         3 非0number 会判断为 true if(!=0)
+
+       */
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+### 5.js的循环结构
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        1.while   document:打印在屏幕上
+           var i=1
+           while(i<=9){
+             var j=1
+             while(j<=i){
+                 document.write(j+"*"+i+"="+(j*i)+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+                 j++
+             }
+             document.write("<hr>")
+             i++
+           }
+        2.for
+        for(var i=1;i<=9;i++){
+            for(var j=1;j<=9;j++){
+                document.write(j+"*"+i+"="+(j*i)+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+            }"
+            document.write("<hr>")
+          }
+
+        3.forEach 和java不同 for(var t:)中的"":"应该改为in,同时返回的是索引.
+        document.write("<ul>")
+        var arr=["北京","天津","上海"]
+        for(var v in arr){
+            document.write("<li>"+arr[v]+"</li>")
+        }
+        document.write("</ul>")
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+### 6.js的函数声明
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       /*
+       函数声明的语法
+          1. function 函数名(){}
+          2. var 函数名=function(){}
+     
+       和java相比有如下特点
+           1 没有访问修饰符
+           2 没有返回值类型也没有void 如果有值要返回,直接return即可
+           3 没有异常列表
+           4 调用方法时,实参和形参可以在数量上不一致, 在方法内部可以通过 arguments获得调用时的实参
+           5 函数也可以作为参数传递给另一个方法
+       */
+      //例:两数相加
+      //第一种方法
+        function sum(a,b){
+         return a+b
+       }
+       var sum1=sum(10,20)
+       console.log(sum1)
+      //第二种方法
+      var sum=function(a,b){
+        return a+b
+      }
+      function add(getSum){
+        return getSum(20,30)
+      }
+
+      //调用函数,接收结果
+      var sum1=add(sum)
+      console.log(sum1)//50
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
