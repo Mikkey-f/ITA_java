@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+           Java中  类 >>> 实例化 >>> 对象
+           创建对象的语法
+           方式1  new Object
+
+           方式2  {属性名:属性值,......,函数名:function(){}}
+
+        */
+
+        /*  方式1
+         var person=new Object();
+         person.name="张三"
+         person.age=10
+         person.eat=function(food){
+            console.log(this.age+"岁的"+this.name+"正在吃"+food)
+         }*/
+         
+        /*  方式2
+            var person={
+            "name":"张三",
+             "age":10,
+             "eat":function(food){
+                console.log(this.age+"岁的"+this.name+"正在吃"+food)
+             }
+         }
+
+        */
+         
+         console.log(person.name)
+         console.log(person.age)
+         person.eat("米饭")
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
