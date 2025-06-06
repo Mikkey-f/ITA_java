@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //1.while   document:打印在屏幕上
+        //   var i=1
+        //   while(i<=9){
+        //     var j=1
+        //     while(j<=i){
+        //         document.write(j+"*"+i+"="+(j*i)+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+        //         j++
+        //     }
+        //     document.write("<hr>")
+        //     i++
+        //   }
+        //2.for
+        /*for(var i=1;i<=9;i++){
+            for(var j=1;j<=9;j++){
+                document.write(j+"*"+i+"="+(j*i)+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;")
+            }"
+            document.write("<hr>")
+          }*/
+
+        //3.forEach 和java不同 for(var t:)中的"":"应该改为in,同时返回的是索引.
+        document.write("<ul>")
+        var arr=["北京","天津","上海"]
+        for(var v in arr){
+            document.write("<li>"+arr[v]+"</li>")
+        }
+        document.write("</ul>")
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

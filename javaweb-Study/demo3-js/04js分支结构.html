@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+             if
+
+             switch
+        */
+         
+        /*
+         prompt 返回的结果就是用户在窗口上输入的值,以string类型返回
+        */
+       var month=prompt("请输入月份");
+       console.log(typeof month)
+       //字符串转换成整数
+       var month=Number.parseInt(month);
+       console.log(typeof month)
+       if(month==12||month==1||month==2){
+        console.log("冬天")
+       }
+       else if(month>=3&&month<=5){
+        console.log("春天")
+       }
+       else if(month>=6&&month<=8){
+        console.log("夏天")
+       }else if(month>=9&&month<=11){
+         console.log("秋天")
+       }
+
+       /*
+         1 非空字符串 会判断为 true if("字符串")
+         2 非空对象  会判断为 true  if(new Object())
+         3 非0number 会判断为 true if(!=0)
+
+       */
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
