@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    /*
+      1.数据
+         1)数组的创建方式
+         2)数组的常见api
+
+    */
+   //1.数组拼接-concat
+     var fruits=["apple","banana","orange"]
+     var fruits2=["荔枝",'桃子','榴莲','榴莲','榴莲']
+     var fruitsAll=fruits.concat(fruits2)
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子', '榴莲']
+    console.log(fruits)//['apple', 'banana', 'orange']
+    console.log(fruits2)//  ['荔枝', '桃子', '榴莲']
+    
+    //2.移除并返回最后一个元素-pop
+    var res=fruitsAll.pop()
+    console.log(res) // '榴莲'
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子']
+
+    //3.从尾端增加元素并返回长度-push
+    var len=fruitsAll.push('葡萄')
+    console.log(len) // 6
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子', '葡萄']
+
+     //4. 查找榴莲
+     var index1=fruitsAll.indexOf("榴莲") //5
+     var index2=fruitsAll.lastIndexOf("榴莲")//6
+     console.log(index1) 
+     console.log(index2) 
+
+     //5.反转-reverse
+     fruitsAll.reverse()
+     console.log(fruitsAll) // ['葡萄', '榴莲', '榴莲', '桃子', '荔枝', 'orange', 'banana', 'apple']
+
+     //6.转换为字符串-join
+     console.log(fruitsAll.join("-")) //['葡萄', '榴莲', '榴莲', '桃子', '荔枝', 'orange', 'banana', 'apple']
+
+     //7.截取数据-slice
+     console.log(fruitsAll.slice(2,6))// 前闭后开  ['榴莲', '桃子', '荔枝', 'orange']
+
+     //8.删除或者增加数据
+     fruitsAll.splice(2,0,'el1','el2') //2:在第二个位置增加el1,el2; 0:删除几个元素
+     console.log(fruitsAll)
+
+     var v1='10'
+     var v2=10
+     console.log(Number.parseInt(v1+v2)) //1010
+
+    
+//    var arr=new Array("zhangsan",10,false)
+//    console.log(arr) // ['zhangsan', 10, false]
+//    console.log(arr.length)//3
+//    //添加数据
+//    arr[0]="zhangsan"
+//    arr[1]=10
+//    arr[9]=true
+//    arr.length=20
+//    console.log(arr)  // ['zhangsan', 10, false, 空 ×6, true, 空 ×10]
+//    console.log(arr.length) //20
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
