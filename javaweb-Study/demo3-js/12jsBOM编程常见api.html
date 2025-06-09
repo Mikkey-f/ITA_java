@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        window 对象是由浏览器提供给我们使用的，无需自己new
+               三种弹窗方式
+                   alert
+                   prompt
+                   confirm
+        
+               定时任务
+
+
+            history 窗口的访问历史
+            location
+            sessionStorage 用于存储一些会话级别的数据 (浏览器关闭数据清除)
+            localStorage 用于存储一些持久级数据 (浏览器关闭数据还在)
+              
+        */
+         function fun1(){
+            window.alert("hello")
+         }
+         function fun2(){
+           var res= window.prompt("hello,请输入姓名")
+           console.log(res)
+         }
+         function fun3(){
+            var res=window.confirm("确定要删除吗")
+            console.log(res)
+         }
+         function fun4(){
+            window.setTimeout(function(){
+                console.log("hello")
+            },2000
+  
+            ) //两个参数 第一个: 实现的方法; 第二个: 多少ms后执行
+         }
+
+         function funA(){
+            //向后翻页
+            history.back()
+         }
+         function funB(){
+            //向前翻页
+            //history.forward()
+            history.go(1)// 向前翻1页
+         }
+         function funC(){
+            location.href="https://github.com/"
+         }
+         function funD(){
+            //向 sessionStorage中存储数据
+            //向 localStorage中存储数据
+            sessionStorage.setItem("keya","valuea")
+            localStorage.setItem("keyb","valueb")
+         }
+         function funE(){
+            //读取数据
+            console.log(sessionStorage.getItem("keya"))
+            console.log(localStorage.getItem("keyb"))
+         }
+         function funF(){
+            sessionStorage.removeItem("keya")
+            localStorage.removeItem("keyb")
+         }
+
+
+    </script>
+</head>
+<body>
+     <button onclick="funD()">存储数据</button>
+     <button onclick="funE()">读取数据</button>
+     <button onclick="funF()">清空数据</button>
+
+
+    <hr>
+     <button onclick="funC()">github1</button>
+     <button onclick="funA()">上一页</button>
+     <button onclick="funB()">下一页</button>
+     <a href="https://github.com/">github</a>
+
+
+    <hr>
+    <button onclick="fun1()">信息提示框</button>
+    <button onclick="fun2()">信息输入框</button>
+    <button onclick="fun3()">信息确认框</button>
+    <button onclick="fun4()">两秒后向控制台打印</button>
+</body>
+</html>
