@@ -1,4 +1,4 @@
-## HTML
+## 1.HTML
 
 ![]()![7EF5DC5332D30E8705CE0D6FDF94A9D0](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C7EF5DC5332D30E8705CE0D6FDF94A9D0.jpg)
 
@@ -526,7 +526,7 @@
 </html>
 ```
 
-## CSS
+## 2.CSS
 
 ### 1.css的引入方式
 
@@ -1037,7 +1037,7 @@ postion:
 </html>
 ```
 
-## JavaScript
+## 3.JavaScript
 
 ### 1.js的引入方式
 
@@ -1372,6 +1372,979 @@ js中 使用var声明变量的特点
 </head>
 <body>
     
+</body>
+</html>
+```
+
+### 7.js声明对象的语法
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+           Java中  类 >>> 实例化 >>> 对象
+           创建对象的语法
+           方式1  new Object
+
+           方式2  {属性名:属性值,......,函数名:function(){}}
+
+        */
+
+        /*  方式1
+         var person=new Object();
+         person.name="张三"
+         person.age=10
+         person.eat=function(food){
+            console.log(this.age+"岁的"+this.name+"正在吃"+food)
+         }*/
+         
+        /*  方式2
+            var person={
+            "name":"张三",
+             "age":10,
+             "eat":function(food){
+                console.log(this.age+"岁的"+this.name+"正在吃"+food)
+             }
+         }
+
+        */
+         
+        //访问属性
+         console.log(person.name)
+         console.log(person.age)
+         person.eat("米饭")//调用方法
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+### 8.js中使用JSON串
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       /*
+           JSON格式的语法                                           // 对象          //数组              //对象数组
+             var personStr='{"属性名":"属性值","属性名":"属性值","属性名":{},"属性名":["","",""],"属性名":[{},{},{}]}'
+             属性名必须用"" 包裹上
+             属性值 字符串必须用""包好,数字可以不处理
+      */
+      //JSON 格式的字符串
+      var personStr='{"name":"张三","age":10,"dog":{"dname":"usao"},"loveSingers":["王五","李四","赵二"],"friends":[{"fname":"tom"},{"fname":"john"},{"fname":"xec"}]}'
+      console.log(personStr)
+      console.log(typeof personStr)
+
+      var person=JSON.parse(personStr)
+      console.log(person)
+      console.log(person.name)
+      console.log(person.dog.dname)
+      console.log(person.loveSingers[0])
+      console.log(person.friends[0].fname)
+      //通过JSON.stringify() 将一个对象转换为JSON串
+      var personStr2=JSON.stringify(person)
+      console.log(personStr2)
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+### 9.JSON在服务端中的使用&&10.JSON和Map_List_Array之间的转换关系
+
+```java
+package test;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
+import pojo.Dog;
+import pojo.person;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TestJson {
+
+    @Test
+    public void testWriteJson() throws JsonProcessingException {
+        //实例化person对象  将person对象转换为JSON串
+        Dog dog=new Dog("小黄");
+        person person=new person("张三",10,dog);
+
+        ObjectMapper objectMapper=new ObjectMapper();
+        String personStr = objectMapper.writeValueAsString(person);
+        System.out.println(personStr);
+    }
+    @Test
+    public void testReadJson() throws JsonProcessingException {
+        //将JSON串转换为对象
+        String s="{\"name\":\"张三\",\"age\":10,\"dog\":{\"name\":\"小黄\"}}";
+        ObjectMapper objectMapper=new ObjectMapper();
+        person person1 = objectMapper.readValue(s, person.class);
+        System.out.println(person1);
+    }
+    /* map */
+    @Test
+    public void MapToJSON() throws JsonProcessingException {
+        Map data=new HashMap();
+        data.put("a","valuea");
+        data.put("b","valueb");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(data);
+        System.out.println(s);// {"a":"valuea","b":"valueb"}
+    }
+    /* list array */
+    @Test
+    public void testListToJSON() throws Exception {
+//        List data=new ArrayList();
+//        data.add("a");
+//        data.add("b");
+//        data.add("c");  ["a","b","c"]
+
+        //String []data={"a","b","c"}; ["a","b","c"]
+        Dog dog=new Dog("小黄");
+        person person1=new person("张三",10,dog);
+        List data=new ArrayList();
+        data.add(person1);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(data);
+        System.out.println(s);// [{"name":"张三","age":10,"dog":{"name":"小黄"}}]
+    }
+
+}
+
+```
+
+### 11. JS常见对象
+
+#### 1 数组
+
+> 创建数组的四种方式
+
++ new Array()                                                   创建空数组
++ new Array(5)                                                 创建数组时给定长度
++ new Array(ele1,ele2,ele3,... ... ,elen);          创建数组时指定元素值
++ [ele1,ele2,ele3,... ... ,elen];                           相当于第三种语法的简写
+
+> 数组的常见API
+
++ 在JS中,数组属于Object类型,其长度是可以变化的,更像JAVA中的集合
+
+| 方法                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [concat()](https://www.runoob.com/jsref/jsref-concat-array.html) | 连接两个或更多的数组，并返回结果。                           |
+| [copyWithin()](https://www.runoob.com/jsref/jsref-copywithin.html) | 从数组的指定位置拷贝元素到数组的另一个指定位置中。           |
+| [entries()](https://www.runoob.com/jsref/jsref-entries.html) | 返回数组的可迭代对象。                                       |
+| [every()](https://www.runoob.com/jsref/jsref-every.html)     | 检测数值元素的每个元素是否都符合条件。                       |
+| [fill()](https://www.runoob.com/jsref/jsref-fill.html)       | 使用一个固定值来填充数组。                                   |
+| [filter()](https://www.runoob.com/jsref/jsref-filter.html)   | 检测数值元素，并返回符合条件所有元素的数组。                 |
+| [find()](https://www.runoob.com/jsref/jsref-find.html)       | 返回符合传入测试（函数）条件的数组元素。                     |
+| [findIndex()](https://www.runoob.com/jsref/jsref-findindex.html) | 返回符合传入测试（函数）条件的数组元素索引。                 |
+| [forEach()](https://www.runoob.com/jsref/jsref-foreach.html) | 数组每个元素都执行一次回调函数。                             |
+| [from()](https://www.runoob.com/jsref/jsref-from.html)       | 通过给定的对象中创建一个数组。                               |
+| [includes()](https://www.runoob.com/jsref/jsref-includes.html) | 判断一个数组是否包含一个指定的值。                           |
+| [indexOf()](https://www.runoob.com/jsref/jsref-indexof-array.html) | 搜索数组中的元素，并返回它所在的位置。                       |
+| [isArray()](https://www.runoob.com/jsref/jsref-isarray.html) | 判断对象是否为数组。                                         |
+| [join()](https://www.runoob.com/jsref/jsref-join.html)       | 把数组的所有元素放入一个字符串。                             |
+| [keys()](https://www.runoob.com/jsref/jsref-keys.html)       | 返回数组的可迭代对象，包含原始数组的键(key)。                |
+| [lastIndexOf()](https://www.runoob.com/jsref/jsref-lastindexof-array.html) | 搜索数组中的元素，并返回它最后出现的位置。                   |
+| [map()](https://www.runoob.com/jsref/jsref-map.html)         | 通过指定函数处理数组的每个元素，并返回处理后的数组。         |
+| [pop()](https://www.runoob.com/jsref/jsref-pop.html)         | 删除数组的最后一个元素并返回删除的元素。                     |
+| [push()](https://www.runoob.com/jsref/jsref-push.html)       | 向数组的末尾添加一个或更多元素，并返回新的长度。             |
+| [reduce()](https://www.runoob.com/jsref/jsref-reduce.html)   | 将数组元素计算为一个值（从左到右）。                         |
+| [reduceRight()](https://www.runoob.com/jsref/jsref-reduceright.html) | 将数组元素计算为一个值（从右到左）。                         |
+| [reverse()](https://www.runoob.com/jsref/jsref-reverse.html) | 反转数组的元素顺序。                                         |
+| [shift()](https://www.runoob.com/jsref/jsref-shift.html)     | 删除并返回数组的第一个元素。                                 |
+| [slice()](https://www.runoob.com/jsref/jsref-slice-array.html) | 选取数组的一部分，并返回一个新数组。                         |
+| [some()](https://www.runoob.com/jsref/jsref-some.html)       | 检测数组元素中是否有元素符合指定条件。                       |
+| [sort()](https://www.runoob.com/jsref/jsref-sort.html)       | 对数组的元素进行排序。                                       |
+| [splice()](https://www.runoob.com/jsref/jsref-splice.html)   | 从数组中添加或删除元素。                                     |
+| [toString()](https://www.runoob.com/jsref/jsref-tostring-array.html) | 把数组转换为字符串，并返回结果。                             |
+| [unshift()](https://www.runoob.com/jsref/jsref-unshift.html) | 向数组的开头添加一个或更多元素，并返回新的长度。             |
+| [valueOf()](https://www.runoob.com/jsref/jsref-valueof-array.html) | 返回数组对象的原始值。                                       |
+| [Array.of()](https://www.runoob.com/jsref/jsref-of-array.html) | 将一组值转换为数组。                                         |
+| [Array.at()](https://www.runoob.com/jsref/jsref-at-array.html) | 用于接收一个整数值并返回该索引对应的元素，允许正数和负数。负整数从数组中的最后一个元素开始倒数。 |
+| [Array.flat()](https://www.runoob.com/jsref/jsref-flat-array.html) | 创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。 |
+| [Array.flatMap()](https://www.runoob.com/jsref/jsref-flatmap-array.html) | 使用映射函数映射每个元素，然后将结果压缩成一个新数组。       |
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    /*
+      1.数据
+         1)数组的创建方式
+         2)数组的常见api
+
+    */
+   //1.数组拼接-concat
+     var fruits=["apple","banana","orange"]
+     var fruits2=["荔枝",'桃子','榴莲','榴莲','榴莲']
+     var fruitsAll=fruits.concat(fruits2)
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子', '榴莲']
+    console.log(fruits)//['apple', 'banana', 'orange']
+    console.log(fruits2)//  ['荔枝', '桃子', '榴莲']
+    
+    //2.移除并返回最后一个元素-pop
+    var res=fruitsAll.pop()
+    console.log(res) // '榴莲'
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子']
+
+    //3.从尾端增加元素并返回长度-push
+    var len=fruitsAll.push('葡萄')
+    console.log(len) // 6
+    console.log(fruitsAll) // ['apple', 'banana', 'orange', '荔枝', '桃子', '葡萄']
+
+     //4. 查找榴莲
+     var index1=fruitsAll.indexOf("榴莲") //5
+     var index2=fruitsAll.lastIndexOf("榴莲")//6
+     console.log(index1) 
+     console.log(index2) 
+
+     //5.反转-reverse
+     fruitsAll.reverse()
+     console.log(fruitsAll) // ['葡萄', '榴莲', '榴莲', '桃子', '荔枝', 'orange', 'banana', 'apple']
+
+     //6.转换为字符串-join
+     console.log(fruitsAll.join("-")) //['葡萄', '榴莲', '榴莲', '桃子', '荔枝', 'orange', 'banana', 'apple']
+
+     //7.截取数据-slice
+     console.log(fruitsAll.slice(2,6))// 前闭后开  ['榴莲', '桃子', '荔枝', 'orange']
+
+     //8.删除或者增加数据
+     fruitsAll.splice(2,0,'el1','el2') //2:在第二个位置增加el1,el2; 0:删除几个元素
+     console.log(fruitsAll)
+
+    
+//    var arr=new Array("zhangsan",10,false)
+//    console.log(arr) // ['zhangsan', 10, false]
+//    console.log(arr.length)//3
+//    //添加数据
+//    arr[0]="zhangsan"
+//    arr[1]=10
+//    arr[9]=true
+//    arr.length=20
+//    console.log(arr)  // ['zhangsan', 10, false, 空 ×6, true, 空 ×10]
+//    console.log(arr.length) //20
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+```
+
+
+
+#### 2 Boolean对象
+
+> boolean对象的方法比较简单
+
+| 方法                                                         | 描述                               |
+| :----------------------------------------------------------- | :--------------------------------- |
+| [toString()](https://www.runoob.com/jsref/jsref-tostring-boolean.html) | 把布尔值转换为字符串，并返回结果。 |
+| [valueOf()](https://www.runoob.com/jsref/jsref-valueof-boolean.html) | 返回 Boolean 对象的原始值。        |
+
+3 Date对象
+
+> 和JAVA中的Date类比较类似
+
+| 方法                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [getDate()](https://www.runoob.com/jsref/jsref-getdate.html) | 从 Date 对象返回一个月中的某一天 (1 ~ 31)。                  |
+| [getDay()](https://www.runoob.com/jsref/jsref-getday.html)   | 从 Date 对象返回一周中的某一天 (0 ~ 6)。                     |
+| [getFullYear()](https://www.runoob.com/jsref/jsref-getfullyear.html) | 从 Date 对象以四位数字返回年份。                             |
+| [getHours()](https://www.runoob.com/jsref/jsref-gethours.html) | 返回 Date 对象的小时 (0 ~ 23)。                              |
+| [getMilliseconds()](https://www.runoob.com/jsref/jsref-getmilliseconds.html) | 返回 Date 对象的毫秒(0 ~ 999)。                              |
+| [getMinutes()](https://www.runoob.com/jsref/jsref-getminutes.html) | 返回 Date 对象的分钟 (0 ~ 59)。                              |
+| [getMonth()](https://www.runoob.com/jsref/jsref-getmonth.html) | 从 Date 对象返回月份 (0 ~ 11)。                              |
+| [getSeconds()](https://www.runoob.com/jsref/jsref-getseconds.html) | 返回 Date 对象的秒数 (0 ~ 59)。                              |
+| [getTime()](https://www.runoob.com/jsref/jsref-gettime.html) | 返回 1970 年 1 月 1 日至今的毫秒数。                         |
+| [getTimezoneOffset()](https://www.runoob.com/jsref/jsref-gettimezoneoffset.html) | 返回本地时间与格林威治标准时间 (GMT) 的分钟差。              |
+| [getUTCDate()](https://www.runoob.com/jsref/jsref-getutcdate.html) | 根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。              |
+| [getUTCDay()](https://www.runoob.com/jsref/jsref-getutcday.html) | 根据世界时从 Date 对象返回周中的一天 (0 ~ 6)。               |
+| [getUTCFullYear()](https://www.runoob.com/jsref/jsref-getutcfullyear.html) | 根据世界时从 Date 对象返回四位数的年份。                     |
+| [getUTCHours()](https://www.runoob.com/jsref/jsref-getutchours.html) | 根据世界时返回 Date 对象的小时 (0 ~ 23)。                    |
+| [getUTCMilliseconds()](https://www.runoob.com/jsref/jsref-getutcmilliseconds.html) | 根据世界时返回 Date 对象的毫秒(0 ~ 999)。                    |
+| [getUTCMinutes()](https://www.runoob.com/jsref/jsref-getutcminutes.html) | 根据世界时返回 Date 对象的分钟 (0 ~ 59)。                    |
+| [getUTCMonth()](https://www.runoob.com/jsref/jsref-getutcmonth.html) | 根据世界时从 Date 对象返回月份 (0 ~ 11)。                    |
+| [getUTCSeconds()](https://www.runoob.com/jsref/jsref-getutcseconds.html) | 根据世界时返回 Date 对象的秒钟 (0 ~ 59)。                    |
+| getYear()                                                    | 已废弃。 请使用 getFullYear() 方法代替。                     |
+| [parse()](https://www.runoob.com/jsref/jsref-parse.html)     | 返回1970年1月1日午夜到指定日期（字符串）的毫秒数。           |
+| [setDate()](https://www.runoob.com/jsref/jsref-setdate.html) | 设置 Date 对象中月的某一天 (1 ~ 31)。                        |
+| [setFullYear()](https://www.runoob.com/jsref/jsref-setfullyear.html) | 设置 Date 对象中的年份（四位数字）。                         |
+| [setHours()](https://www.runoob.com/jsref/jsref-sethours.html) | 设置 Date 对象中的小时 (0 ~ 23)。                            |
+| [setMilliseconds()](https://www.runoob.com/jsref/jsref-setmilliseconds.html) | 设置 Date 对象中的毫秒 (0 ~ 999)。                           |
+| [setMinutes()](https://www.runoob.com/jsref/jsref-setminutes.html) | 设置 Date 对象中的分钟 (0 ~ 59)。                            |
+| [setMonth()](https://www.runoob.com/jsref/jsref-setmonth.html) | 设置 Date 对象中月份 (0 ~ 11)。                              |
+| [setSeconds()](https://www.runoob.com/jsref/jsref-setseconds.html) | 设置 Date 对象中的秒钟 (0 ~ 59)。                            |
+| [setTime()](https://www.runoob.com/jsref/jsref-settime.html) | setTime() 方法以毫秒设置 Date 对象。                         |
+| [setUTCDate()](https://www.runoob.com/jsref/jsref-setutcdate.html) | 根据世界时设置 Date 对象中月份的一天 (1 ~ 31)。              |
+| [setUTCFullYear()](https://www.runoob.com/jsref/jsref-setutcfullyear.html) | 根据世界时设置 Date 对象中的年份（四位数字）。               |
+| [setUTCHours()](https://www.runoob.com/jsref/jsref-setutchours.html) | 根据世界时设置 Date 对象中的小时 (0 ~ 23)。                  |
+| [setUTCMilliseconds()](https://www.runoob.com/jsref/jsref-setutcmilliseconds.html) | 根据世界时设置 Date 对象中的毫秒 (0 ~ 999)。                 |
+| [setUTCMinutes()](https://www.runoob.com/jsref/jsref-setutcminutes.html) | 根据世界时设置 Date 对象中的分钟 (0 ~ 59)。                  |
+| [setUTCMonth()](https://www.runoob.com/jsref/jsref-setutcmonth.html) | 根据世界时设置 Date 对象中的月份 (0 ~ 11)。                  |
+| [setUTCSeconds()](https://www.runoob.com/jsref/jsref-setutcseconds.html) | setUTCSeconds() 方法用于根据世界时 (UTC) 设置指定时间的秒字段。 |
+| setYear()                                                    | 已废弃。请使用 setFullYear() 方法代替。                      |
+| [toDateString()](https://www.runoob.com/jsref/jsref-todatestring.html) | 把 Date 对象的日期部分转换为字符串。                         |
+| toGMTString()                                                | 已废弃。请使用 toUTCString() 方法代替。                      |
+| [toISOString()](https://www.runoob.com/jsref/jsref-toisostring.html) | 使用 ISO 标准返回字符串的日期格式。                          |
+| [toJSON()](https://www.runoob.com/jsref/jsref-tojson.html)   | 以 JSON 数据格式返回日期字符串。                             |
+| [toLocaleDateString()](https://www.runoob.com/jsref/jsref-tolocaledatestring.html) | 根据本地时间格式，把 Date 对象的日期部分转换为字符串。       |
+| [toLocaleTimeString()](https://www.runoob.com/jsref/jsref-tolocaletimestring.html) | 根据本地时间格式，把 Date 对象的时间部分转换为字符串。       |
+| [toLocaleString()](https://www.runoob.com/jsref/jsref-tolocalestring.html) | 根据本地时间格式，把 Date 对象转换为字符串。                 |
+| [toString()](https://www.runoob.com/jsref/jsref-tostring-date.html) | 把 Date 对象转换为字符串。                                   |
+| [toTimeString()](https://www.runoob.com/jsref/jsref-totimestring.html) | 把 Date 对象的时间部分转换为字符串。                         |
+| [toUTCString()](https://www.runoob.com/jsref/jsref-toutcstring.html) | 根据世界时，把 Date 对象转换为字符串。实例：`var today = new Date(); var UTCstring = today.toUTCString();` |
+| [UTC()](https://www.runoob.com/jsref/jsref-utc.html)         | 根据世界时返回 1970 年 1 月 1 日 到指定日期的毫秒数。        |
+| [valueOf()](https://www.runoob.com/jsref/jsref-valueof-date.html) | 返回 Date 对象的原始值。                                     |
+
+#### 4 Math
+
+>  和JAVA中的Math类比较类似
+
+| 方法                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [abs(x)](https://www.runoob.com/jsref/jsref-abs.html)        | 返回 x 的绝对值。                                            |
+| [acos(x)](https://www.runoob.com/jsref/jsref-acos.html)      | 返回 x 的反余弦值。                                          |
+| [asin(x)](https://www.runoob.com/jsref/jsref-asin.html)      | 返回 x 的反正弦值。                                          |
+| [atan(x)](https://www.runoob.com/jsref/jsref-atan.html)      | 以介于 -PI/2 与 PI/2 弧度之间的数值来返回 x 的反正切值。     |
+| [atan2(y,x)](https://www.runoob.com/jsref/jsref-atan2.html)  | 返回从 x 轴到点 (x,y) 的角度（介于 -PI/2 与 PI/2 弧度之间）。 |
+| [ceil(x)](https://www.runoob.com/jsref/jsref-ceil.html)      | 对数进行上舍入。                                             |
+| [cos(x)](https://www.runoob.com/jsref/jsref-cos.html)        | 返回数的余弦。                                               |
+| [exp(x)](https://www.runoob.com/jsref/jsref-exp.html)        | 返回 Ex 的指数。                                             |
+| [floor(x)](https://www.runoob.com/jsref/jsref-floor.html)    | 对 x 进行下舍入。                                            |
+| [log(x)](https://www.runoob.com/jsref/jsref-log.html)        | 返回数的自然对数（底为e）。                                  |
+| [max(x,y,z,...,n)](https://www.runoob.com/jsref/jsref-max.html) | 返回 x,y,z,...,n 中的最高值。                                |
+| [min(x,y,z,...,n)](https://www.runoob.com/jsref/jsref-min.html) | 返回 x,y,z,...,n中的最低值。                                 |
+| [pow(x,y)](https://www.runoob.com/jsref/jsref-pow.html)      | 返回 x 的 y 次幂。                                           |
+| [random()](https://www.runoob.com/jsref/jsref-random.html)   | 返回 0 ~ 1 之间的随机数。                                    |
+| [round(x)](https://www.runoob.com/jsref/jsref-round.html)    | 四舍五入。                                                   |
+| [sin(x)](https://www.runoob.com/jsref/jsref-sin.html)        | 返回数的正弦。                                               |
+| [sqrt(x)](https://www.runoob.com/jsref/jsref-sqrt.html)      | 返回数的平方根。                                             |
+| [tan(x)](https://www.runoob.com/jsref/jsref-tan.html)        | 返回角的正切。                                               |
+| [tanh(x)](https://www.runoob.com/jsref/jsref-tanh.html)      | 返回一个数的双曲正切函数值。                                 |
+| [trunc(x)](https://www.runoob.com/jsref/jsref-trunc.html)    | 将数字的小数部分去掉，只保留整数部分。                       |
+
+#### 5 Number
+
+> Number中准备了一些基础的数据处理函数
+
+| 方法                                                         | 描述                                                 |
+| :----------------------------------------------------------- | :--------------------------------------------------- |
+| [isFinite](https://www.runoob.com/jsref/jsref-isfinite-number.html) | 检测指定参数是否为无穷大。                           |
+| [isInteger](https://www.runoob.com/jsref/jsref-isinteger-number.html) | 检测指定参数是否为整数。                             |
+| [isNaN](https://www.runoob.com/jsref/jsref-isnan-number.html) | 检测指定参数是否为 NaN。                             |
+| [isSafeInteger](https://www.runoob.com/jsref/jsref-issafeInteger-number.html) | 检测指定参数是否为安全整数。                         |
+| [toExponential(x)](https://www.runoob.com/jsref/jsref-toexponential.html) | 把对象的值转换为指数计数法。                         |
+| [toFixed(x)](https://www.runoob.com/jsref/jsref-tofixed.html) | 把数字转换为字符串，结果的小数点后有指定位数的数字。 |
+| [toLocaleString(locales, options)](https://www.runoob.com/jsref/jsref-tolocalestring-number.html) | 返回数字在特定语言环境下的表示字符串。               |
+| [toPrecision(x)](https://www.runoob.com/jsref/jsref-toprecision.html) | 把数字格式化为指定的长度。                           |
+| [toString()](https://www.runoob.com/jsref/jsref-tostring-number.html) | 把数字转换为字符串，使用指定的基数。                 |
+| [valueOf()](https://www.runoob.com/jsref/jsref-valueof-number.html) | 返回一个 Number 对象的基本数字值。                   |
+
+```html
+var v1='10'
+     var v2=10
+     console.log(Number.parseInt(v1+v2)) //1010
+```
+
+
+
+#### 6 String
+
+> 和JAVA中的String类似
+
+| 方法                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [charAt()](https://www.runoob.com/jsref/jsref-charat.html)   | 返回在指定位置的字符。                                       |
+| [charCodeAt()](https://www.runoob.com/jsref/jsref-charcodeat.html) | 返回在指定的位置的字符的 Unicode 编码。                      |
+| [concat()](https://www.runoob.com/jsref/jsref-concat-string.html) | 连接两个或更多字符串，并返回新的字符串。                     |
+| [endsWith()](https://www.runoob.com/jsref/jsref-endswith.html) | 判断当前字符串是否是以指定的子字符串结尾的（区分大小写）。   |
+| [fromCharCode()](https://www.runoob.com/jsref/jsref-fromcharcode.html) | 将 Unicode 编码转为字符。                                    |
+| [indexOf()](https://www.runoob.com/jsref/jsref-indexof.html) | 返回某个指定的字符串值在字符串中首次出现的位置。             |
+| [includes()](https://www.runoob.com/jsref/jsref-string-includes.html) | 查找字符串中是否包含指定的子字符串。                         |
+| [lastIndexOf()](https://www.runoob.com/jsref/jsref-lastindexof.html) | 从后向前搜索字符串，并从起始位置（0）开始计算返回字符串最后出现的位置。 |
+| [match()](https://www.runoob.com/jsref/jsref-match.html)     | 查找找到一个或多个正则表达式的匹配。                         |
+| [repeat()](https://www.runoob.com/jsref/jsref-repeat.html)   | 复制字符串指定次数，并将它们连接在一起返回。                 |
+| [replace()](https://www.runoob.com/jsref/jsref-replace.html) | 在字符串中查找匹配的子串，并替换与正则表达式匹配的子串。     |
+| [replaceAll()](https://www.runoob.com/jsref/jsref-replaceall.html) | 在字符串中查找匹配的子串，并替换与正则表达式匹配的所有子串。 |
+| [search()](https://www.runoob.com/jsref/jsref-search.html)   | 查找与正则表达式相匹配的值。                                 |
+| [slice()](https://www.runoob.com/jsref/jsref-slice-string.html) | 提取字符串的片断，并在新的字符串中返回被提取的部分。         |
+| [split()](https://www.runoob.com/jsref/jsref-split.html)     | 把字符串分割为字符串数组。                                   |
+| [startsWith()](https://www.runoob.com/jsref/jsref-startswith.html) | 查看字符串是否以指定的子字符串开头。                         |
+| [substr()](https://www.runoob.com/jsref/jsref-substr.html)   | 从起始索引号提取字符串中指定数目的字符。                     |
+| [substring()](https://www.runoob.com/jsref/jsref-substring.html) | 提取字符串中两个指定的索引号之间的字符。                     |
+| [toLowerCase()](https://www.runoob.com/jsref/jsref-tolowercase.html) | 把字符串转换为小写。                                         |
+| [toUpperCase()](https://www.runoob.com/jsref/jsref-touppercase.html) | 把字符串转换为大写。                                         |
+| [trim()](https://www.runoob.com/jsref/jsref-trim.html)       | 去除字符串两边的空白。                                       |
+| [toLocaleLowerCase()](https://www.runoob.com/jsref/jsref-tolocalelowercase.html) | 根据本地主机的语言环境把字符串转换为小写。                   |
+| [toLocaleUpperCase()](https://www.runoob.com/jsref/jsref-tolocaleuppercase.html) | 根据本地主机的语言环境把字符串转换为大写。                   |
+| [valueOf()](https://www.runoob.com/jsref/jsref-valueof-string.html) | 返回某个字符串对象的原始值。                                 |
+| [toString()](https://www.runoob.com/jsref/jsref-tostring.html) | 返回一个字符串。                                             |
+
+## 事件的绑定
+
+### 1.什么是事件
+
+>  HTML 事件可以是浏览器行为，也可以是用户行为。 当这些一些行为发生时,可以自动触发对应的JS函数的运行,我们称之为事件发生.JS的事件驱动指的就是行为触发代码运行的这种特点
+
+### 2.常见事件
+
+> 鼠标事件
+
+| 属性                                                         | 描述                                   |
+| :----------------------------------------------------------- | :------------------------------------- |
+| [onclick](https://www.runoob.com/jsref/event-onclick.html)   | 当用户点击某个对象时调用的事件句柄。   |
+| [oncontextmenu](https://www.runoob.com/jsref/event-oncontextmenu.html) | 在用户点击鼠标右键打开上下文菜单时触发 |
+| [ondblclick](https://www.runoob.com/jsref/event-ondblclick.html) | 当用户双击某个对象时调用的事件句柄。   |
+| [onmousedown](https://www.runoob.com/jsref/event-onmousedown.html) | 鼠标按钮被按下。                       |
+| [onmouseenter](https://www.runoob.com/jsref/event-onmouseenter.html) | 当鼠标指针移动到元素上时触发。         |
+| [onmouseleave](https://www.runoob.com/jsref/event-onmouseleave.html) | 当鼠标指针移出元素时触发               |
+| [onmousemove](https://www.runoob.com/jsref/event-onmousemove.html) | 鼠标被移动。                           |
+| [onmouseover](https://www.runoob.com/jsref/event-onmouseover.html) | 鼠标移到某元素之上。                   |
+| [onmouseout](https://www.runoob.com/jsref/event-onmouseout.html) | 鼠标从某元素移开。                     |
+| [onmouseup](https://www.runoob.com/jsref/event-onmouseup.html) | 鼠标按键被松开。                       |
+
+> 键盘事件
+
+| 属性                                                         | 描述                       |
+| :----------------------------------------------------------- | :------------------------- |
+| [onkeydown](https://www.runoob.com/jsref/event-onkeydown.html) | 某个键盘按键被按下。       |
+| [onkeypress](https://www.runoob.com/jsref/event-onkeypress.html) | 某个键盘按键被按下并松开。 |
+| [onkeyup](https://www.runoob.com/jsref/event-onkeyup.html)   | 某个键盘按键被松开。       |
+
+> 表单事件
+
+| 属性                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [onblur](https://www.runoob.com/jsref/event-onblur.html)     | 元素失去焦点时触发                                           |
+| [onchange](https://www.runoob.com/jsref/event-onchange.html) | 该事件在表单元素的内容改变时触发( <input>, <keygen>, <select>, 和 <textarea>) |
+| [onfocus](https://www.runoob.com/jsref/event-onfocus.html)   | 元素获取焦点时触发                                           |
+| [onfocusin](https://www.runoob.com/jsref/event-onfocusin.html) | 元素即将获取焦点时触发                                       |
+| [onfocusout](https://www.runoob.com/jsref/event-onfocusout.html) | 元素即将失去焦点时触发                                       |
+| [oninput](https://www.runoob.com/jsref/event-oninput.html)   | 元素获取用户输入时触发                                       |
+| [onreset](https://www.runoob.com/jsref/event-onreset.html)   | 表单重置时触发                                               |
+| [onsearch](https://www.runoob.com/jsref/event-onsearch.html) | 用户向搜索域输入文本时触发 ( <input="search">)               |
+| [onselect](https://www.runoob.com/jsref/event-onselect.html) | 用户选取文本时触发 ( <input> 和 <textarea>)                  |
+| [onsubmit](https://www.runoob.com/jsref/event-onsubmit.html) | 表单提交时触发                                               |
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        1 事件的绑定机制 
+             1 通过元素的属性绑定
+             2 通过DOM编程动态绑定
+             注意事项:
+                  1.一个事件可以同时绑定多个函数
+                  2.一个元素可以同时绑定多个事件
+        
+        2 常见的事件
+              1.鼠标事件
+              2.键盘事件
+              3.表单事件 onfocus onblur onchange
+        */
+        function fun1(){
+            //alert("单击了")
+            console.log("单击了")
+        }
+        function fun2(){
+            //alert("单击了2")
+            console.log("单击了2")
+        }
+        function fun3(){
+            //alert("双击了")
+            console.log("双击了")
+        }
+        function fun4(){
+            console.log("鼠标悬停了")
+        }
+        function fun5(){
+            console.log("鼠标移动了")
+        }
+        function fun6(){
+            console.log("鼠标离开了")
+        }
+        function fun7(){
+            console.log("按键按下了")
+        }
+        function fun8(){
+            console.log("按键抬起了")
+        } 
+        function testFocus(){
+            console.log("获得焦点了")
+        }
+        function testBlur(){
+            console.log("失去焦点了")
+        }
+        function testChange(value){//value: 可记录具体改变了什么值.
+            console.log(value+" 内容改变了") //当焦点移出后才视作改变
+        }
+        function testChange1(value){
+            console.log(value+" 选项改变了")
+        }
+        function testSubmit(){
+            /*
+               弹窗的三种方式
+               alert()信息提示框
+               prompt()信息输入框
+               confirm()信息确认框
+            */
+            //alert("表单提交了")
+            //可以阻止表单提交
+            var flag=confirm("确定要提交表单吗")
+            if(flag){
+                return true
+            }
+            return false
+            //event.preventDefault();//阻止组件的默认行为
+        }
+
+
+    </script>
+</head>
+<body>
+      <form action="01js的引入方式.html" method="get" onsubmit="return testSubmit()"> <!--向浏览器返回true/false-->                                             
+        用户昵称:<input type="text" name="realname" onfocus="testFocus()" onblur="testBlur()" onchange="testChange(this.value)"> <br>
+        登录账号:<input type="text" name="loginname" onfocus="testFocus()" onblur="testBlur()"> <br>
+        选择籍贯:
+        <select onchange="testChange1( this.value)">
+            <option>北京</option>
+            <option>上海</option>
+            <option>广州</option>
+        </select>
+        <br>
+        <input type="submit" value="注册">
+        <input type="reset" value="清空">
+
+      </form>
+
+      <hr>
+    <input type="button"
+      value="按钮"
+      onclick="fun1(),fun2()"
+      ondblclick="fun3()"
+    >
+    <br>                                                    <!--悬停               移动                       离开-->
+    <img src="img/img/1BBAFEED9572DE53611C14323B653521.jpg" onmouseover="fun4()" onmousemove="fun5()" onmouseleave="fun6()">
+    <br>
+    <input type="text" onkeydown="fun7()" onkeypress="fun8()">
+</body>
+</html>
+```
+
+### 3.jsDOM编程处理事件
+
+
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <script>
+        /*
+            1 事件的绑定机制 
+             1 通过元素的属性绑定
+             2 通过DOM编程动态绑定
+             注意事项:
+                  1.一个事件可以同时绑定多个函数
+                  2.一个元素可以同时绑定多个事件
+        
+        2 常见的事件
+              1.鼠标事件
+              2.键盘事件
+              3.表单事件 onfocus onblur onchange
+              4.页面加载事件 onload
+        
+        3 事件的触发
+              1. 行为触发
+              2. DOM编程触发
+        */
+        
+
+        function ready(){
+            //为div1绑定单击事件
+           var div1=document.getElementById("d1")
+           div1.onclick=function(){
+              div1.style.backgroundColor="red"
+           }
+
+            var btn=document.getElementById("btn1")
+            btn.onclick=function(){
+            alert("按钮单击了")
+            // 通过dom编程触发事件,相当于某些事件发生了
+            // 通过DOM编程触发div的单击事件
+            div1.onclick()
+          }
+          
+           
+        }
+
+        </script>
+
+        <style>
+              .div1{
+                width: 100px;
+                height: 100px;
+                background-color: yellow;
+              }
+
+        </style>
+</head>
+<body onload="ready()">  <!--onload 当所有代码执行完后才执行 ready()方法-->
+     <div id="d1" class="div1">
+
+     </div>
+
+
+    <button id="btn1">按钮</button>
+    <!-- <script> //法1:写在body 里面
+        //通过dom获取要操作的元素
+        var btn=document.getElementById("btn1")//通过id获得一个对象
+        //绑定一个单击事件
+        btn.onclick=function(){
+            alert("按钮单击了")
+        }
+    </script> -->
+</body>
+</html>
+```
+
+##  BOM编程
+
+### 1.什么是BOM
+
++ BOM是Browser Object Model的简写，即浏览器对象模型。
+
++ BOM由一系列对象组成，是访问、控制、修改浏览器的属性和方法(通过window对象及属性的一系列方法 控制浏览器行为的一种编程)
+
++ BOM没有统一的标准(每种客户端都可以自定标准)。
+
++ BOM编程是将浏览器窗口的各个组成部分抽象成各个对象,通过各个对象的API操作组件行为的一种编程
+
++ BOM编程的对象结构如下
+
+  + window 顶级对象,代表整个浏览器窗口
+    + location对象                 window对象的属性之一,代表浏览器的地址栏
+    + history对象                   window对象的属性之一,代表浏览器的访问历史
+    + screen对象                    window对象的属性之一,代表屏幕
+    + navigator对象               window对象的属性之一,代表浏览器软件本身
+    + document对象              window对象的属性之一,代表浏览器窗口目前解析的html文档
+    + console对象                  window对象的属性之一,代表浏览器开发者工具的控制台
+    + localStorage对象          window对象的属性之一,代表浏览器的本地数据持久化存储
+    + sessionStorage对象      window对象的属性之一,代表浏览器的本地数据会话级存储
+
+  <img src="images/1681267483366.png" alt="1681267483366" style="zoom:67%;" />
+
+  ![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C5EBB1A438A1FEC8D74B93C8D9BC59145.jpg)
+
+###  2.window对象的常见属性(了解)
+
+| 属性                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [closed](https://www.runoob.com/jsref/prop-win-closed.html)  | 返回窗口是否已被关闭。                                       |
+| [defaultStatus](https://www.runoob.com/jsref/prop-win-defaultstatus.html) | 设置或返回窗口状态栏中的默认文本。                           |
+| [document](https://www.runoob.com/jsref/dom-obj-document.html) | 对 Document 对象的只读引用。(请参阅[对象](https://www.runoob.com/jsref/dom-obj-document.html)) |
+| [frames](https://www.runoob.com/jsref/prop-win-frames.html)  | 返回窗口中所有命名的框架。该集合是 Window 对象的数组，每个 Window 对象在窗口中含有一个框架。 |
+| [history](https://www.runoob.com/jsref/obj-history.html)     | 对 History 对象的只读引用。请参数 [History 对象](https://www.runoob.com/jsref/obj-history.html)。 |
+| [innerHeight](https://www.runoob.com/jsref/prop-win-innerheight.html) | 返回窗口的文档显示区的高度。                                 |
+| [innerWidth](https://www.runoob.com/jsref/prop-win-innerheight.html) | 返回窗口的文档显示区的宽度。                                 |
+| [localStorage](https://www.runoob.com/jsref/prop-win-localstorage.html) | 在浏览器中存储 key/value 对。没有过期时间。                  |
+| [length](https://www.runoob.com/jsref/prop-win-length.html)  | 设置或返回窗口中的框架数量。                                 |
+| [location](https://www.runoob.com/jsref/obj-location.html)   | 用于窗口或框架的 Location 对象。请参阅 [Location 对象](https://www.runoob.com/jsref/obj-location.html)。 |
+| [name](https://www.runoob.com/jsref/prop-win-name.html)      | 设置或返回窗口的名称。                                       |
+| [navigator](https://www.runoob.com/jsref/obj-navigator.html) | 对 Navigator 对象的只读引用。请参数 [Navigator 对象](https://www.runoob.com/jsref/obj-navigator.html)。 |
+| [opener](https://www.runoob.com/jsref/prop-win-opener.html)  | 返回对创建此窗口的窗口的引用。                               |
+| [outerHeight](https://www.runoob.com/jsref/prop-win-outerheight.html) | 返回窗口的外部高度，包含工具条与滚动条。                     |
+| [outerWidth](https://www.runoob.com/jsref/prop-win-outerheight.html) | 返回窗口的外部宽度，包含工具条与滚动条。                     |
+| [pageXOffset](https://www.runoob.com/jsref/prop-win-pagexoffset.html) | 设置或返回当前页面相对于窗口显示区左上角的 X 位置。          |
+| [pageYOffset](https://www.runoob.com/jsref/prop-win-pagexoffset.html) | 设置或返回当前页面相对于窗口显示区左上角的 Y 位置。          |
+| [parent](https://www.runoob.com/jsref/prop-win-parent.html)  | 返回父窗口。                                                 |
+| [screen](https://www.runoob.com/jsref/obj-screen.html)       | 对 Screen 对象的只读引用。请参数 [Screen 对象](https://www.runoob.com/jsref/obj-screen.html)。 |
+| [screenLeft](https://www.runoob.com/jsref/prop-win-screenleft.html) | 返回相对于屏幕窗口的x坐标                                    |
+| [screenTop](https://www.runoob.com/jsref/prop-win-screenleft.html) | 返回相对于屏幕窗口的y坐标                                    |
+| [screenX](https://www.runoob.com/jsref/prop-win-screenx.html) | 返回相对于屏幕窗口的x坐标                                    |
+| [sessionStorage](https://www.runoob.com/jsref/prop-win-sessionstorage.html) | 在浏览器中存储 key/value 对。 在关闭窗口或标签页之后将会删除这些数据。 |
+| [screenY](https://www.runoob.com/jsref/prop-win-screenx.html) | 返回相对于屏幕窗口的y坐标                                    |
+| [self](https://www.runoob.com/jsref/prop-win-self.html)      | 返回对当前窗口的引用。等价于 Window 属性。                   |
+| [status](https://www.runoob.com/jsref/prop-win-status.html)  | 设置窗口状态栏的文本。                                       |
+| [top](https://www.runoob.com/jsref/prop-win-top.html)        | 返回最顶层的父窗口。                                         |
+
+### 3.window对象的常见方法(了解)
+
+| 方法                                                         | 描述                                                         |
+| :----------------------------------------------------------- | :----------------------------------------------------------- |
+| [alert()](https://www.runoob.com/jsref/met-win-alert.html)   | 显示带有一段消息和一个确认按钮的警告框。                     |
+| [atob()](https://www.runoob.com/jsref/met-win-atob.html)     | 解码一个 base-64 编码的字符串。                              |
+| [btoa()](https://www.runoob.com/jsref/met-win-btoa.html)     | 创建一个 base-64 编码的字符串。                              |
+| [blur()](https://www.runoob.com/jsref/met-win-blur.html)     | 把键盘焦点从顶层窗口移开。                                   |
+| [clearInterval()](https://www.runoob.com/jsref/met-win-clearinterval.html) | 取消由 setInterval() 设置的 timeout。                        |
+| [clearTimeout()](https://www.runoob.com/jsref/met-win-cleartimeout.html) | 取消由 setTimeout() 方法设置的 timeout。                     |
+| [close()](https://www.runoob.com/jsref/met-win-close.html)   | 关闭浏览器窗口。                                             |
+| [confirm()](https://www.runoob.com/jsref/met-win-confirm.html) | 显示带有一段消息以及确认按钮和取消按钮的对话框。             |
+| [createPopup()](https://www.runoob.com/jsref/met-win-createpopup.html) | 创建一个 pop-up 窗口。                                       |
+| [focus()](https://www.runoob.com/jsref/met-win-focus.html)   | 把键盘焦点给予一个窗口。                                     |
+| [getSelection](https://www.runoob.com/jsref/met-win-getselection.html)() | 返回一个 Selection 对象，表示用户选择的文本范围或光标的当前位置。 |
+| [getComputedStyle()](https://www.runoob.com/jsref/jsref-getcomputedstyle.html) | 获取指定元素的 CSS 样式。                                    |
+| [matchMedia()](https://www.runoob.com/jsref/met-win-matchmedia.html) | 该方法用来检查 media query 语句，它返回一个 MediaQueryList对象。 |
+| [moveBy()](https://www.runoob.com/jsref/met-win-moveby.html) | 可相对窗口的当前坐标把它移动指定的像素。                     |
+| [moveTo()](https://www.runoob.com/jsref/met-win-moveto.html) | 把窗口的左上角移动到一个指定的坐标。                         |
+| [open()](https://www.runoob.com/jsref/met-win-open.html)     | 打开一个新的浏览器窗口或查找一个已命名的窗口。               |
+| [print()](https://www.runoob.com/jsref/met-win-print.html)   | 打印当前窗口的内容。                                         |
+| [prompt()](https://www.runoob.com/jsref/met-win-prompt.html) | 显示可提示用户输入的对话框。                                 |
+| [resizeBy()](https://www.runoob.com/jsref/met-win-resizeby.html) | 按照指定的像素调整窗口的大小。                               |
+| [resizeTo()](https://www.runoob.com/jsref/met-win-resizeto.html) | 把窗口的大小调整到指定的宽度和高度。                         |
+| scroll()                                                     | 已废弃。 该方法已经使用了 [scrollTo()](https://www.runoob.com/jsref/met-win-scrollto.html) 方法来替代。 |
+| [scrollBy()](https://www.runoob.com/jsref/met-win-scrollby.html) | 按照指定的像素值来滚动内容。                                 |
+| [scrollTo()](https://www.runoob.com/jsref/met-win-scrollto.html) | 把内容滚动到指定的坐标。                                     |
+| [setInterval()](https://www.runoob.com/jsref/met-win-setinterval.html) | 按照指定的周期（以毫秒计）来调用函数或计算表达式。           |
+| [setTimeout()](https://www.runoob.com/jsref/met-win-settimeout.html) | 在指定的毫秒数后调用函数或计算表达式。                       |
+| [stop()](https://www.runoob.com/jsref/met-win-stop.html)     | 停止页面载入。                                               |
+| [postMessage()](https://www.runoob.com/jsref/met-win-postmessage.html) | 安全地实现跨源通信。                                         |
+
+### 4. 通过BOM编程控制浏览器行为演示
+
+>  三种弹窗方式
+
+``` html
+    <head>
+        <meta charset="UTF-8">
+        <title>小标题</title>
+      
+        <script>
+           function testAlert(){
+                //普通信息提示框
+                window.alert("提示信息");
+           }
+           function testConfirm(){
+                //确认框
+                var con =confirm("确定要删除吗?");
+                if(con){
+                    alert("点击了确定")
+                }else{
+                    alert("点击了取消")
+                }
+           }
+           function testPrompt(){
+                //信息输入对话框
+                var res =prompt("请输入昵称","例如:张三");
+                alert("您输入的是:"+res)
+           }
+        </script>
+    </head>
+
+    <body>
+        <input type="button" value="提示框" onclick="testAlert()"/> <br>
+        <input type="button" value="确认框" onclick="testConfirm()"/> <br>
+        <input type="button" value="对话框" onclick="testPrompt()"/> <br>
+    </body>
+```
+
+>  页面跳转
+
+``` html
+    <head>
+        <meta charset="UTF-8">
+        <title>小标题</title>
+      
+        <script>
+           function goAtguigu(){
+                var flag =confirm("即将跳转到尚硅谷官网,本页信息即将丢失,确定吗?")
+                if(flag){
+                    // 通过BOM编程地址栏url切换
+                    window.location.href="http://www.atguigu.com"
+                }
+           }
+          
+        </script>
+    </head>
+
+    <body>
+        <input type="button" value="跳转到尚硅谷" onclick="goAtguigu()"/> <br>
+    </body>
+```
+
+### 5.通过BOM编程实现会话级和持久级数据存储
+
++ 会话级数据 : 内存型数据,是浏览器在内存上临时存储的数据,浏览器关闭后,数据失去,通过window的sessionStorge属性实现
++ 持久级数据 : 磁盘型数据,是浏览器在磁盘上持久存储的数据,浏览器关闭后,数据仍在,通过window的localStorge实现
++ 可以用于将来存储一些服务端响应回来的数据,比如:token令牌,或者一些其他功能数据,根据数据的业务范围我们可以选择数据存储的会话/持久 级别
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function saveItem(){
+            // 让浏览器存储一些会话级数据
+            window.sessionStorage.setItem("sessionMsg","sessionValue")
+            // 让浏览器存储一些持久级数据
+            window.localStorage.setItem("localMsg","localValue")
+
+            console.log("haha")
+        }
+
+        function removeItem(){
+            // 删除数据
+            sessionStorage.removeItem("sessionMsg")
+            localStorage.removeItem("localMsg")
+        }
+
+        function readItem(){
+            console.log("read")
+            // 读取数据
+            console.log("session:"+sessionStorage.getItem("sessionMsg"))
+            console.log("local:"+localStorage.getItem("localMsg"))
+        }
+    </script>
+</head>
+<body>
+
+    <button onclick="saveItem()">存储数据</button>
+    <button onclick="removeItem()">删除数据</button>
+    <button onclick="readItem()">读取数据</button>
+
+</body>
+</html>
+```
+
++ 测试,存储数据后,再读取数据,然后关闭浏览器,获取数据,发现sessionStorge的数据没有了,localStorge的数据还在
++ 通过removeItem可以将这些数据直接删除
++ 在F12开发者工具的应用程序栏,可以查看数据的状态
+
+<img src="images/1690348134594.png" alt="1690348134594" style="zoom: 80%;" />
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        window 对象是由浏览器提供给我们使用的，无需自己new
+               三种弹窗方式
+                   alert
+                   prompt
+                   confirm
+        
+               定时任务
+
+
+            history 窗口的访问历史
+            location
+            sessionStorage 用于存储一些会话级别的数据 (浏览器关闭数据清除)
+            localStorage 用于存储一些持久级数据 (浏览器关闭数据还在)
+              
+        */
+         function fun1(){
+            window.alert("hello")
+         }
+         function fun2(){
+           var res= window.prompt("hello,请输入姓名")
+           console.log(res)
+         }
+         function fun3(){
+            var res=window.confirm("确定要删除吗")
+            console.log(res)
+         }
+         function fun4(){
+            window.setTimeout(function(){
+                console.log("hello")
+            },2000
+  
+            ) //两个参数 第一个: 实现的方法; 第二个: 多少ms后执行
+         }
+
+         function funA(){
+            //向后翻页
+            history.back()
+         }
+         function funB(){
+            //向前翻页
+            //history.forward()
+            history.go(1)// 向前翻1页
+         }
+         function funC(){
+            location.href="https://github.com/"
+         }
+         function funD(){
+            //向 sessionStorage中存储数据
+            //向 localStorage中存储数据
+            sessionStorage.setItem("keya","valuea")
+            localStorage.setItem("keyb","valueb")
+         }
+         function funE(){
+            //读取数据
+            console.log(sessionStorage.getItem("keya"))
+            console.log(localStorage.getItem("keyb"))
+         }
+         function funF(){
+            sessionStorage.removeItem("keya")
+            localStorage.removeItem("keyb")
+         }
+
+
+    </script>
+</head>
+<body>
+     <button onclick="funD()">存储数据</button>
+     <button onclick="funE()">读取数据</button>
+     <button onclick="funF()">清空数据</button>
+
+
+    <hr>
+     <button onclick="funC()">github1</button>
+     <button onclick="funA()">上一页</button>
+     <button onclick="funB()">下一页</button>
+     <a href="https://github.com/">github</a>
+
+
+    <hr>
+    <button onclick="fun1()">信息提示框</button>
+    <button onclick="fun2()">信息输入框</button>
+    <button onclick="fun3()">信息确认框</button>
+    <button onclick="fun4()">两秒后向控制台打印</button>
 </body>
 </html>
 ```
