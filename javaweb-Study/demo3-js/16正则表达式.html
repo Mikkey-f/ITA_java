@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       var reg=/o/ //定义一个正则表达式，校验字符串中有没有'o'
+
+       //自定义字符串
+       var str='hello world!'
+       console.log(reg.test(str))
+
+       //匹配  g:全局的意思
+       var reg1=/o/g
+        var result=str.match(reg1)
+        console.log(result)   //(2) ['o', 'o']
+       
+        //替换  i:忽略大小写
+        var reg2=/o/gi
+        var newStr=str.replace(reg2,'@')
+        console.log(newStr)
+
+        //校验
+        /*var reg2=/^java/
+        var reg3=/java$/   //  /^java$/:同一个java既是开头又是结尾
+        var str1='java 123'
+        var str2='123 java'
+        console.log(reg2.test(str1))
+        console.log(reg3.test(str2))*/
+
+        //校验用户名是否合法
+        /*
+        1.必须是字母开头
+        2.长度必须是6-10位
+        3 后面其他字符可以是大小写字母,数字,下划线
+        */
+       var str1="asdfqwer"
+       var reg3=/^[a-zA-Z][a-zA-z0-9_]{5,9}$/
+       console.log(reg3.test(str1)) //true
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

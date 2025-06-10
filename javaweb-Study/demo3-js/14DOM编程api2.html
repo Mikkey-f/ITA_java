@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function changeAttribute(){
+            //获取对象
+            var it=document.getElementById("in1")
+            //修改属性值
+            it.type="button"
+            it.value="嗨"
+        }
+        function changeStyle(){
+             var it=document.getElementById("in1")
+             // 语法  元素.style.样式名=""   原始样式名中的"-"符号 要转换驼峰式  background-color > backgroundColor
+             it.style.color="green"
+             it.style.borderRadius="5px"
+        }
+        function changeText(){
+            var div01=document.getElementById("div01")
+            /* 
+        语法  元素名.innerText   只识别文本  无法识别"<h1>嗨<h1>"
+              元素名.innerHTML   同时可以识别html代码
+        */ 
+            console.log(div01.innerText)
+            div01.innerHTML="<h1>嗨<h1>"
+        }
+        
+
+    </script>
+    <style>
+        #in1{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <input id="in1" type="text" value="hello">
+    <div id="div01">
+        hello
+    </div>
+
+    <hr>
+    <button onclick="changeAttribute()">操作属性</button>
+    <button onclick="changeStyle()">操作样式</button>
+    <button onclick="changeText()">操作文本</button>
+</body>
+</html>

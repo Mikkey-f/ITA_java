@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function addCs(){
+            //创建一个新的元素
+            var it=document.createElement("li")
+            //设置子元素的属性和文本
+            it.id="Cs"
+            it.innerText="长沙"
+            //将子元素放到父元素中
+            var it1=document.getElementById("city")
+            //在父元素中追加子元素
+            it1.appendChild(it)
+        }
+        function addCsBeforeSz(){
+            //创建一个新的元素
+            var it=document.createElement("li")
+            //设置子元素的属性和文本
+            it.id="Cs"
+            it.innerText="长沙"
+            //将子元素放到父元素中
+            var it1=document.getElementById("city")
+            var szli=document.getElementById("sz")
+            //在父元素中追加子元素
+            it1.insertBefore(it,szli) //第一个参数:新的元素  第二个参数:参照元素
+        }
+        function replaceSz(){
+            //创建一个新的元素
+            var it=document.createElement("li")
+            //设置子元素的属性和文本
+            it.id="Cs"
+            it.innerText="长沙"
+            var it1=document.getElementById("city")
+            var szli=document.getElementById("sz")
+            it1.replaceChild(it,szli)
+        }
+        function removeSz(){
+            
+            var it1=document.getElementById("city")
+            var szli=document.getElementById("sz")
+            szli.remove()
+            
+        }
+        function clearCity(){
+            var it1=document.getElementById("city")
+            //法1:
+            var fc=it1.firstChild
+            while(fc!=null)
+            {
+                fc.remove()
+                fc=it1.firstChild
+            } 
+            // 法2: it1.innerHTML=""
+            //it1.remove: 会将ul一并删去
+        }
+    </script>
+</head>
+<body>
+    <ul id="city">
+        <li id="bj">北京</li>
+        <li id="sh">上海</li>
+        <li id="sz">深圳</li>
+        <li id="gz">广州</li>
+    </ul>
+
+    <hr>
+    <!-- 目标1 在城市列表的最后添加一个子标签  <li id="cs">长沙</li>  -->
+    <button onclick="addCs()">增加长沙</button>
+    <!-- 目标2 在城市列表的深圳前添加一个子标签  <li id="cs">长沙</li>  -->
+    <button onclick="addCsBeforeSz()">在深圳前插入长沙</button>
+    <!-- 目标3  将城市列表的深圳替换为  <li id="cs">长沙</li>  -->
+    <button onclick="replaceSz()">替换深圳</button>
+    <!-- 目标4  将城市列表删除深圳  -->
+    <button onclick="removeSz()">删除深圳</button>
+    <!-- 目标5  清空城市列表  -->
+    <button onclick="clearCity()">清空</button>
+</body>
+</html>
