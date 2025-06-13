@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+1.根标签只能有一个
+2.第一行永远都是<?xml version="1.0" encoding="UTF-8"?>
+3.xml是有约束 约束用于限定xml内部能编写的内容
+    dtd 简单 上手快 约束没有schema细致
+    schema 复杂 上手慢 约束要比dtd细致
+-->
+<jdbc>
+    <students>
+        <student>
+            <name>张三</name>
+            <age>18</age>
+        </student>
+        <student>
+            <name>李四</name>
+            <age>20</age>
+        </student>
+    </students>
+
+</jdbc>
