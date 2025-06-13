@@ -541,9 +541,11 @@ String value = element.attributeValue("属性名");
 + idea启动tomcat时,是让本地tomcat程序按照tomcat副本里的配置文件运行
 + idea的tomcat副本部署项目的模式是通过conf/Catalina/localhost/*.xml配置文件的形式实现项目部署的
 
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CADDEB6D1A9F886B87A735A56626FC4F7.jpg)
+
 ![1681521240438](images/1681521240438.png)
 
-
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CFB6935274F060E8185AE62BEE5B11395.jpg)
 
 
 
@@ -617,16 +619,22 @@ String value = element.attributeValue("属性名");
 
 > 浏览器与服务器之间的通信过程要经历四个步骤
 
-![](images/1557672342250_1H8nt17MNz.png)
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C8009899FCB26808A1AB9573C5E846C8C.jpg)
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CBCD7200B902ECC21351273EF9F22FE85.jpg)
 
 -   浏览器与WEB服务器的连接过程是短暂的，每次连接只处理一个请求和响应。对每一个页面的访问，浏览器与WEB服务器都要建立一次单独的连接。
 -   浏览器到WEB服务器之间的所有通讯都是完全独立分开的请求和响应对。
 
 ### 3.1.3 HTTP1.0和HTTP1.1的区别
 
-> 在HTTP1.0版本中，浏览器请求一个带有图片的网页，会由于下载图片而与服务器之间开启一个新的连接；但在HTTP1.1版本中，允许浏览器在拿到当前请求对应的全部资源后再断开连接，提高了效率。
+> 在HTTP1.0版本中，浏览器请求一个带有图片的网页，会由于下载图片而与服务器之间开启一个新的连接；但在HTTP1.1版本中，允许浏览器在拿到当前请求对应的全部资源后再断开连接，提高了效率。(短连接效率低,资源消耗大)
 
-![](images/1557672415271_EgyN-GdbWY.png)
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5CD71A8A4B8ACB9C464E691210E80705DA.jpg)
+
+长链接和缓存:
+
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C7A22F908BDD93ED2A8EFC77C4CEE7332.jpg)
 
 
 
@@ -644,13 +652,13 @@ String value = element.attributeValue("属性名");
 
 > 主体上分为报文首部和报文主体,中间空行隔开
 
-<img src="images/1681522962846.png" alt="1681522962846" style="zoom: 62%;" />
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C410C32F8D862CBA727D9446835E36748.jpg)
 
 
 
 > 报文部首可以继续细分为  "行" 和 "头"
 
-![1681522998417](images/1681522998417.png)
+
 
 ### 3.2.2 请求报文
 
@@ -664,7 +672,7 @@ String value = element.attributeValue("属性名");
 
 > 浏览器 f12 网络下查看请求数据包
 
-![1681524200024](images/1681524200024.png)
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C43DBF5C1DBE50A264B94BAD0D7758451.jpg)
 
 > form表单发送GET请求特点
 
@@ -772,7 +780,7 @@ username=admin&password=1232131
 
 ![1681525347456](images/1681525347456.png)
 
-
+![](C:%5CUsers%5C23139%5COneDrive%5CPictures%5C1C6FB0BB3C6AD61A2623A8C627418EC6.jpg)
 
 ![1681525384347](images/1681525384347.png)
 
@@ -794,7 +802,7 @@ Accept-Ranges: bytes
 ETag: W/"157-1534126125811"
 Last-Modified: Mon, 13 Aug 2018 02:08:45 GMT
 Content-Type: text/html    响应体数据的类型[浏览器根据类型解析响应体数据]
-Content-Length: 157   响应体内容的字节数
+Content-Length: 157   响应体内容的字节数,与响应的具体内容对比校验
 Date: Mon, 13 Aug 2018 02:47:57 GMT  响应的时间，这可能会有8小时的时区差
 ```
 
