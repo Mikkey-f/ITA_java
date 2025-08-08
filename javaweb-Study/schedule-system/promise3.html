@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+
+    </script>
+</head>
+<body>
+    <!--
+         async
+         async function aaa(){}  : 默认回调函数 
+
+          async 用于标识函数的
+            1. async标识函数后,async函数的返回值会变成一个promise对象
+            2. 如果函数内部返回的数据是一个非promise对象,async函数的结果会返回一个成功状态 promise对象
+            3. 如果函数内部返回的是一个promise对象,则async函数返回的状态与结果由该对象决定
+            4. 如果函数内部抛出的是一个异常,则async函数返回的是一个失败的promise对象
+
+          await
+
+             1. await右侧的表达式一般为一个promise对象,但是也可以是一个其他值
+            2. 如果表达式是promise对象,await返回的是promise成功的值
+            3. await会等右边的promise对象执行结束,然后再获取结果,后续代码也会等待await的执行 (当前方法内部***)
+            4. 如果表达式是其他值,则直接返回该值
+            5. await必须在async函数中,但是async函数中可以没有await
+            6. 如果await右边的promise失败了,就会抛出异常,可以通过 try ... catch捕获处理
+
+
+    
+    
+    -->
+         <script>
+            // async function fun1() {
+            //     return 10
+
+            //     throw new Error("sonething wrong")
+
+                
+            // }
+
+            // let promise=fun1()
+
+            // promise.then(
+            //     function(value){
+            //         console.log("success:"+value)
+            //     }
+            // ).catch(
+
+            //    function(value){
+            //      console.log("fail:"+value)
+            //    }
+            // )
+
+             async function fun1() {
+                 return 10
+                
+             }
+
+            async function fun2(){
+                let promise=fun1()
+                let res=await promise
+                console.log(res)
+             }
+
+             fun2()
+
+
+         </script>
+    
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 导入 vue 的依赖  核心的vue3 的js文件-->
+     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1 v-text="message" v-bind:style="colorStyle">hello vue</h1>
+
+        <button @click="fun1()">change</button>
+    </div>
+
+    <script>
+
+
+
+         const app = Vue.createApp({
+            setup() {
+                
+                let message="hello1"
+                let headline="vue"
+                let colorStyle={"background-color":"blue"}
+                function fun1(){
+                    alert("hello")
+                }
+
+                
+                return {
+                    message,
+                    headline,
+                    colorStyle,
+                    fun1
+                }
+            }
+         })
+         
+         app.mount("#app")
+
+
+    </script>
+</body>
+</html>

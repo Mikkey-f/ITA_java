@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        class Person{
+            // 属性前加 '#' 号表示私有属性 同时'#n'为一个整体，先前代码都要改为'#n'
+            name;
+            age;
+
+            get name(){
+                return this.name
+            }
+            set name(name){
+                this.name=name
+            }
+
+            eat(food){
+                console.log(`${this.age}岁的${this.name}正在吃${food}`)
+            }
+        }
+
+        let person=new Person()
+        person.name="张三"
+        person.age=10
+        console.log(person.name)
+        person.eat("火锅")
+
+
+        class Student{
+            score;
+            constructor(name,age,score){
+                super(name,age)
+                this.score=score
+            }
+        }
+
+        let stu=new Student("小黑",8,100)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
